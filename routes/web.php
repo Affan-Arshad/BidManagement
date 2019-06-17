@@ -11,6 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'OrganizationController@index');
+
+Route::resource('organizations', 'OrganizationController');
+Route::resource('bids', 'BidController');
+Route::resource('bidders', 'BidderController');

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Bid;
 use App\Bidder;
 use Illuminate\Http\Request;
 
-class BidController extends Controller
+class BidderController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +24,7 @@ class BidController extends Controller
      */
     public function create()
     {
-        return view('bids.create');
+        //
     }
 
     /**
@@ -42,10 +41,10 @@ class BidController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Bid  $bid
+     * @param  \App\Bidder  $bidder
      * @return \Illuminate\Http\Response
      */
-    public function show(Bid $bid)
+    public function show(Bidder $bidder)
     {
         //
     }
@@ -53,10 +52,10 @@ class BidController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Bid  $bid
+     * @param  \App\Bidder  $bidder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bid $bid)
+    public function edit(Bidder $bidder)
     {
         //
     }
@@ -65,10 +64,10 @@ class BidController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Bid  $bid
+     * @param  \App\Bidder  $bidder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bid $bid)
+    public function update(Request $request, Bidder $bidder)
     {
         //
     }
@@ -76,10 +75,10 @@ class BidController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Bid  $bid
+     * @param  \App\Bidder  $bidder
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bid $bid)
+    public function destroy(Bidder $bidder)
     {
         //
     }
