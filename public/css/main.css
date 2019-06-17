@@ -1,3 +1,11 @@
 .awesomplete {
     display: block;
 }
+
+/* td width, fit to content */
+table.organizations td.actions,
+table.organization-bids td.actions,
+table.bid td:first-child {
+    width: 1px;
+    white-space: nowrap;
+}

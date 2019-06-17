@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bid extends Model
 {
+    protected $fillable = [
+        'name',
+        'cost',
+        'date',
+        'organization_id',
+    ];
+    
     public function organization() {
         return $this->belongsTo(Organization::class);
     }

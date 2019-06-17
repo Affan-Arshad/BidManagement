@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bid;
 use App\Bidder;
+use App\Organization;
 use Illuminate\Http\Request;
 
 class BidController extends Controller
@@ -25,7 +26,13 @@ class BidController extends Controller
      */
     public function create()
     {
-        return view('bids.create');
+        if(isset($_GET['org']) && $_GET['org'] != null) {
+            $id = $_GET['org'];
+            $selected = Organization::where('id', $id)->first();
+            $organizations = Organization::all()->pluck('name', 'id');
+            return view('bids.create', compact('selected', 'organizations'));
+        }
+        return redirect('/organizations');
     }
 
     /**
@@ -36,7 +43,8 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $bid = Bid::create($request->all());
+        return redirect('/bids/'.$bid->id);
     }
 
     /**
@@ -47,7 +55,8 @@ class BidController extends Controller
      */
     public function show(Bid $bid)
     {
-        //
+        $bidders = Bidder::all();
+        return view('bids.show', compact('bid'));
     }
 
     /**

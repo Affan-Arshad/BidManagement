@@ -1,9 +1,9 @@
 @extends('child')
 
 @section('fixed-content')
-    <h3>Organizations</h3>
+    <h3>{{$organization->name}}</h3>
     <hr>
-    <table class="table organizations table-hover table-borderless">
+    <table class="table organization-bids table-hover table-borderless">
         <thead>
             <tr>
                 <th>Name</th>
@@ -11,13 +11,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($orgs as $org)
+            @foreach($organization->bids as $bid)
             <tr>
-                <td>{{$org->name}}</td>
+                <td>{{$bid->name}}</td>
                 <td class="actions">
-                    <a class="btn btn-info" href="/organizations/{{$org->id}}">View Bids</a>
-                    <a class="btn btn-warning" href="/organizations/{{$org->id}}/edit">Edit</a>
-                    <a class="btn btn-danger" href="/organizations/{{$org->id}}">Delete</a>
+                    <a class="btn btn-info" href="/bids/{{$bid->id}}">View</a>
+                    <a class="btn btn-warning" href="/bids/{{$bid->id}}/edit">Edit</a>
+                    <a class="btn btn-danger" href="/bids/{{$bid->id}}">Delete</a>
                 </td>
             </tr>
             @endforeach
@@ -25,7 +25,7 @@
         <tfoot>
             <tr>
                 <td colspan=2>
-                    <a class="btn btn-success" href="/organizations/create">Add new Organization</a>
+                    <a class="btn btn-success" href="/bids/create?org={{$organization->id}}">Add new Bid</a>
                 </td>
             </tr>
         </tfoot>

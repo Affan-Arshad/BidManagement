@@ -25,7 +25,7 @@ class OrganizationController extends Controller
      */
     public function create()
     {
-        //
+        return view('organizations.create');
     }
 
     /**
@@ -36,7 +36,11 @@ class OrganizationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $org = new Organization;
+        $org->name = $request->name;
+        $org->save();
+
+        return redirect('/organizations');
     }
 
     /**
@@ -47,7 +51,7 @@ class OrganizationController extends Controller
      */
     public function show(Organization $organization)
     {
-        //
+        return view('organizations.show', compact('organization'));
     }
 
     /**
@@ -58,7 +62,7 @@ class OrganizationController extends Controller
      */
     public function edit(Organization $organization)
     {
-        //
+        return view('organizations.edit', compact('organization'));
     }
 
     /**
@@ -70,7 +74,10 @@ class OrganizationController extends Controller
      */
     public function update(Request $request, Organization $organization)
     {
-        //
+        $organization->name = $request->name;
+        $organization->save();
+
+        return redirect('/organizations');
     }
 
     /**

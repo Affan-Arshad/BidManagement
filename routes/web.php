@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'OrganizationController@index');
+Route::get('/', function(){
+    return redirect('/organizations');
+});
 
 Route::resource('organizations', 'OrganizationController');
 Route::resource('bids', 'BidController');

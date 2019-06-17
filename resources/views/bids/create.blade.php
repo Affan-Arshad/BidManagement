@@ -4,10 +4,15 @@
     <h3>Create Bid</h3>
     <hr>
     <form action="/bids" method="POST">
+        @csrf
 
         <div class="form-group">
             <label>Organization</label>
-            <input type="text" class="form-control" name="organization">
+            <select name="organization_id" class="form-control">
+            @foreach($organizations as $id => $name)
+                <option value="{{$id}}" @if($id == $selected->id) selected @endif>{{$name}}</option>
+            @endforeach
+            </select>
         </div>
 
         <div class="row">
