@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
 </head>
 <body>
+    @include('partials.nav')
     @yield('content')
     <script src="/js/main.js"></script>
     @yield('additionalJS')

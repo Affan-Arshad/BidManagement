@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Bid;
 use App\Bidder;
+use App\BidBidder;
 use App\Organization;
 use Illuminate\Http\Request;
 
@@ -55,8 +56,8 @@ class BidController extends Controller
      */
     public function show(Bid $bid)
     {
-        $bidders = Bidder::all();
-        return view('bids.show', compact('bid'));
+        $list = Bidder::all()->pluck('name');
+        return view('bids.show', compact('bid', 'list'));
     }
 
     /**
@@ -67,7 +68,8 @@ class BidController extends Controller
      */
     public function edit(Bid $bid)
     {
-        //
+        $organizations = Organization::all()->pluck('name', 'id');
+        return view('bids.edit', compact('bid', 'organizations'));
     }
 
     /**
@@ -90,6 +92,39 @@ class BidController extends Controller
      */
     public function destroy(Bid $bid)
     {
-        //
+        $bid->delete();
+        $messages[]['danger'] = 'Deleted Bid: '.$bid->name;
+        \Session::flash('messages', $messages);
+        return redirect()->back();
+    }
+
+    // Add Bidders to Bid
+    public function addBidders(Request $request, Bid $bid) {
+        $bidder = null;
+        // Check If Bidder Already Exists
+        $bidders = Bidder::all();
+        foreach ($bidders as $current) {
+            if(strtolower($request->name) == strtolower($current->name)) {
+                $bidder = $current;
+            }
+        }
+        // If Bidder Doesn't Exist, Create New
+        if ($bidder == null) {
+            $bidder = Bidder::create($request->all());
+        }
+        // Add Bidders Proposal for Bid to DB
+        BidBidder::create([
+            'bid_id' => $bid->id,
+            'bidder_id' => $bidder->id,
+            'price' => $request->price,
+            'duration_days' => $request->duration_days,
+        ]);
+        return redirect()->back();
+    }
+
+    // Remove Bidder from Bid
+    public function removeBidder(Bid $bid, Bidder $bidder) {
+        $bid->bidders()->detach($bidder->id);
+        return redirect()->back();
     }
 }

@@ -16,5 +16,8 @@ Route::get('/', function(){
 });
 
 Route::resource('organizations', 'OrganizationController');
-Route::resource('bids', 'BidController');
 Route::resource('bidders', 'BidderController');
+
+Route::resource('bids', 'BidController');
+Route::post('/bids/{bid}/bidders', 'BidController@addBidders');
+Route::delete('/bids/{bid}/bidders/{bidder}', 'BidController@removeBidder');

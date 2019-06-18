@@ -14,7 +14,8 @@ class BidderController extends Controller
      */
     public function index()
     {
-        //
+        $bidders = Bidder::all();
+        return view('bidders.index', compact('bidders'));
     }
 
     /**
@@ -80,6 +81,9 @@ class BidderController extends Controller
      */
     public function destroy(Bidder $bidder)
     {
-        //
+        $bidder->delete();
+        $messages[]['danger'] = 'Deleted Bidder: '.$bidder->name;
+        \Session::flash('messages', $messages);
+        return redirect()->back();
     }
 }

@@ -14,10 +14,14 @@
             @foreach($orgs as $org)
             <tr>
                 <td>{{$org->name}}</td>
-                <td class="actions">
+                <td class="fitToContent">
                     <a class="btn btn-info" href="/organizations/{{$org->id}}">View Bids</a>
                     <a class="btn btn-warning" href="/organizations/{{$org->id}}/edit">Edit</a>
-                    <a class="btn btn-danger" href="/organizations/{{$org->id}}">Delete</a>
+                    <form class="d-inline-block" action="/organizations/{{$org->id}}" method="POST" id="del{{$org->id}}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="confirmDelete({{$org->id}})">Delete</button>
+                    </form>
                 </td>
             </tr>
             @endforeach

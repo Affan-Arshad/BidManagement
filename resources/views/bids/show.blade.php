@@ -7,7 +7,7 @@
     <table class="table table-bordered bid">
         <tbody>
             <tr>
-                <td>Organization</td>
+                <th class="fitToContent">Organization</th>
                 <td>{{$bid->organization->name}}</td>
             </tr>
             <!-- <tr>
@@ -15,15 +15,15 @@
                 <td>{{$bid->name}}</td>
             </tr> -->
             <tr>
-                <td>Category</td>
+                <th class="fitToContent">Category</th>
                 <td>{{$bid->category}}</td>
             </tr>
             <tr>
-                <td>Estimated Cost (MVR)</td>
+                <th class="fitToContent">Estimated Cost (MVR)</th>
                 <td>{{$bid->cost}}</td>
             </tr>
             <tr>
-                <td>Date</td>
+                <th class="fitToContent">Date</th>
                 <td>{{$bid->date}}</td>
             </tr>
         </tbody>
@@ -33,11 +33,11 @@
     <h5>Bidders</h5>
     <hr>
 
-    <form action="/bidders" method="POST">
+    <form action="/bids/{{$bid->id}}/bidders" method="POST" id="addBidderForm">
         @csrf
         <div class="row">
             <div class="form-group col">
-                <input type="text" name="bidder_id" class="awesomplete form-control" placeholder="Name">
+                <input type="text" name="name" class="form-control" placeholder="Name" id="bidder">
             </div>
 
             <div class="form-group col">
@@ -49,7 +49,7 @@
             </div>
 
             <div class="form-group col-1 w-100">
-                <button type="submit" class="btn btn-success">Add</button>
+                <button type="submit" class="btn btn-success" id="addBidderBtn">Add</button>
             </div>
         </div>
     </form>
@@ -60,19 +60,26 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Duration (days)</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
             @foreach($bid->bidders as $bidder)
             <tr>
                 <td>{{$bidder->name}}</td>
-                <td>{{$bidder->price}}</td>
-                <td>{{$bidder->duration_days}}</td>
+                <td>{{$bidder->pivot->price}}</td>
+                <td>{{$bidder->pivot->duration_days}}</td>
+                <td class="fitToContent">
+                    <form action="/bids/{{$bid->id}}/bidders/{{$bidder->id}}" method="POST" id="del{{$bidder->id}}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="confirmDelete({{$bidder->id}})">Delete</button>
+                    </form>
+                </td>
             </tr>
             @endforeach
         </tbody>
     </table>
-
 @endsection
 
 @section('additionalCSS')
@@ -83,9 +90,11 @@
 @section('additionalJS')
     <script src="/js/awesomplete.js"></script>
     <script>
-        var bidderIDs = {{json_encode($bid->bidders)}};
-        console.log(bidderIDs);
-        var input = document.getElementByID('bidders');
-        // var bidders = new Awesomplete(input, ['list' => ])
+        var list = <?php echo json_encode($list); ?>;
+        var input = document.getElementById('bidder');
+        var value = null;
+        var bidder = new Awesomplete(input, {
+            list: list,
+        })
     </script>
 @endsection

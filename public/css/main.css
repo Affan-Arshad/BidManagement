@@ -3,9 +3,8 @@
 }
 
 /* td width, fit to content */
-table.organizations td.actions,
-table.organization-bids td.actions,
-table.bid td:first-child {
+td.fitToContent,
+th.fitToContent {
     width: 1px;
     white-space: nowrap;
 }

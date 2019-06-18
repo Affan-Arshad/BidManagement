@@ -88,6 +88,9 @@ class OrganizationController extends Controller
      */
     public function destroy(Organization $organization)
     {
-        //
+        $organization->delete();
+        $messages[]['danger'] = 'Deleted Organization: '.$organization->name;
+        \Session::flash('messages', $messages);
+        return redirect()->back();
     }
 }

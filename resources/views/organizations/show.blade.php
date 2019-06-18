@@ -14,10 +14,14 @@
             @foreach($organization->bids as $bid)
             <tr>
                 <td>{{$bid->name}}</td>
-                <td class="actions">
+                <td class="fitToContent">
                     <a class="btn btn-info" href="/bids/{{$bid->id}}">View</a>
                     <a class="btn btn-warning" href="/bids/{{$bid->id}}/edit">Edit</a>
-                    <a class="btn btn-danger" href="/bids/{{$bid->id}}">Delete</a>
+                    <form class="d-inline-block" action="/bids/{{$bid->id}}" method="POST" id="del{{$bid->id}}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger" onclick="confirmDelete({{$bid->id}})">Delete</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
