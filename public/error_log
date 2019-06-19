@@ -1,0 +1,4 @@
+[19-Jun-2019 07:37:49 UTC] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home2/hikaasho/public_html/bid/public/index.php on line 52
+[19-Jun-2019 07:37:54 UTC] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home2/hikaasho/public_html/bid/public/index.php on line 52
+[19-Jun-2019 07:44:37 UTC] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home2/hikaasho/public_html/bid/public/index.php on line 52
+[19-Jun-2019 07:44:42 UTC] PHP Parse error:  syntax error, unexpected 'class' (T_CLASS), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$' in /home2/hikaasho/public_html/bid/public/index.php on line 52
