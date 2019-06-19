@@ -11,13 +11,18 @@
 |
 */
 
-Route::get('/', function(){
-    return redirect('/organizations');
+Route::middleware('auth')->group(function(){
+    Route::get('/', function(){
+        return redirect('/organizations');
+    });
+    
+    Route::resource('organizations', 'OrganizationController');
+    Route::resource('bidders', 'BidderController');
+    
+    Route::resource('bids', 'BidController');
+    Route::post('/bids/{bid}/bidders', 'BidController@addBidders');
+    Route::delete('/bids/{bid}/bidders/{bidder}', 'BidController@removeBidder');
 });
+Auth::routes(['register' => false]);
 
-Route::resource('organizations', 'OrganizationController');
-Route::resource('bidders', 'BidderController');
-
-Route::resource('bids', 'BidController');
-Route::post('/bids/{bid}/bidders', 'BidController@addBidders');
-Route::delete('/bids/{bid}/bidders/{bidder}', 'BidController@removeBidder');
+Route::get('/home', 'HomeController@index')->name('home');
