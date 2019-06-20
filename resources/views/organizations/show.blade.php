@@ -20,7 +20,7 @@
                     <form class="d-inline-block" action="/bids/{{$bid->id}}" method="POST" id="del{{$bid->id}}">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger" onclick="confirmDelete({{$bid->id}})">Delete</button>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete({{$bid->id}})">Delete</button>
                     </form>
                 </td>
             </tr>
