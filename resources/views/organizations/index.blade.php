@@ -7,15 +7,16 @@
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Actions</th>
+                <th class="fitToContent">Actions</th>
             </tr>
         </thead>
         <tbody>
             @foreach($orgs as $org)
             <tr>
-                <td>{{$org->name}}</td>
+                <td class="link">
+                    <a class="btn text-left" href="/organizations/{{$org->id}}">{{$org->name}}</a>
+                </td>
                 <td class="fitToContent">
-                    <a class="btn btn-info" href="/organizations/{{$org->id}}">View Bids</a>
                     <a class="btn btn-warning" href="/organizations/{{$org->id}}/edit">Edit</a>
                     <form class="d-inline-block" action="/organizations/{{$org->id}}" method="POST" id="del{{$org->id}}">
                         @csrf
