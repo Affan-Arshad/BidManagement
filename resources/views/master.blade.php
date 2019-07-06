@@ -8,6 +8,9 @@
     <link rel="stylesheet" type="text/css" media="screen" href="/css/bootstrap.min.css">
     @yield('additionalCSS')
     <link rel="stylesheet" type="text/css" media="screen" href="/css/main.css">
+    
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.1.0"></script>
 </head>
 <body>
     @include('partials.nav')
