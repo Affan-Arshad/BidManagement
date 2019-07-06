@@ -1,7 +1,7 @@
 @extends('child')
 
 @section('fixed-content')
-    <h3>{{$bid->name}}</h3>
+    <h3>{{$bid->name}}<a class="btn btn-primary float-right" href="/bids/{{$bid->id}}/edit">Edit</a></h3>
     <hr>
 
     <table class="table table-bordered bid">

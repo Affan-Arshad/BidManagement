@@ -81,7 +81,8 @@ class BidController extends Controller
      */
     public function update(Request $request, Bid $bid)
     {
-        //
+        $bid->update($request->all());
+        return redirect("bids/$bid->id");
     }
 
     /**
