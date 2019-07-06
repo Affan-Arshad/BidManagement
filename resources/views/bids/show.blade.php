@@ -24,7 +24,7 @@
             </tr>
             <tr>
                 <th class="fitToContent">Date</th>
-                <td>{{$bid->date}}</td>
+                <td>{{$bid->dateDisplay()}}</td>
             </tr>
         </tbody>
     </table>

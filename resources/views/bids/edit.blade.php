@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
             <label>Date</label>
-            <input type="datetime-local" class="form-control" name="date" value="{{$bid->date}}">
+            <input type="datetime-local" class="form-control" name="date" value="{{$bid->getDate()}}">
         </div>
 
         <div class="form-group">

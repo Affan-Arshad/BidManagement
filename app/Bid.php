@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Bid extends Model
 {
+
+
     protected $fillable = [
         'name',
         'category',
@@ -19,8 +21,13 @@ class Bid extends Model
         $this->attributes['cost'] =  str_replace(',', '', $value);
     }
 
-    public function getDateAttribute($value) {
-        return str_replace(' ', 'T', $value);
+    public function getDate() {
+        return str_replace(' ', 'T', $this->date);
+    }
+
+    public function dateDisplay() {
+        $date = date_create($this->date);
+        return date_format($date, 'd M Y - h:i a');
     }
     
     public function organization() {

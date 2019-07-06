@@ -33,7 +33,7 @@
         </div>
         <div class="form-group">
             <label>Date</label>
-            <input type="date" class="form-control" name="date">
+            <input type="datetime-local" class="form-control" name="date">
         </div>
 
         <div class="form-group">
