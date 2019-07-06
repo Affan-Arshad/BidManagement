@@ -20,7 +20,7 @@
             </tr>
             <tr>
                 <th class="fitToContent">Estimated Cost (MVR)</th>
-                <td class="price">{{$bid->cost}}</td>
+                <td class="auto-numeric">{{$bid->cost}}</td>
             </tr>
             <tr>
                 <th class="fitToContent">Date</th>
@@ -41,7 +41,7 @@
             </div>
 
             <div class="form-group col">
-                <input type="text" name="price" id="price" class="form-control" placeholder="Price">
+                <input type="text" name="price" class="auto-numeric" class="form-control" placeholder="Price">
             </div>
 
             <div class="form-group col">
@@ -67,7 +67,7 @@
             @foreach($bid->bidders as $bidder)
             <tr>
                 <td>{{$bidder->name}}</td>
-                <td class="price">{{$bidder->pivot->price}}</td>
+                <td class="auto-numeric">{{$bidder->pivot->price}}</td>
                 <td>{{$bidder->pivot->duration_days}}</td>
                 <td class="fitToContent">
                     <form action="/bids/{{$bid->id}}/bidders/{{$bidder->id}}" method="POST" id="del{{$bidder->id}}">
@@ -90,10 +90,6 @@
 @section('additionalJS')
     <script src="/js/awesomplete.js"></script>
     <script>
-        // AutoNumeric
-        new AutoNumeric('#price'); 
-        AutoNumeric.multiple('.price');
-
         // Autocomplete
         var list = <?php echo json_encode($list); ?>;
         var input = document.getElementById('bidder');
