@@ -101,9 +101,6 @@ class BidController extends Controller
 
     // Add Bidders to Bid
     public function addBidders(Request $request, Bid $bid) {
-        // Remove Commas from Price
-        $request->price = str_replace(',', '', $request->price);
-        
         // Check If Bidder Already Exists
         $bidder = null;
         $bidders = Bidder::all();
@@ -117,7 +114,7 @@ class BidController extends Controller
             $bidder = Bidder::create($request->all());
         }
         // Add Bidders Proposal for Bid to DB
-        BidBidder::create([
+        $var = BidBidder::create([
             'bid_id' => $bid->id,
             'bidder_id' => $bidder->id,
             'price' => $request->price,

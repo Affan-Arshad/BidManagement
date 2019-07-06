@@ -12,4 +12,9 @@ class BidBidder extends Model
         'price',
         'duration_days',
     ];
+    
+
+    public function setPriceAttribute($value) {
+        $this->attributes['price'] = str_replace(',', '', $value);
+    }
 }

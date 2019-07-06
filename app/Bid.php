@@ -14,6 +14,14 @@ class Bid extends Model
         'date',
         'organization_id',
     ];
+
+    public function setCostAttribute($value) {
+        $this->attributes['cost'] =  str_replace(',', '', $value);
+    }
+
+    public function getDateAttribute($value) {
+        return str_replace(' ', 'T', $value);
+    }
     
     public function organization() {
         return $this->belongsTo(Organization::class);

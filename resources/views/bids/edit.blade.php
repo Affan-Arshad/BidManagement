@@ -30,11 +30,11 @@
 
         <div class="form-group">
             <label>Estimated Cost (MVR)</label>
-            <input type="text" class="form-control" name="cost" value="{{$bid->cost}}" class="auto-numeric">
+            <input type="text" class="form-control auto-numeric" name="cost" value="{{$bid->cost}}">
         </div>
         <div class="form-group">
             <label>Date</label>
-            <input type="datetime-local" class="form-control" name="date" value="{{str_replace(' ', 'T', $bid->date)}}">
+            <input type="datetime-local" class="form-control" name="date" value="{{$bid->date}}">
         </div>
 
         <div class="form-group">

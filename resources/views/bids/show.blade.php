@@ -41,7 +41,7 @@
             </div>
 
             <div class="form-group col">
-                <input type="text" name="price" class="auto-numeric" class="form-control" placeholder="Price">
+                <input type="text" name="price" class="form-control auto-numeric" placeholder="Price">
             </div>
 
             <div class="form-group col">
