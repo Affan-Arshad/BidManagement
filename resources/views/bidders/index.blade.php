@@ -1,4 +1,4 @@
-@extends('child')
+@extends('layouts.child')
 
 @section('fixed-content')
     <h3>Bidders</h3>

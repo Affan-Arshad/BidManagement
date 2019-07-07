@@ -1,4 +1,4 @@
-@extends('child')
+@extends('layouts.child')
 
 @section('fixed-content')
     <h3>{{$bid->name}}<a class="btn btn-primary float-right" href="/bids/{{$bid->id}}/edit">Edit</a></h3>

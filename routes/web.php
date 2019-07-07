@@ -24,5 +24,3 @@ Route::middleware('auth')->group(function(){
     Route::delete('/bids/{bid}/bidders/{bidder}', 'BidController@removeBidder');
 });
 Auth::routes(['register' => false]);
-
-Route::get('/home', 'HomeController@index')->name('home');
