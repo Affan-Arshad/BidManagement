@@ -18,10 +18,10 @@
                 </td>
                 <td class="fitToContent">
                     <a class="btn btn-warning" href="/bids/{{$bid->id}}/edit">Edit</a>
-                    <form class="d-inline-block" action="/bids/{{$bid->id}}" method="POST" id="del{{$bid->id}}">
+                    <form class="d-inline-block" action="/bids/{{$bid->id}}" method="POST" onsubmit="confirmDelete(event)">
                         @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-danger" onclick="confirmDelete({{$bid->id}})">Delete</button>
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>
             </tr>

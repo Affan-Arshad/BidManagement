@@ -62,10 +62,10 @@
                                     <td>{{$evaluation->criterion}}</td>
                                     <td>{{$evaluation->percentage}}</td>
                                     <td class="fitToContent">
-                                        <form action="/bids/{{$bid->id}}/evaluations/{{$evaluation->id}}" method="POST" id="del{{$evaluation->id}}">
+                                        <form action="/bids/{{$bid->id}}/evaluations/{{$evaluation->id}}" method="POST" onsubmit="confirmDelete(event)">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{$evaluation->id}})">Delete</button>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -123,10 +123,10 @@
                     <td>{{$bidder->pivot->duration_days}}</td>
                     <td>{{$bidder->eval}}</td>
                     <td class="fitToContent">
-                        <form action="/bids/{{$bid->id}}/bidders/{{$bidder->id}}" method="POST" id="del{{$bidder->id}}">
+                        <form action="/bids/{{$bid->id}}/bidders/{{$bidder->id}}" method="POST" onsubmit="confirmDelete(event)">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-danger" onclick="confirmDelete({{$bidder->id}})">Delete</button>
+                            <button type="submit" class="btn btn-danger" >Delete</button>
                         </form>
                     </td>
                 </tr>
