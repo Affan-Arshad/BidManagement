@@ -2,11 +2,14 @@
     display: block;
 }
 
-/* td width, fit to content */
+/* fit to content */
 td.fitToContent,
 th.fitToContent {
     width: 1px;
     white-space: nowrap;
+}
+.col.fitToContent {
+    flex-grow: 0;
 }
 
 /* td link */

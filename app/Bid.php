@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Bidder;
+use App\Evaluation;
 use Illuminate\Database\Eloquent\Model;
 
 class Bid extends Model
@@ -33,8 +34,13 @@ class Bid extends Model
     public function organization() {
         return $this->belongsTo(Organization::class);
     }
+
     public function bidders() {
         return $this->belongsToMany(Bidder::class, 'bid_bidders')->withPivot('price', 'duration_days');;
+    }
+
+    public function evaluations() {
+        return $this->hasMany(Evaluation::class);
     }
 
     public function bidder($id) {

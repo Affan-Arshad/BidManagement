@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Bid;
 use App\Bidder;
 use App\BidBidder;
+use App\Evaluation;
 use App\Organization;
 use Illuminate\Http\Request;
 
@@ -56,8 +57,46 @@ class BidController extends Controller
      */
     public function show(Bid $bid)
     {
-        $list = Bidder::all()->pluck('name');
-        return view('bids.show', compact('bid', 'list'));
+        $bidderNames = Bidder::all()->pluck('name');
+        $criteriaNames = Evaluation::all()->pluck('criterion')->unique();
+
+        // Evaluation
+        foreach($bid->evaluations as $evaluation) {
+            $criterion = strtolower($evaluation->criterion);
+            // Price
+            if(strtolower($evaluation->criterion) == 'price') {
+                $lowest = null;
+                foreach($bid->bidders as $bidder) {
+                    if($lowest == null || $bidder->pivot->price <= $lowest) {
+                        $lowest = $bidder->pivot->price;
+                    }
+                }
+                foreach($bid->bidders as $bidder) {
+                    $bidder->eval += $lowest/$bidder->pivot->price*$evaluation->percentage;
+                }
+            }
+            // Duration
+            else if($criterion == 'duration'
+            || $criterion == 'days'
+            || $criterion == 'delivery') {
+                $lowest = null;
+                foreach($bid->bidders as $bidder) {
+                    if($lowest == null || $bidder->pivot->duration_days <= $lowest) {
+                        $lowest = $bidder->pivot->duration_days;
+                    }
+                }
+                foreach($bid->bidders as $bidder) {
+                    $bidder->eval += $lowest/$bidder->pivot->duration_days*$evaluation->percentage;
+                }
+            } else {
+                foreach($bid->bidders as $bidder) {
+                    $bidder->eval += $evaluation->percentage;
+                }
+            }
+        }
+        $bid->bidders = $bid->bidders->sortByDesc('eval');
+
+        return view('bids.show', compact('bid', 'bidderNames', 'criteriaNames'));
     }
 
     /**
