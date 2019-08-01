@@ -259,8 +259,6 @@
             $('#editProposal .duration')[0].value = proposal.duration_days;
             // Set Form Action
             $('#editProposal form')[0].setAttribute('action', '/bids/'+proposal.bid_id+'/proposals/'+proposal.id);
-            // Set Focus on Input
-            document.querySelector('#editProposal .name').focus();
         }
 
         // Edit Criterion
@@ -271,8 +269,6 @@
             $('#editCriterion .percentage')[0].value = evaluation.percentage;
             // Set Form Action
             $('#editCriterion form')[0].setAttribute('action', '/bids/'+evaluation.bid_id+'/evaluations/'+evaluation.id);
-            // Set Focus on Input
-            document.querySelector('#editCriterion .name').focus();
         }
     </script>
 @endsection

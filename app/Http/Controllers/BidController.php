@@ -67,7 +67,7 @@ class BidController extends Controller
         }
 
         $bidderNames = Bidder::all()->pluck('name');
-        $criteriaNames = Evaluation::all()->pluck('criterion')->unique();
+        $criteriaNames = Evaluation::all()->pluck('criterion')->unique()->toArray();
 
         // Evaluation
         foreach($bid->evaluations as $evaluation) {
