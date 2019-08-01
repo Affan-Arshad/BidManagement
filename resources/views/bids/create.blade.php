@@ -29,7 +29,7 @@
 
         <div class="form-group">
             <label>Estimated Cost (MVR)</label>
-            <input type="text" class="form-control" name="cost">
+            <input type="text" class="form-control input-numeric" name="cost">
         </div>
         <div class="form-group">
             <label>Date</label>
