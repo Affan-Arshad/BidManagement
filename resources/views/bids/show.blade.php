@@ -219,7 +219,7 @@
 @section('additionalJS')
     <script src="/js/awesomplete.js"></script>
     <script>
-        // Focus on Input
+        // Focus on Inputs
         window.onload = function() {
             document.querySelector("<?php echo $focus; ?>").focus();
         }
