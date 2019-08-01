@@ -227,21 +227,21 @@
         // Autocomplete Bidders
         var input = document.getElementById('bidder');
         new Awesomplete(input, {
-            list: <?php echo json_encode($bidderNames); ?>,
+            list: <?php echo json_encode($bidderNames, true); ?>,
         })
         var input = document.getElementById('bidder-modal');
         new Awesomplete(input, {
-            list: <?php echo json_encode($bidderNames); ?>,
+            list: <?php echo json_encode($bidderNames, true); ?>,
         })
 
         // Autocomplete Criteria
         input = document.getElementById('criterion');
         new Awesomplete(input, {
-            list: <?php echo json_encode($criteriaNames); ?>,
+            list: <?php echo json_encode($criteriaNames, true); ?>,
         })
         input = document.getElementById('criterion-modal');
         new Awesomplete(input, {
-            list: <?php echo json_encode($criteriaNames); ?>,
+            list: <?php echo json_encode($criteriaNames, true); ?>,
         })
 
         // Edit Proposal
