@@ -57,6 +57,15 @@ class BidController extends Controller
      */
     public function show(Bid $bid)
     {
+
+        // Determine What Input to keep initial Focus
+        $focus = "#bidder";
+        if(isset($_GET['focus'])) {
+            if($_GET['focus'] == 'criterion') {
+                $focus = '#criterion';
+            }
+        }
+
         $bidderNames = Bidder::all()->pluck('name');
         $criteriaNames = Evaluation::all()->pluck('criterion')->unique();
 
@@ -66,13 +75,13 @@ class BidController extends Controller
             // Price
             if(strtolower($evaluation->criterion) == 'price') {
                 $lowest = null;
-                foreach($bid->bidders as $bidder) {
-                    if($lowest == null || $bidder->pivot->price <= $lowest) {
-                        $lowest = $bidder->pivot->price;
+                foreach($bid->proposals as $proposal) {
+                    if($lowest == null || $proposal->price <= $lowest) {
+                        $lowest = $proposal->price;
                     }
                 }
-                foreach($bid->bidders as $bidder) {
-                    $bidder->eval += $lowest/$bidder->pivot->price*$evaluation->percentage;
+                foreach($bid->proposals as $proposal) {
+                    $proposal->eval += $lowest/$proposal->price*$evaluation->percentage;
                 }
             }
             // Duration
@@ -80,23 +89,23 @@ class BidController extends Controller
             || $criterion == 'days'
             || $criterion == 'delivery') {
                 $lowest = null;
-                foreach($bid->bidders as $bidder) {
-                    if($lowest == null || $bidder->pivot->duration_days <= $lowest) {
-                        $lowest = $bidder->pivot->duration_days;
+                foreach($bid->proposals as $proposal) {
+                    if($lowest == null || $proposal->duration_days <= $lowest) {
+                        $lowest = $proposal->duration_days;
                     }
                 }
-                foreach($bid->bidders as $bidder) {
-                    $bidder->eval += $lowest/$bidder->pivot->duration_days*$evaluation->percentage;
+                foreach($bid->proposals as $proposal) {
+                    $proposal->eval += $lowest/$proposal->duration_days*$evaluation->percentage;
                 }
             } else {
-                foreach($bid->bidders as $bidder) {
-                    $bidder->eval += $evaluation->percentage;
+                foreach($bid->proposals as $proposal) {
+                    $proposal->eval += $evaluation->percentage;
                 }
             }
         }
-        $bid->bidders = $bid->bidders->sortByDesc('eval');
+        $bid->proposals = $bid->proposals->sortByDesc('eval');
 
-        return view('bids.show', compact('bid', 'bidderNames', 'criteriaNames'));
+        return view('bids.show', compact('bid', 'bidderNames', 'criteriaNames', 'focus'));
     }
 
     /**

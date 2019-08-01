@@ -20,9 +20,7 @@ Route::middleware('auth')->group(function(){
     Route::resource('bidders', 'BidderController');
     
     Route::resource('bids', 'BidController');
-    Route::post('/bids/{bid}/bidders', 'BidController@addBidders');
-    Route::delete('/bids/{bid}/bidders/{bidder}', 'BidController@removeBidder');
-    
-    Route::resource('/bids/{bid}/evaluations', 'EvaluationController');
+    Route::resource('bids/{bid}/proposals', 'ProposalController');
+    Route::resource('bids/{bid}/evaluations', 'EvaluationController');
 });
 Auth::routes(['register' => false]);

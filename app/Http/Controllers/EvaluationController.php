@@ -41,7 +41,7 @@ class EvaluationController extends Controller
             'percentage' => $request->percentage,
             'bid_id' => $bid->id
         ]);
-        return redirect("/bids/$bid->id");
+        return redirect("/bids/$bid->id?focus=criterion");
     }
 
     /**
@@ -73,9 +73,15 @@ class EvaluationController extends Controller
      * @param  \App\Evaluation  $evaluation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Evaluation $evaluation)
+    public function update(Request $request, Bid $bid, Evaluation $evaluation)
     {
-        //
+        
+        $evaluation->criterion = $request->criterion;
+        $evaluation->percentage = $request->percentage;
+        $evaluation->bid_id = $bid->id;
+        $evaluation->save();
+        
+        return redirect("/bids/$bid->id?focus=criterion");
     }
 
     /**

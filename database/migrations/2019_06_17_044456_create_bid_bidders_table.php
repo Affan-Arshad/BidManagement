@@ -14,9 +14,9 @@ class CreateBidBiddersTable extends Migration
     public function up()
     {
         Schema::create('bid_bidders', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('bid_id')->unsigned();
             $table->integer('bidder_id')->unsigned();
-            $table->primary(['bid_id', 'bidder_id']);
             $table->double('price')->unsigned();
             $table->integer('duration_days')->unsigned();
             $table->timestamps();

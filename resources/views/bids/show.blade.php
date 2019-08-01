@@ -42,7 +42,7 @@
                                 </div>
 
                                 <div class="form-group col fitToContent">
-                                    <button type="submit" class="btn btn-success" id="addBidderBtn">Add</button>
+                                    <button type="submit" class="btn btn-success">Add</button>
                                 </div>
                             </div>
                         </form>
@@ -62,9 +62,10 @@
                                     <td>{{$evaluation->criterion}}</td>
                                     <td>{{$evaluation->percentage}}</td>
                                     <td class="fitToContent">
-                                        <form action="/bids/{{$bid->id}}/evaluations/{{$evaluation->id}}" method="POST" onsubmit="confirmDelete(event)">
+                                        <a class="btn btn-warning" data-toggle="modal" data-target="#editCriterion" onclick="editCriterion({{$evaluation}})">Edit</a>
+                                        <form class="d-inline-block" action="/bids/{{$bid->id}}/evaluations/{{$evaluation->id}}" method="POST" onsubmit="confirmDelete(event)">
                                             @csrf
-                                            @method('DELETE')
+                                            @method("DELETE")
                                             <button type="submit" class="btn btn-danger">Delete</button>
                                         </form>
                                     </td>
@@ -80,10 +81,10 @@
     </section>
 
     <section>
-        <h5>Bidders</h5>
+        <h5>Proposals</h5>
         <hr>
 
-        <form action="/bids/{{$bid->id}}/bidders" method="POST" id="addBidderForm">
+        <form action="/bids/{{$bid->id}}/proposals" method="POST">
             @csrf
             <div class="row">
                 <div class="form-group col">
@@ -104,29 +105,30 @@
             </div>
         </form>
 
-        @if(count($bid->bidders))
+        @if(count($bid->proposals))
         <table class="table table-bordered bidders">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Price</th>
-                    <th>Duration (days)</th>
-                    <th>Evaluation</th>
-                    <th>Action</th>
+                    <th class="">Duration (days)</th>
+                    <th class="">Evaluation</th>
+                    <th class="fitToContent">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($bid->bidders as $bidder)
-                <tr>
-                    <td>{{$bidder->name}}</td>
-                    <td class="auto-numeric">{{$bidder->pivot->price}}</td>
-                    <td>{{$bidder->pivot->duration_days}}</td>
-                    <td>{{$bidder->eval}}</td>
+                @foreach($bid->proposals as $proposal)
+                <tr class="proposal">
+                    <td class="name">{{$proposal->bidder->name}}</td>
+                    <td class="price auto-numeric">{{$proposal->price}}</td>
+                    <td class="duration">{{$proposal->duration_days}}</td>
+                    <td class="">{{$proposal->eval}}</td>
                     <td class="fitToContent">
-                        <form action="/bids/{{$bid->id}}/bidders/{{$bidder->id}}" method="POST" onsubmit="confirmDelete(event)">
+                        <a class="btn btn-warning" data-toggle="modal" data-target="#editProposal" onclick="editProposal({{$proposal}})">Edit</a>
+                        <form class="d-inline-block" action="/bids/{{$bid->id}}/proposals/{{$proposal->id}}" method="POST" onsubmit="confirmDelete(event)">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger" >Delete</button>
+                            <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>
                 </tr>
@@ -134,6 +136,78 @@
             </tbody>
         </table>
         @endif
+
+        {{-- Edit Proposal Modal --}}
+        <div class="modal" tabindex="-1" role="dialog" id="editProposal">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form method="POST">
+                        @method('PATCH')
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit proposal</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @csrf
+                            <div class="row">
+                                <div class="form-group col">
+                                    <input type="text" name="name" class="name form-control" placeholder="Name" id="bidder-modal" required>
+                                </div>
+                
+                                <div class="form-group col">
+                                    <input type="text" name="price" class="price form-control auto-numeric" placeholder="Price" required>
+                                </div>
+                
+                                <div class="form-group col">
+                                    <input type="integer" name="duration_days" class="duration form-control" placeholder="Duration" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        {{-- Edit Criterion Modal --}}
+        <div class="modal" tabindex="-1" role="dialog" id="editCriterion">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <form method="POST">
+                        @method('PATCH')
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit criterion</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @csrf
+                            <div class="row">
+                                <div class="form-group col">
+                                    <input type="text" name="criterion" class="criterion form-control" placeholder="Criterion" id="criterion-modal" required>
+                                </div>
+
+                                <div class="form-group col">
+                                    <input type="text" name="percentage" class="percentage form-control" placeholder="Percentage" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
     </section>
 @endsection
 
@@ -145,18 +219,55 @@
 @section('additionalJS')
     <script src="/js/awesomplete.js"></script>
     <script>
+        // Focus on Input
+        window.onload = function() {
+            document.querySelector("<?php echo $focus; ?>").focus();
+        }
+
         // Autocomplete Bidders
-        var list = <?php echo json_encode($bidderNames); ?>;
         var input = document.getElementById('bidder');
         new Awesomplete(input, {
-            list: list,
+            list: <?php echo json_encode($bidderNames); ?>,
+        })
+        var input = document.getElementById('bidder-modal');
+        new Awesomplete(input, {
+            list: <?php echo json_encode($bidderNames); ?>,
         })
 
         // Autocomplete Criteria
-        list = <?php echo json_encode($criteriaNames); ?>;
         input = document.getElementById('criterion');
         new Awesomplete(input, {
-            list: list,
+            list: <?php echo json_encode($criteriaNames); ?>,
         })
+        input = document.getElementById('criterion-modal');
+        new Awesomplete(input, {
+            list: <?php echo json_encode($criteriaNames); ?>,
+        })
+
+        // Edit Proposal
+        function editProposal(proposal) {
+            // Set Name
+            $('#editProposal .name')[0].value = proposal.bidder.name;
+            // Set Price
+            $('#editProposal .price')[0].value = proposal.price;
+            // Set Duration
+            $('#editProposal .duration')[0].value = proposal.duration_days;
+            // Set Form Action
+            $('#editProposal form')[0].setAttribute('action', '/bids/'+proposal.bid_id+'/proposals/'+proposal.id);
+            // Set Focus on Input
+            document.querySelector('#editProposal .name').focus();
+        }
+
+        // Edit Criterion
+        function editCriterion(evaluation) {
+            // Set Criterion
+            $('#editCriterion .criterion')[0].value = evaluation.criterion;
+            // Set Percentage
+            $('#editCriterion .percentage')[0].value = evaluation.percentage;
+            // Set Form Action
+            $('#editCriterion form')[0].setAttribute('action', '/bids/'+evaluation.bid_id+'/evaluations/'+evaluation.id);
+            // Set Focus on Input
+            document.querySelector('#editCriterion .name').focus();
+        }
     </script>
 @endsection

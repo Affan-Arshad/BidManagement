@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Bidder;
 use Illuminate\Database\Eloquent\Model;
 
-class BidBidder extends Model
+class Proposal extends Model
 {
     protected $fillable = [
         'bid_id',
@@ -12,7 +13,12 @@ class BidBidder extends Model
         'price',
         'duration_days',
     ];
+
+    protected $table = 'bid_bidders';
     
+    public function bidder() {
+        return $this->belongsTo(Bidder::class);
+    }
 
     public function setPriceAttribute($value) {
         $this->attributes['price'] = str_replace(',', '', $value);
