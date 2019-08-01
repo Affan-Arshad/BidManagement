@@ -92,7 +92,7 @@
                 </div>
 
                 <div class="form-group col">
-                    <input type="text" name="price" class="form-control auto-numeric" placeholder="Price" required>
+                    <input type="text" name="price" class="form-control input-numeric" placeholder="Price" required>
                 </div>
 
                 <div class="form-group col">
@@ -157,7 +157,7 @@
                                 </div>
                 
                                 <div class="form-group col">
-                                    <input type="text" name="price" class="price form-control auto-numeric" placeholder="Price" required>
+                                    <input type="text" name="price" class="price form-control input-numeric-modal" placeholder="Price" required>
                                 </div>
                 
                                 <div class="form-group col">
@@ -250,6 +250,11 @@
             $('#editProposal .name')[0].value = proposal.bidder.name;
             // Set Price
             $('#editProposal .price')[0].value = proposal.price;
+            // Format Price
+            new Cleave('.input-numeric-modal', {
+                numeral: true,
+                numeralThousandsGroupStyle: 'thousand'
+            });
             // Set Duration
             $('#editProposal .duration')[0].value = proposal.duration_days;
             // Set Form Action

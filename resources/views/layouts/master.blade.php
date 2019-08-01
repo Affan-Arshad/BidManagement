@@ -11,6 +11,7 @@
     
     <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
     <script src="https://cdn.jsdelivr.net/npm/autonumeric@4.1.0"></script>
+    <script src="/js/cleave.min.js"></script>
 </head>
 <body>
     @include('partials.nav')
