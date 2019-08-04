@@ -1,28 +1,23 @@
 @extends('layouts.child')
 
 @section('fixed-content')
-    <h3>Bidders</h3>
+    <h3>Bids</h3>
     <hr>
     <table data-toggle="table" data-search="true">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Actions</th>
+                <th class="fitToContent">Organization</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($bidders as $bidder)
+            @foreach($bids as $bid)
             <tr>
                 <td class="link">
-                    <a class="btn text-left" href="/bidders/{{$bidder->id}}">{{$bidder->name}}</a>
+                    <a class="btn text-left" href="/bids/{{$bid->id}}">{{$bid->name}}</a>
                 </td>
-                <td class="fitToContent">
-                    <a class="btn btn-warning" href="/bidders/{{$bidder->id}}/edit">Edit</a>
-                    <form class="d-inline-block" action="/bidders/{{$bidder->id}}" method="POST" onsubmit="confirmDelete(event)">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
+                <td class="fitToContent link">
+                    <a class="btn text-left" href="/organizations/{{$bid->organization->id}}">{{$bid->organization->name}}</a>
                 </td>
             </tr>
             @endforeach

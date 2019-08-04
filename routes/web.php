@@ -13,7 +13,7 @@
 
 Route::middleware('auth')->group(function(){
     Route::get('/', function(){
-        return redirect('/organizations');
+        return redirect('/bids');
     });
     
     Route::resource('organizations', 'OrganizationController');

@@ -18,7 +18,9 @@ class BidController extends Controller
      */
     public function index()
     {
-        //
+        $bids = Bid::all();
+        
+        return view('bids.index', compact('bids'));
     }
 
     /**

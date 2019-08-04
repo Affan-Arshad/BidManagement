@@ -4,6 +4,10 @@
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+                <a class="nav-link" href="/bids">Bids</a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="/organizations">Organizations</a>
             </li>
 

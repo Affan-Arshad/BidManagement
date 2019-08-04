@@ -3,7 +3,7 @@
 @section('fixed-content')
     <h3>Organizations</h3>
     <hr>
-    <table class="table organizations table-hover table-borderless">
+    <table data-toggle="table" data-search="true">
         <thead>
             <tr>
                 <th>Name</th>

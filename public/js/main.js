@@ -2,10 +2,12 @@
 AutoNumeric.multiple('.auto-numeric');
 // Numeric For Input Fields..
 // AutoNumeric Is Buggy with Input Fields
-var cleave = new Cleave('.input-numeric', {
-    numeral: true,
-    numeralThousandsGroupStyle: 'thousand'
-});
+if($('.input-numeric').length) {
+    var cleave = new Cleave('.input-numeric', {
+        numeral: true,
+        numeralThousandsGroupStyle: 'thousand'
+    });
+}
 
 function confirmDelete(e) {
     let answer = prompt("Type 'Y' to delete!") || '';
