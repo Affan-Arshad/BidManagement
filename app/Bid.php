@@ -35,9 +35,9 @@ class Bid extends Model
         return $this->belongsTo(Organization::class);
     }
 
-    // public function proposals() {
-    //     return $this->belongsToMany(Bidder::class, 'bid_bidders')->withPivot('price', 'duration_days');;
-    // }
+    public function bidders() {
+        return $this->belongsToMany(Bidder::class, 'bid_bidders');
+    }
 
     public function proposals() {
         return $this->hasMany(Proposal::class);

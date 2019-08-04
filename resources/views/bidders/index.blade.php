@@ -3,7 +3,7 @@
 @section('fixed-content')
     <h3>Bidders</h3>
     <hr>
-    <table class="table bidders table-hover table-borderless">
+    <table class="table bidders table-hover table-bordered">
         <thead>
             <tr>
                 <th>Name</th>
@@ -13,10 +13,11 @@
         <tbody>
             @foreach($bidders as $bidder)
             <tr>
-                <td>{{$bidder->name}}</td>
+                <td class="link">
+                    <a class="btn text-left" href="/bidders/{{$bidder->id}}">{{$bidder->name}}</a>
+                </td>
                 <td class="fitToContent">
-                    <!-- <a class="btn btn-info" href="/bidders/{{$bidder->id}}">View Bids</a> -->
-                    <!-- <a class="btn btn-warning" href="/bidders/{{$bidder->id}}/edit">Edit</a> -->
+                    <a class="btn btn-warning" href="/bidders/{{$bidder->id}}/edit">Edit</a>
                     <form class="d-inline-block" action="/bidders/{{$bidder->id}}" method="POST" onsubmit="confirmDelete(event)">
                         @csrf
                         @method('DELETE')
@@ -26,13 +27,13 @@
             </tr>
             @endforeach
         </tbody>
-        <!-- <tfoot>
+        {{-- <tfoot>
             <tr>
                 <td colspan=2>
                     <a class="btn btn-success" href="/bidders/create">Add new Bidder</a>
                 </td>
             </tr>
-        </tfoot> -->
+        </tfoot> --}}
     </table>
 @endsection
 

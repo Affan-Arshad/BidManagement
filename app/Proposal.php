@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Bid;
 use App\Bidder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,6 +19,10 @@ class Proposal extends Model
     
     public function bidder() {
         return $this->belongsTo(Bidder::class);
+    }
+    
+    public function bid() {
+        return $this->belongsTo(Bid::class);
     }
 
     public function setPriceAttribute($value) {

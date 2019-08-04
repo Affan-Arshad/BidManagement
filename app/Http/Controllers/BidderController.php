@@ -47,7 +47,7 @@ class BidderController extends Controller
      */
     public function show(Bidder $bidder)
     {
-        //
+        return view('bidders.show', compact('bidder'));
     }
 
     /**
@@ -58,7 +58,7 @@ class BidderController extends Controller
      */
     public function edit(Bidder $bidder)
     {
-        //
+        return view('bidders.edit', compact('bidder'));
     }
 
     /**
@@ -70,7 +70,13 @@ class BidderController extends Controller
      */
     public function update(Request $request, Bidder $bidder)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+        $bidder->name = $request->name;
+        $bidder->save();
+        
+        return redirect('/bidders');
     }
 
     /**
