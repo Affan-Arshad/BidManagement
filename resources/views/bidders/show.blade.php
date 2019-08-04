@@ -3,7 +3,7 @@
 @section('fixed-content')
     <h3>{{$bidder->name}}</h3>
     <hr>
-    <table class="table bidders table-hover">
+    <table data-toggle="table" data-search="true">
         <thead>
             <tr>
                 <th>Bid Name</th>
