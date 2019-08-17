@@ -2,6 +2,7 @@
 
 @section('fixed-content')
     <h3>Bids</h3>
+    <a class="btn btn-success" href="/bids/create?org=3">Add new Bid</a>
     <hr>
     <table data-toggle="table" data-search="true">
         <thead>
@@ -22,13 +23,13 @@
             </tr>
             @endforeach
         </tbody>
-        {{-- <tfoot>
+        <tfoot>
             <tr>
                 <td colspan=2>
-                    <a class="btn btn-success" href="/bidders/create">Add new Bidder</a>
+                    <a class="btn btn-success" href="/bids/create?org=3">Add new Bid</a>
                 </td>
             </tr>
-        </tfoot> --}}
+        </tfoot>
     </table>
 @endsection
 

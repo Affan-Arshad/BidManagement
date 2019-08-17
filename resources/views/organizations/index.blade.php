@@ -2,6 +2,7 @@
 
 @section('fixed-content')
     <h3>Organizations</h3>
+    <a class="btn btn-success" href="/organizations/create">Add new Organization</a>
     <hr>
     <table data-toggle="table" data-search="true">
         <thead>
