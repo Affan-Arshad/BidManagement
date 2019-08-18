@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="/">Hikaa Bidding</a>
+        <a class="navbar-brand" href="/">{{ config('app.name') }}</a>
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">

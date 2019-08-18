@@ -6,7 +6,7 @@
     <table data-toggle="table" data-search="true">
         <thead>
             <tr>
-                <th>Name</th>
+                <th data-sortable="true">Name</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -14,7 +14,7 @@
             @foreach($bidders as $bidder)
             <tr>
                 <td class="link">
-                    <a class="btn text-left" href="/bidders/{{$bidder->id}}">{{$bidder->name}}</a>
+                    <a data-name="{{$bidder->name}}" class="btn text-left" href="/bidders/{{$bidder->id}}">{{$bidder->name}}</a>
                 </td>
                 <td class="fitToContent">
                     <a class="btn btn-warning" href="/bidders/{{$bidder->id}}/edit">Edit</a>

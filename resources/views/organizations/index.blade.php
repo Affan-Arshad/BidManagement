@@ -1,13 +1,15 @@
 @extends('layouts.child')
 
 @section('fixed-content')
-    <h3>Organizations</h3>
-    <a class="btn btn-success" href="/organizations/create">Add new Organization</a>
+    <h3>
+        Organizations
+        <a class="btn btn-success float-right" href="/organizations/create">Add new Organization</a>
+    </h3>
     <hr>
     <table data-toggle="table" data-search="true">
         <thead>
             <tr>
-                <th>Name</th>
+                <th data-sortable="true">Name</th>
                 <th class="fitToContent">Actions</th>
             </tr>
         </thead>
@@ -15,7 +17,7 @@
             @foreach($orgs as $org)
             <tr>
                 <td class="link">
-                    <a class="btn text-left" href="/organizations/{{$org->id}}">{{$org->name}}</a>
+                    <a data-name="{{$org->name}}" class="btn text-left" href="/organizations/{{$org->id}}">{{$org->name}}</a>
                 </td>
                 <td class="fitToContent">
                     <a class="btn btn-warning" href="/organizations/{{$org->id}}/edit">Edit</a>
@@ -28,13 +30,6 @@
             </tr>
             @endforeach
         </tbody>
-        <tfoot>
-            <tr>
-                <td colspan=2>
-                    <a class="btn btn-success" href="/organizations/create">Add new Organization</a>
-                </td>
-            </tr>
-        </tfoot>
     </table>
 @endsection
 
