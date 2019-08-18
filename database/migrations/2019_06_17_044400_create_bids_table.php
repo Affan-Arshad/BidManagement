@@ -17,6 +17,7 @@ class CreateBidsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('iulaan_no')->nullable();
+            $table->string('link')->nullable();
             $table->string('category');
             $table->double('cost');
             $table->datetime('date');

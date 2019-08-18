@@ -9,6 +9,7 @@
             <tr>
                 <th>Name</th>
                 <th class="fitToContent">Organization</th>
+                <th class="fitToContent">Link</th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,9 @@
                 </td>
                 <td class="fitToContent link">
                     <a class="btn text-left" href="/organizations/{{$bid->organization->id}}">{{$bid->organization->name}}</a>
+                </td>
+                <td class="link">
+                    <a target="_blank" class="btn text-left" href="{{$bid->link}}">{{$bid->link}}</a>
                 </td>
             </tr>
             @endforeach

@@ -16,6 +16,16 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label>Iulaan No.</label>
+            <input type="text" class="form-control" name="iulaan_no" value="{{$bid->iulaan_no}}">
+        </div>
+
+        <div class="form-group">
+            <label>Link</label>
+            <input type="text" class="form-control" name="link" value="{{$bid->link}}">
+        </div>
+
         <div class="row">
             <div class="form-group col">
                 <label>Name</label>

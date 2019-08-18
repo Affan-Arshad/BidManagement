@@ -20,6 +20,11 @@
             <input type="text" class="form-control" name="iulaan_no">
         </div>
 
+        <div class="form-group">
+            <label>Link</label>
+            <input type="text" class="form-control" name="link">
+        </div>
+
         <div class="row">
             <div class="form-group col">
                 <label>Name</label>

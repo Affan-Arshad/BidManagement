@@ -12,6 +12,8 @@ class Bid extends Model
 
     protected $fillable = [
         'name',
+        'iulaan_no',
+        'link',
         'category',
         'cost',
         'date',

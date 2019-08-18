@@ -11,10 +11,16 @@
                     <th class="fitToContent">Organization</th>
                     <td>{{$bid->organization->name}}</td>
                 </tr>
-                <!-- <tr>
-                    <td>Name</td>
-                    <td>{{$bid->name}}</td>
-                </tr> -->
+                <tr>
+                    <th>Iulaan No.</th>
+                    <td>{{$bid->iulaan_no}}</td>
+                </tr>
+                <tr>
+                    <th>Link</th>
+                    <td class="link">
+                        <a target="_blank" class="btn text-left" href="{{$bid->link}}">{{$bid->link}}</a>
+                    </td>
+                </tr>
                 <tr>
                     <th class="fitToContent">Category</th>
                     <td>{{$bid->category}}</td>
