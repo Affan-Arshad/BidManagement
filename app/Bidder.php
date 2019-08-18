@@ -12,4 +12,8 @@ class Bidder extends Model
     public function bids() {
         return $this->belongsToMany(Bid::class, 'bid_bidders');
     }
+
+    public function proposals() {
+        return $this->hasMany(Proposal::class);
+    }
 }

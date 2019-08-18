@@ -7,7 +7,8 @@
         <thead>
             <tr>
                 <th data-sortable="true">Name</th>
-                <th>Actions</th>
+                <th data-sortable="true" class="fitToContent">Proposal Count</th>
+                <th class="fitToContent">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@
                 <td class="link">
                     <a data-name="{{$bidder->name}}" class="btn text-left" href="/bidders/{{$bidder->id}}">{{$bidder->name}}</a>
                 </td>
+                <td class="fitToContent">{{count($bidder->proposals)}}</td>
                 <td class="fitToContent">
                     <a class="btn btn-warning" href="/bidders/{{$bidder->id}}/edit">Edit</a>
                     <form class="d-inline-block" action="/bidders/{{$bidder->id}}" method="POST" onsubmit="confirmDelete(event)">
