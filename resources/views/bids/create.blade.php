@@ -15,25 +15,30 @@
             </select>
         </div>
 
+        <div class="form-group">
+            <label>Iulaan No.</label>
+            <input type="text" class="form-control" name="iulaan_no">
+        </div>
+
         <div class="row">
             <div class="form-group col">
                 <label>Name</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="name" required>
             </div>
 
             <div class="form-group col">
                 <label>Category</label>
-                <input type="text" class="form-control" name="category">
+                <input type="text" class="form-control" name="category" required>
             </div>
         </div>
 
         <div class="form-group">
             <label>Estimated Cost (MVR)</label>
-            <input type="text" class="form-control input-numeric" name="cost">
+            <input type="text" class="form-control input-numeric" name="cost" required>
         </div>
         <div class="form-group">
             <label>Date</label>
-            <input type="datetime-local" class="form-control" name="date">
+            <input type="datetime-local" class="form-control" name="date" required>
         </div>
 
         <div class="form-group">
