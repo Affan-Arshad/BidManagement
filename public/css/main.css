@@ -21,4 +21,14 @@ td.link a {
     padding: 1.125rem;
 }
 
+/* Table Row Counter */
+.table-counter {
+    counter-reset: rows;
+}
+.table-counter tbody tr {
+    counter-increment: rows;
+}
+.table-counter td:first-child:after {
+    content: counter(rows);
+}
 /* 404 Page */

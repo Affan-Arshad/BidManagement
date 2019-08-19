@@ -9,8 +9,8 @@ if($('.input-numeric').length) {
     });
 }
 
-function confirmDelete(e) {
-    let answer = prompt("Type 'Y' to delete!") || '';
+function confirmDelete(e, name) {
+    let answer = prompt("Type 'Y' to delete "+name+"!") || '';
     if ('y' === answer.toLowerCase()){
         return true;
     } else {

@@ -2,14 +2,16 @@
 
 @section('fixed-content')
     <section>
-        <h3>{{$bid->name}}<a class="btn btn-primary float-right" href="/bids/{{$bid->id}}/edit">Edit</a></h3>
+        <h3>{{$bid->name}} <a class="btn text-warning" href="/bids/{{$bid->id}}/edit"><i class="fas fa-edit"></i></a></h3>
         <hr>
 
         <table class="table table-bordered bid">
             <tbody>
                 <tr>
                     <th class="fitToContent">Organization</th>
-                    <td>{{$bid->organization->name}}</td>
+                    <td class="link">
+                        <a class="btn text-left" href="/organizations/{{$bid->organization->id}}">{{$bid->organization->name}}</a>
+                    </td>
                 </tr>
                 <tr>
                     <th>Iulaan No.</th>
@@ -48,7 +50,7 @@
                                 </div>
 
                                 <div class="form-group col fitToContent">
-                                    <button type="submit" class="btn btn-success">Add</button>
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-plus"></i></button>
                                 </div>
                             </div>
                         </form>
@@ -59,7 +61,7 @@
                                 <tr>
                                     <th>Criteria</th>
                                     <th>Percentage</th>
-                                    <th>Action</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -68,11 +70,11 @@
                                     <td>{{$evaluation->criterion}}</td>
                                     <td>{{$evaluation->percentage}}</td>
                                     <td class="fitToContent">
-                                        <a class="btn btn-warning" data-toggle="modal" data-target="#editCriterion" onclick="editCriterion({{$evaluation}})">Edit</a>
-                                        <form class="d-inline-block" action="/bids/{{$bid->id}}/evaluations/{{$evaluation->id}}" method="POST" onsubmit="confirmDelete(event)">
+                                        <a class="btn text-warning" data-toggle="modal" data-target="#editCriterion" onclick="editCriterion({{$evaluation}})"><i class="fas fa-edit"></i></a>
+                                    <form class="d-inline-block" action="/bids/{{$bid->id}}/evaluations/{{$evaluation->id}}" method="POST" onsubmit="confirmDelete(event, '{{$evaluation->criterion}}')">
                                             @csrf
                                             @method("DELETE")
-                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                            <button type="submit" class="btn text-danger"><i class="fas fa-trash"></i></button>
                                         </form>
                                     </td>
                                 </tr>
@@ -106,35 +108,37 @@
                 </div>
 
                 <div class="form-group col fitToContent">
-                    <button type="submit" class="btn btn-success" id="addBidderBtn">Add</button>
+                    <button type="submit" class="btn btn-success" id="addBidderBtn"><i class="fas fa-plus"></i></button>
                 </div>
             </div>
         </form>
 
         @if(count($bid->proposals))
-        <table class="table table-bordered bidders">
+        <table data-toggle="table" class="table-counter">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th class="">Duration (days)</th>
-                    <th class="">Evaluation</th>
-                    <th class="fitToContent">Action</th>
+                    <th>#</th>
+                    <th data-sortable="true">Name</th>
+                    <th data-sortable="true">Price</th>
+                    <th data-sortable="true">Duration (days)</th>
+                    <th data-sortable="true">Evaluation</th>
+                    <th class="fitToContent">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($bid->proposals as $proposal)
                 <tr class="proposal">
+                    <td class="fitToContent"></td>
                     <td class="name">{{$proposal->bidder->name}}</td>
                     <td class="price auto-numeric">{{$proposal->price}}</td>
-                    <td class="duration">{{$proposal->duration_days}}</td>
+                    <td class="duration fitToContent">{{$proposal->duration_days}}</td>
                     <td class="">{{$proposal->eval}}</td>
                     <td class="fitToContent">
-                        <a class="btn btn-warning" data-toggle="modal" data-target="#editProposal" onclick="editProposal({{$proposal}})">Edit</a>
-                        <form class="d-inline-block" action="/bids/{{$bid->id}}/proposals/{{$proposal->id}}" method="POST" onsubmit="confirmDelete(event)">
+                        <a class="btn text-warning" data-toggle="modal" data-target="#editProposal" onclick="editProposal({{$proposal}})"><i class="fas fa-edit"></i></a>
+                        <form class="d-inline-block" action="/bids/{{$bid->id}}/proposals/{{$proposal->id}}" method="POST" onsubmit="confirmDelete(event, 'Proposal by {{$proposal->bidder->name}}')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn text-danger"><i class="fas fa-trash"></i></button>
                         </form>
                     </td>
                 </tr>
