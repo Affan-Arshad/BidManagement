@@ -28,7 +28,7 @@ td.link a {
 .table-counter tbody tr {
     counter-increment: rows;
 }
-.table-counter td:first-child:after {
+.table-counter td:first-child:before {
     content: counter(rows);
 }
 /* 404 Page */

@@ -22,6 +22,7 @@ class CreateBidsTable extends Migration
             $table->double('cost');
             $table->datetime('date');
             $table->integer('organization_id')->unsigned();
+            $table->string('status_id');
             $table->timestamps();
         });
     }

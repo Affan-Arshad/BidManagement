@@ -20,6 +20,18 @@ class Bid extends Model
         'organization_id',
     ];
 
+    public $statuses = [
+        'prebid',
+        'pending_estimate',
+        'pending_proposal',
+        'pending_evaluation',
+        'pending_agreement',
+        'ongoing',
+        'pending_payment',
+        'payment_received',
+        'lost',
+    ];
+
     public function setCostAttribute($value) {
         $this->attributes['cost'] =  str_replace(',', '', $value);
     }

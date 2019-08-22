@@ -27,10 +27,10 @@
                 <td class="link">
                     <a data-name="{{$bid->name}}" class="btn text-left" href="/bids/{{$bid->id}}">{{$bid->name}}</a>
                 </td>
-                <td class="fitToContent link">
+                <td class="link">
                     <a data-name="{{$bid->organization->name}}" class="btn text-left" href="/organizations/{{$bid->organization->id}}">{{$bid->organization->name}}</a>
                 </td>
-                <td class="fitToContent">
+                <td>
                     {{$bid->category}}
                 </td>
                 <td class="fitToContent">
