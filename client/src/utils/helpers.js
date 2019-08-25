@@ -17,6 +17,44 @@ export const applyDrag = (arr, dragResult) => {
   return result
 }
 
+export const handleDrop = (arr, { removedIndex, addedIndex, payload : itemToAdd }, columnName) => {
+  console.log(itemToAdd)
+  if (removedIndex === null && addedIndex === null) return arr
+  let newArr = [...arr]
+
+  // if (removedIndex !== null) {
+  //   let itemBefore = newArr[removedIndex-1]
+  //   let itemAfter = newArr[removedIndex+1]
+  //   if(itemBefore) {
+  //     if(itemAfter) {
+  //       itemBefore.next_id = itemAfter.id
+  //     } else {
+  //       itemBefore.next_id = null
+  //     }
+  //   }
+  //   newArr.splice(removedIndex-1, 0, itemBefore)
+  //   itemToAdd = newArr.splice(removedIndex, 1)[0]
+  // }
+
+  if (addedIndex !== null) {
+    let itemToAddIndex = newArr.indexOf(itemToAdd)
+    let itemBefore = newArr[addedIndex-1]
+    itemToAdd.columnName = columnName
+    if(itemBefore !== null) {
+      itemToAdd.sort_order = itemBefore.sort_order + 1;
+      newArr.map( (item) => {
+        if(item.sort_order > itemBefore.sort_order) item.sort_order++
+        return item
+      })
+    }
+    
+    newArr.splice(itemToAddIndex, 1, itemToAdd)
+  }
+  return newArr
+  
+
+}
+
 export const generateItems = (count, creator) => {
   const result = []
   for (let i = 0; i < count; i++) {

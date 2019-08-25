@@ -1,48 +1,62 @@
 <template>
-  <div class="card-scene">
-      {{groupedBids}}
-    <Container
-      orientation="horizontal"
-      drag-handle-selector=".column-drag-handle"
-      @drag-start="dragStart"
-      :drop-placeholder="upperDropPlaceholderOptions"
-    >
-      <Draggable v-for="column in columns" :key="column.id">
-        <div class="card-container">
-          <div class="card-column-header">
-            <span class="column-drag-handle">&#x2630;</span>
-            {{ column.name }}
+  <div class="demo">
+    <div class="card-scene">
+      <Container
+        orientation="horizontal"
+        drag-handle-selector=".column-drag-handle"
+        @drag-start="dragStart"
+        @drop="(e) => onColumnDrop(e)"
+        :drop-placeholder="upperDropPlaceholderOptions"
+      >
+        <Draggable v-for="column in columns" :key="column.id">
+          <div class="card-container">
+            <div class="card-column-header">
+              <span class="column-drag-handle">&#x2630;</span>
+              {{ column.name }}
+            </div>
+            <Container
+              group-name="col"
+              @drop="(e) => onCardDrop(column.id, e)"
+              @drag-start="(e) => log('drag start', e)"
+              @drag-end="(e) => log('drag end', e)"
+              :get-child-payload="getCardPayload(column.id)"
+              drag-class="card-ghost"
+              drop-class="card-ghost-drop"
+              :drop-placeholder="dropPlaceholderOptions"
+              style="min-height: 10rem; "
+            >
+              <Draggable v-for="card in column.bids" :key="card.id">
+                <div class="card" :style="card.props.style">
+                  <p>{{ card.name }}, id: {{card.id}}, order{{card.sort_order}}</p>
+                </div>
+              </Draggable>
+            </Container>
           </div>
-          <Container
-            group-name="col"
-            @drop="(e) => onCardDrop(column.id, e)"
-            @drag-start="(e) => log('drag start', e)"
-            @drag-end="(e) => log('drag end', e)"
-            :get-child-payload="getCardPayload(column.id)"
-            drag-class="card-ghost"
-            drop-class="card-ghost-drop"
-            :drop-placeholder="dropPlaceholderOptions"
-          >
-            <Draggable v-for="(card, index) in groupedBids[column.name]" :key="card.id">
-              <div class="card" :style="card.props.style">
-                <p>{{ card.name }}</p>
-              </div>
-            </Draggable>
-          </Container>
-        </div>
-      </Draggable>
-    </Container>
+        </Draggable>
+      </Container>
+    </div>
   </div>
 </template>
+<style>
+* {
+  text-align: left;
+}
+.demo {
+  flex: 1;
+  overflow: auto;
+  min-width: 0;
+  height: 100vh;
+}
+body {
+  padding: 0;
+  margin: 0;
+}
+</style>
 
 <script>
 import { Container, Draggable } from "vue-smooth-dnd";
-import { applyDrag, generateItems } from "@/utils/helpers";
+import { handleDrop, applyDrag } from "../utils/helpers";
 import "@/assets/demos.css";
-const lorem = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
-const columnNames = ["Lorem", "Ipsum", "Consectetur", "Eiusmod"];
 const cardColors = [
   "azure",
   "beige",
@@ -59,45 +73,22 @@ const pickColor = () => {
   const rand = Math.floor(Math.random() * 10);
   return cardColors[rand];
 };
-const scene = {
-  type: "container",
-  props: {
-    orientation: "horizontal"
-  },
-  children: generateItems(3, i => ({
-    id: `column${i}`,
-    type: "container",
-    name: columnNames[i],
-    props: {
-      orientation: "vertical",
-      className: "card-container"
-    },
-    children: generateItems(+(Math.random() * 10).toFixed() + 5, j => ({
-      type: "draggable",
-      id: `${i}${j}`,
-      props: {
-        className: "card",
-        style: { backgroundColor: pickColor() }
-      },
-      data: lorem.slice(0, Math.floor(Math.random() * 150) + 30)
-    }))
-  }))
-};
 export default {
   name: "Cards",
   components: { Container, Draggable },
   data() {
     return {
-      columns: [
-        { id: "prebid", name: "prebid" },
-        { id: "ongoing", name: "ongoing" },
-        { id: "done", name: "done" },
-      ],
+      columns: {
+        prebid: { id: "prebid", name: "prebid" },
+        ongoing: { id: "ongoing", name: "ongoing" },
+        done: { id: "done", name: "done" }
+      },
       bids: [
         {
           id: 1,
           name: "Stelco bid",
-          columnName: 'prebid',
+          columnName: "prebid",
+          sort_order: 1,
           props: {
             className: "card",
             style: { backgroundColor: pickColor() }
@@ -106,7 +97,8 @@ export default {
         {
           id: 2,
           name: "MWSC bid",
-          columnName: 'prebid',
+          columnName: "prebid",
+          sort_order: 2,
           props: {
             className: "card",
             style: { backgroundColor: pickColor() }
@@ -115,7 +107,8 @@ export default {
         {
           id: 3,
           name: "YELLOW bid",
-          columnName: 'ongoing',
+          columnName: "done",
+          sort_order: 1,
           props: {
             className: "card",
             style: { backgroundColor: pickColor() }
@@ -124,14 +117,24 @@ export default {
         {
           id: 4,
           name: "Blue bid",
-          columnName: 'done',
+          columnName: "done",
+          sort_order: 1,
           props: {
             className: "card",
             style: { backgroundColor: pickColor() }
           }
         },
+        {
+          id: 5,
+          name: "Green Five bid",
+          columnName: "done",
+          sort_order: 2,
+          props: {
+            className: "card",
+            style: { backgroundColor: pickColor() }
+          }
+        }
       ],
-      scene,
       upperDropPlaceholderOptions: {
         className: "cards-drop-preview",
         animationDuration: "150",
@@ -144,65 +147,52 @@ export default {
       }
     };
   },
+  mounted() {
+    Object.keys(this.columns).map((key) => {
+      this.columns[key].bids = this.groupedBids(key)
+    })
+    this.columns = Object.assign({}, this.columns)
+    
+  },
   computed: {
-      groupedBids() {
-          let key = 'columnName'
-          return this.bids.reduce((objGrped, obj) => { 
-              const keyVal = obj[key]
-              objGrped[keyVal] = (objGrped[keyVal] || []).concat(obj);
-              return objGrped
-          }, {})
-      }
+    groupedBids() {
+      let key = "columnName";
+      return status => {
+        return this.bids
+          .filter(bid => (bid ? bid[key] == status : false))
+          .sort((bid1, bid2) => bid2.sort_order - bid1.sort_order);
+      };
+    }
   },
   methods: {
-    onColumnDrop (dropResult) {
-      const scene = Object.assign({}, this.scene)
-      scene.children = applyDrag(scene.children, dropResult)
-      this.scene = scene
+    onColumnDrop(dropResult) {
+      let cols = Object.values(this.columns);
+      cols = applyDrag(cols, dropResult);
+      this.columns = cols.reduce((accum, col) => {
+        accum[col.id] = col
+        return accum
+      },{});
     },
-    onCardDrop(columnId, dropResult) {
-      if (dropResult.removedIndex !== null || dropResult.addedIndex !== null) {
-          console.log('dropped', dropResult)
-        let payload = dropResult.payload;
-        let updateStatus = (id, newStatus) => {
-            let bids = this.bids.map( (bid) => {
-                if(bid.id == id) {
-                    bid.columnName = newStatus
-                    console.log(id)
-                }
-                return bid
-            })
-            this.bids = bids;
-            console.log(bids)
-        }
-        if(dropResult.addedIndex !== null) {
-            updateStatus(payload.id, columnId)
-            console.log('added', dropResult.payload)
-
-        }
-     
-        // const column = scene.children.filter(p => p.id === columnId)[0];
-        // const columnIndex = scene.children.indexOf(column);
-        // const newColumn = Object.assign({}, column);
-        // newColumn.children = applyDrag(newColumn.children, dropResult);
-        // scene.children.splice(columnIndex, 1, newColumn);
-        // this.scene = scene;
+    onCardDrop(columnId, dragResult) {
+      let { removedIndex, addedIndex, payload} = dragResult
+      if (removedIndex !== null || addedIndex !== null) {
+          this.columns[columnId].bids = applyDrag(this.columns[columnId].bids,  { removedIndex, addedIndex, payload})
+          this.columns = Object.assign({}, this.columns)
+      }
+      if(addedIndex !== null) {
+        this.$emit('update', {...dragResult})
       }
     },
     getCardPayload(columnId) {
       return index => {
-          return this.groupedBids[columnId][index]
-        // return this.scene.children.filter(p => 
-        //     p.id === columnId)[0].children[
-        //         index
-        //     ];
-        };
+        return this.columns[columnId].bids[index];
+      };
     },
     dragStart() {
       console.log("drag started");
     },
     log(...params) {
-    //   console.log(...params);
+      //   console.log(...params);
     }
   }
 };
