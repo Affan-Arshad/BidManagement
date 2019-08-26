@@ -13,14 +13,16 @@
 
 Route::middleware('auth')->group(function(){
     Route::get('/', function(){
-        return redirect('/bids');
+        return redirect('/dashboard');
     });
     
-    Route::resource('organizations', 'OrganizationController');
-    Route::resource('bidders', 'BidderController');
+    Route::get('/dashboard', 'DashboardController@index');
+
+    Route::resource('/organizations', 'OrganizationController');
+    Route::resource('/bidders', 'BidderController');
     
-    Route::resource('bids', 'BidController');
-    Route::resource('bids/{bid}/proposals', 'ProposalController');
-    Route::resource('bids/{bid}/evaluations', 'EvaluationController');
+    Route::resource('/bids', 'BidController');
+    Route::resource('/bids/{bid}/proposals', 'ProposalController');
+    Route::resource('/bids/{bid}/evaluations', 'EvaluationController');
 });
 Auth::routes(['register' => false]);

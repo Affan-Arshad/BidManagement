@@ -15,14 +15,16 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label>Iulaan No.</label>
-            <input type="text" class="form-control" name="iulaan_no">
-        </div>
-
-        <div class="form-group">
-            <label>Link</label>
-            <input type="text" class="form-control" name="link">
+        <div class="row">
+            <div class="form-group col">
+                <label>Iulaan No.</label>
+                <input type="text" class="form-control" name="iulaan_no">
+            </div>
+    
+            <div class="form-group col">
+                <label>Link</label>
+                <input type="text" class="form-control" name="link">
+            </div>
         </div>
 
         <div class="row">

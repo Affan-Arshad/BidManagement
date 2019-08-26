@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Bid extends Model
 {
 
-
     protected $fillable = [
         'name',
         'iulaan_no',
@@ -18,6 +17,7 @@ class Bid extends Model
         'cost',
         'date',
         'organization_id',
+        'status_id'
     ];
 
     public $statuses = [
@@ -28,7 +28,7 @@ class Bid extends Model
         'pending_agreement',
         'ongoing',
         'pending_payment',
-        'payment_received',
+        'completed',
         'lost',
     ];
 

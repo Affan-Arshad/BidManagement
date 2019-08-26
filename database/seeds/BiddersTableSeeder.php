@@ -12,9 +12,5 @@ class BiddersTableSeeder extends Seeder
      */
     public function run()
     {
-        Bidder::create(['name' => 'Hikaa']);
-        Bidder::create(['name' => 'LinkServe']);
-        Bidder::create(['name' => 'RoseWare']);
-        Bidder::create(['name' => 'BuilDraw']);
     }
 }

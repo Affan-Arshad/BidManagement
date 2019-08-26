@@ -36,6 +36,29 @@
                     <td>{{$bid->dateDisplay()}}</td>
                 </tr>
                 <tr>
+                    <th class="fitToContent">Status</th>
+                    <td>
+                    
+                        <form action="/bids/{{$bid->id}}" method="POST">
+                            @csrf
+                            @method('patch')
+                            <div class="row">
+                                <div class="form-group col">
+                                    <select class="form-control" name="status_id">
+                                        @foreach ($bid->statuses as $status)
+                                            <option {{ $bid->status_id == $status ? 'selected' : '' }} value="{{$status}}">{{ str_replace( '_', ' ', ucfirst($status) ) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group col fitToContent">
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-pen-square"></i></button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
                     <th class="fitToContent">Evaluation Criteria</th>
                     <td>
                         <form action="/bids/{{$bid->id}}/evaluations" method="POST">
