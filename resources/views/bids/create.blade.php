@@ -8,11 +8,7 @@
 
         <div class="form-group">
             <label>Organization</label>
-            <select name="organization_id" class="form-control">
-            @foreach($organizations as $id => $name)
-                <option value="{{$id}}" @if($id == $selected->id) selected @endif>{{$name}}</option>
-            @endforeach
-            </select>
+            <input type="text" name="organization" id="organization" class="form-control" />
         </div>
 
         <div class="row">
@@ -35,7 +31,7 @@
 
             <div class="form-group col">
                 <label>Category</label>
-                <input type="text" class="form-control" name="category" required>
+                <input type="text" class="form-control" name="category" id="category" required>
             </div>
         </div>
 
@@ -43,9 +39,15 @@
             <label>Estimated Cost (MVR)</label>
             <input type="text" class="form-control input-numeric" name="cost" required>
         </div>
+
         <div class="form-group">
-            <label>Date</label>
-            <input type="datetime-local" class="form-control" name="date" required>
+            <label>Info Date</label>
+        <input type="datetime-local" class="form-control" name="info_date" required >
+        </div>
+
+        <div class="form-group">
+            <label>Submission Date</label>
+            <input type="datetime-local" class="form-control" name="submission_date" required >
         </div>
 
         <div class="form-group">
@@ -55,7 +57,23 @@
 @endsection
 
 @section('additionalCSS')
+    <link rel="stylesheet" href="/css/awesomplete.css">
+    <link rel="stylesheet" href="/css/awesomplete.theme.css">
 @endsection
 
 @section('additionalJS')
+    <script src="/js/awesomplete.js"></script>
+    <script>
+        // Autocomplete Organization
+        var input = document.getElementById('organization');
+        new Awesomplete(input, {
+            list: <?php echo json_encode($organizationNames, true); ?>,
+        })
+
+        // Autocomplete Category
+        var input = document.getElementById('category');
+        new Awesomplete(input, {
+            list: <?php echo json_encode($categories, true); ?>,
+        })
+    </script>
 @endsection

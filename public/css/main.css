@@ -32,3 +32,14 @@ td.link a {
     content: counter(rows);
 }
 /* 404 Page */
+
+
+/* Tables in List Groups */
+.table-list {
+    background: #ececec;
+    box-shadow: 0px 0px 4px 0px inset rgba(0,0,0,0.5);
+    margin: 0;
+}
+.table-list td {
+    border: 1px solid #dfdfdf;
+}

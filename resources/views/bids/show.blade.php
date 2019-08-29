@@ -32,31 +32,16 @@
                     <td class="auto-numeric">{{$bid->cost}}</td>
                 </tr>
                 <tr>
-                    <th class="fitToContent">Date</th>
-                    <td>{{$bid->dateDisplay()}}</td>
+                    <th class="fitToContent">Information Date</th>
+                    <td>{{displayDateFormat($bid->info_date)}}</td>
+                </tr>
+                <tr>
+                    <th class="fitToContent">Submission Date</th>
+                    <td>{{displayDateFormat($bid->submission_date)}}</td>
                 </tr>
                 <tr>
                     <th class="fitToContent">Status</th>
-                    <td>
-                    
-                        <form action="/bids/{{$bid->id}}" method="POST">
-                            @csrf
-                            @method('patch')
-                            <div class="row">
-                                <div class="form-group col">
-                                    <select class="form-control" name="status_id">
-                                        @foreach ($bid->statuses as $status)
-                                            <option {{ $bid->status_id == $status ? 'selected' : '' }} value="{{$status}}">{{ str_replace( '_', ' ', ucfirst($status) ) }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group col fitToContent">
-                                    <button type="submit" class="btn btn-success"><i class="fas fa-pen-square"></i></button>
-                                </div>
-                            </div>
-                        </form>
-                    </td>
+                    <td>{{ str_replace( '_', ' ', ucfirst($bid->status_id) ) }}</td>
                 </tr>
                 <tr>
                     <th class="fitToContent">Evaluation Criteria</th>

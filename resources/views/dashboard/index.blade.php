@@ -21,12 +21,32 @@
                     <div id="{{$status}}-collapse" class="collapse" aria-labelledby="headingOne"
                         data-parent="#accordion">
 
-                        <table class="table">
+                        <table class="table table-list">
                             <tbody>
                                 @foreach ($bidGrp as $bid)
                                 <tr>
-                                    <td class="link"><a class="pl-5 btn text-left"
-                                            href="/bids/{{$bid->id}}">{{ $bid->name }}</a></td>
+                                    <td class="link">
+                                        <a class="pl-5 btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} | {{ $bid->organization->name }}</a>
+                                    </td>
+                                    <td>
+                                        <form action="/bids/{{$bid->id}}" method="POST">
+                                            @csrf
+                                            @method('patch')
+                                            <div class="row">
+                                                <div class="form-group col">
+                                                    <select class="form-control" name="status_id">
+                                                        @foreach (App\Bid::$statuses as $status)
+                                                            <option {{ $bid->status_id == $status ? 'selected' : '' }} value="{{$status}}">{{ str_replace( '_', ' ', ucfirst($status) ) }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                
+                                                <div class="form-group col fitToContent">
+                                                    <button type="submit" class="btn btn-success"><i class="fas fa-pen-square"></i></button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

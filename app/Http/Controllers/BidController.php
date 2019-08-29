@@ -33,8 +33,9 @@ class BidController extends Controller
         if(isset($_GET['org']) && $_GET['org'] != null) {
             $id = $_GET['org'];
             $selected = Organization::where('id', $id)->first();
-            $organizations = Organization::all()->pluck('name', 'id');
-            return view('bids.create', compact('selected', 'organizations'));
+            $organizationNames = Organization::all()->pluck('name');
+            $categories = array_values(Bid::all()->pluck('category')->unique()->toArray());
+            return view('bids.create', compact('selected', 'organizationNames', 'categories'));
         }
         return redirect('/organizations');
     }
@@ -47,7 +48,23 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
-        $bid = Bid::create($request->all());
+        // Check If Organization Already Exists
+        $organization = null;
+        $organizations = Organization::all();
+        foreach ($organizations as $current) {
+            if(strtolower($request->organization) == strtolower($current->name)) {
+                $organization = $current;
+            }
+        }
+        // If Organization Doesn't Exist, Create New
+        if ($organization == null) {
+            $organization = Organization::create(['name' => $request->organization]);
+        }
+
+        $data = $request->all();
+        $data['organization_id'] = $organization->id;
+        $bid = Bid::create($data);
+
         return redirect('/bids/'.$bid->id);
     }
 
@@ -118,7 +135,10 @@ class BidController extends Controller
     public function edit(Bid $bid)
     {
         $organizations = Organization::all()->pluck('name', 'id');
-        return view('bids.edit', compact('bid', 'organizations'));
+        $organizationNames = Organization::all()->pluck('name');
+        $categories = array_values(Bid::all()->pluck('category')->unique()->toArray());
+        // dd($categories);
+        return view('bids.edit', compact('bid', 'organizationNames', 'categories'));
     }
 
     /**
@@ -131,7 +151,7 @@ class BidController extends Controller
     public function update(Request $request, Bid $bid)
     {
         $bid->update($request->all());
-        return redirect("bids/$bid->id");
+        return redirect()->back();
     }
 
     /**

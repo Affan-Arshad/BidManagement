@@ -15,15 +15,17 @@ class Bid extends Model
         'link',
         'category',
         'cost',
-        'date',
+        'info_date',
+        'submission_date',
         'organization_id',
         'status_id'
     ];
 
-    public $statuses = [
+    public static $statuses = [
         'prebid',
         'pending_estimate',
         'pending_proposal',
+        'ready_for_submission',
         'pending_evaluation',
         'pending_agreement',
         'ongoing',
@@ -34,15 +36,6 @@ class Bid extends Model
 
     public function setCostAttribute($value) {
         $this->attributes['cost'] =  str_replace(',', '', $value);
-    }
-
-    public function getDate() {
-        return str_replace(' ', 'T', $this->date);
-    }
-
-    public function dateDisplay() {
-        $date = date_create($this->date);
-        return date_format($date, 'd M Y - h:i a');
     }
     
     public function organization() {

@@ -9,11 +9,7 @@
 
         <div class="form-group">
             <label>Organization</label>
-            <select name="organization_id" class="form-control">
-            @foreach($organizations as $id => $name)
-                <option value="{{$id}}" @if($id == $bid->organization->id) selected @endif>{{$name}}</option>
-            @endforeach
-            </select>
+            <input type="text" name="organization" id="organization" class="form-control" value="{{$bid->organization->name}}" />
         </div>
 
         <div class="form-group">
@@ -42,9 +38,24 @@
             <label>Estimated Cost (MVR)</label>
             <input type="text" class="form-control input-numeric" name="cost" value="{{$bid->cost}}">
         </div>
+
         <div class="form-group">
-            <label>Date</label>
-            <input type="datetime-local" class="form-control" name="date" value="{{$bid->getDate()}}">
+            <label>Info Date</label>
+            <input type="datetime-local" class="form-control" name="info_date" value="{{ inputDateFormat($bid->info_date) }}">
+        </div>
+
+        <div class="form-group">
+            <label>Submission Date</label>
+            <input type="datetime-local" class="form-control" name="submission_date" value="{{ inputDateFormat($bid->submission_date) }}">
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <select class="form-control" name="status_id">
+                @foreach (App\Bid::$statuses as $status)
+                    <option {{ $bid->status_id == $status ? 'selected' : '' }} value="{{$status}}">{{ str_replace( '_', ' ', ucfirst($status) ) }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="form-group">
@@ -54,7 +65,23 @@
 @endsection
 
 @section('additionalCSS')
+    <link rel="stylesheet" href="/css/awesomplete.css">
+    <link rel="stylesheet" href="/css/awesomplete.theme.css">
 @endsection
 
 @section('additionalJS')
+    <script src="/js/awesomplete.js"></script>
+    <script>
+        // Autocomplete Organization
+        var input = document.getElementById('organization');
+        new Awesomplete(input, {
+            list: <?php echo json_encode($organizationNames, true); ?>,
+        })
+
+        // Autocomplete Category
+        input = document.getElementById('category');
+        new Awesomplete(input, {
+            list: <?php echo json_encode($categories, true); ?>,
+        })
+    </script>
 @endsection
