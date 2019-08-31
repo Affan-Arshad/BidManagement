@@ -130,7 +130,7 @@ class BidController extends Controller
         $organizations = Organization::all()->pluck('name', 'id');
         $organizationNames = Organization::all()->pluck('name');
         $categories = array_values(Bid::all()->pluck('category')->unique()->toArray());
-        // dd($categories);
+        // dd($bid);
         return view('bids.edit', compact('bid', 'organizationNames', 'categories'));
     }
 
@@ -143,9 +143,8 @@ class BidController extends Controller
      */
     public function update(Request $request, Bid $bid)
     {
-        // dd($request->all());
         $bid->update($request->all());
-        return redirect()->back();
+        return redirect($request->redirect);
     }
 
     /**

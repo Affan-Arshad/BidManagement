@@ -6,6 +6,7 @@
     <form action="/bids/{{$bid->id}}" method="POST">
         @csrf
         @method('patch')
+        <input type="hidden" name="redirect" value="/bids/{{$bid->id}}">
 
         <div class="form-group">
             <label>Organization</label>
@@ -36,7 +37,7 @@
 
         <div class="form-group">
             <label>Estimated Cost (MVR)</label>
-            <input type="number" class="form-control input-numeric" name="cost" value="{{$bid->cost}}">
+            <input type="text" class="form-control input-numeric" name="cost" value="{{$bid->cost}}">
         </div>
 
         <div class="form-group">
@@ -56,7 +57,7 @@
 
         <div class="form-group">
             <label>Duration</label>
-            <input type="number" class="form-control input-numeric" name="duration" value="{{$bid->duration}}">
+            <input type="text" class="form-control input-numeric" name="duration" value="{{$bid->duration}}">
         </div>
 
         <div class="form-group">
