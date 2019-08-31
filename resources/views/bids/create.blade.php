@@ -36,13 +36,8 @@
         </div>
 
         <div class="form-group">
-            <label>Estimated Cost (MVR)</label>
-            <input type="text" class="form-control input-numeric" name="cost" required>
-        </div>
-
-        <div class="form-group">
             <label>Info Date</label>
-        <input type="datetime-local" class="form-control" name="info_date" required >
+            <input type="datetime-local" class="form-control" name="info_date" required >
         </div>
 
         <div class="form-group">

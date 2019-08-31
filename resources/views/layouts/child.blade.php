@@ -3,7 +3,7 @@
 @section('content')
 
     @hasSection('fixed-content')
-    <div class="container p-5">
+    <div class="container py-5">
             
         @if(Session::has('messages'))
             @foreach (Session::get('messages') as $msgList)

@@ -76,13 +76,6 @@ class BidController extends Controller
      */
     public function show(Bid $bid)
     {
-        // Determine What Input to keep initial Focus
-        $focus = "#bidder";
-        if(isset($_GET['focus'])) {
-            if($_GET['focus'] == 'criterion') {
-                $focus = '#criterion';
-            }
-        }
 
         $bidderNames = Bidder::all()->pluck('name');
         $criteriaNames = array_values(Evaluation::all()->pluck('criterion')->unique()->toArray());
@@ -150,6 +143,7 @@ class BidController extends Controller
      */
     public function update(Request $request, Bid $bid)
     {
+        // dd($request->all());
         $bid->update($request->all());
         return redirect()->back();
     }

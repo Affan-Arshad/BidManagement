@@ -40,6 +40,14 @@
                     <td>{{displayDateFormat($bid->submission_date)}}</td>
                 </tr>
                 <tr>
+                    <th class="fitToContent">Agreement Date</th>
+                    <td>{{displayDateFormat($bid->agreement_date)}}</td>
+                </tr>
+                <tr>
+                    <th class="fitToContent">Duration</th>
+                    <td>{{$bid->duration}}</td>
+                </tr>
+                <tr>
                     <th class="fitToContent">Status</th>
                     <td>{{ str_replace( '_', ' ', ucfirst($bid->status_id) ) }}</td>
                 </tr>
@@ -238,9 +246,11 @@
     <script src="/js/awesomplete.js"></script>
     <script>
         // Focus on Inputs
+        @isset($_GET['focus'])
         window.onload = function() {
-            document.querySelector("<?php echo $focus; ?>").focus();
+            document.querySelector("#<?php echo $_GET['focus']; ?>").focus();
         }
+        @endif
 
         // Autocomplete Bidders
         var input = document.getElementById('bidder');

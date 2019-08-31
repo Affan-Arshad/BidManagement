@@ -3,20 +3,23 @@
 namespace App;
 
 use App\Bidder;
+use Carbon\Carbon;
 use App\Evaluation;
 use Illuminate\Database\Eloquent\Model;
 
 class Bid extends Model
 {
-
     protected $fillable = [
         'name',
         'iulaan_no',
         'link',
         'category',
         'cost',
+        // 'estimate',
         'info_date',
         'submission_date',
+        'agreement_date',
+        'duration',
         'organization_id',
         'status_id'
     ];
@@ -33,6 +36,26 @@ class Bid extends Model
         'completed',
         'lost',
     ];
+
+    // protected $casts = [
+    //     'estimate' => 'array'
+    // ];
+
+    // public function getEstimateAttribute($estimate) {
+    //     return json_decode($estimate, true);
+    // }
+
+    // public function setEstimateAttribute($value) {
+    //     $estimate = [];
+
+    //     foreach ($value as $arrayItem) {
+    //         if (!is_null($arrayItem['key'])) {
+    //             $estimate[] = $arrayItem;
+    //         }
+    //     }
+
+    //     $this->attributes['estimate'] = json_encode($estimate);
+    // }
 
     public function setCostAttribute($value) {
         $this->attributes['cost'] =  str_replace(',', '', $value);

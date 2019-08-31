@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "94d4bf9ac7f4a933030e46a346ee2917",
+    "content-hash": "059c25b7b1f59a54d1e77a3aec504a84",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -2874,6 +2874,55 @@
                 "environment"
             ],
             "time": "2019-06-15T22:40:20+00:00"
+        },
+        {
+            "name": "ybr-nx/laravel-mariadb",
+            "version": "1.0.19",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ybr-nx/laravel-mariadb.git",
+                "reference": "3d9bd0dc3ad9142bfd4fcb72b9bbed09f446421f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ybr-nx/laravel-mariadb/zipball/3d9bd0dc3ad9142bfd4fcb72b9bbed09f446421f",
+                "reference": "3d9bd0dc3ad9142bfd4fcb72b9bbed09f446421f",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.3.*|5.4.*|5.5.*|5.6.*|5.7.*|5.8.*"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "YbrNX\\MariaDB\\MariaDBServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "YbrNX\\MariaDB\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "EUPL-1.2"
+            ],
+            "authors": [
+                {
+                    "name": "Ingmar Aasoja",
+                    "email": "ingmar@aasoja.ee"
+                }
+            ],
+            "description": "Add MariaDB JSON select support to Laravel",
+            "keywords": [
+                "database",
+                "json",
+                "laravel",
+                "mariadb"
+            ],
+            "time": "2019-03-23T12:49:54+00:00"
         }
     ],
     "packages-dev": [

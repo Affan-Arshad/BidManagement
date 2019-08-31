@@ -1,7 +1,7 @@
 @extends('layouts.child')
 
 @section('fixed-content')
-    <h3>Edit Bid</h3>
+    <h3>Edit <a href="/bids/{{$bid->id}}">{{$bid->name}}</a></h3>
     <hr>
     <form action="/bids/{{$bid->id}}" method="POST">
         @csrf
@@ -36,7 +36,7 @@
 
         <div class="form-group">
             <label>Estimated Cost (MVR)</label>
-            <input type="text" class="form-control input-numeric" name="cost" value="{{$bid->cost}}">
+            <input type="number" class="form-control input-numeric" name="cost" value="{{$bid->cost}}">
         </div>
 
         <div class="form-group">
@@ -47,6 +47,16 @@
         <div class="form-group">
             <label>Submission Date</label>
             <input type="datetime-local" class="form-control" name="submission_date" value="{{ inputDateFormat($bid->submission_date) }}">
+        </div>
+
+        <div class="form-group">
+            <label>Agreement Date</label>
+            <input type="datetime-local" class="form-control" name="agreement_date" value="{{ inputDateFormat($bid->agreement_date) }}">
+        </div>
+
+        <div class="form-group">
+            <label>Duration</label>
+            <input type="number" class="form-control input-numeric" name="duration" value="{{$bid->duration}}">
         </div>
 
         <div class="form-group">

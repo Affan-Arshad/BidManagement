@@ -56,7 +56,7 @@ class ProposalController extends Controller
             'price' => $request->price,
             'duration_days' => $request->duration_days,
         ]);
-        return redirect()->back();
+        return redirect("/bids/$bid->id?focus=bidder");
     }
 
     /**
@@ -108,7 +108,7 @@ class ProposalController extends Controller
         $proposal->duration_days = $request->duration_days;
         $proposal->save();
 
-        return redirect()->back();
+        return redirect("/bids/$bid->id?focus=bidder");
     }
 
     /**
