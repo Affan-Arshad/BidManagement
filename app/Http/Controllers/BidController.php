@@ -116,7 +116,7 @@ class BidController extends Controller
         }
         $bid->proposals = $bid->proposals->sortByDesc('eval');
 
-        return view('bids.show', compact('bid', 'bidderNames', 'criteriaNames', 'focus'));
+        return view('bids.show', compact('bid', 'bidderNames', 'criteriaNames'));
     }
 
     /**
