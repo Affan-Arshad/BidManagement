@@ -9,51 +9,57 @@
             <tbody>
                 <tr>
                     <th class="fitToContent">Organization</th>
-                    <td class="link">
+                    <td colspan=3  class="link">
                         <a class="btn text-left" href="/organizations/{{$bid->organization->id}}">{{$bid->organization->name}}</a>
                     </td>
                 </tr>
                 <tr>
                     <th>Iulaan No.</th>
-                    <td>{{$bid->iulaan_no}}</td>
+                    <td colspan=3 >{{$bid->iulaan_no}}</td>
                 </tr>
                 <tr>
                     <th>Link</th>
-                    <td class="link">
+                    <td colspan=3  class="link">
                         <a target="_blank" class="btn text-left" href="{{$bid->link}}">{{$bid->link}}</a>
                     </td>
                 </tr>
                 <tr>
                     <th class="fitToContent">Category</th>
-                    <td>{{$bid->category}}</td>
+                    <td colspan=3 >{{$bid->category}}</td>
                 </tr>
                 <tr>
                     <th class="fitToContent">Estimated Cost (MVR)</th>
-                    <td class="auto-numeric">{{$bid->cost}}</td>
+                    <td colspan=3  class="auto-numeric">{{$bid->cost}}</td>
+                </tr>
+                <tr>
+                    <th class="fitToContent">Registration Start Date</th>
+                    <td >{{displayDateFormat($bid->registration_start_date)}}</td>
+                    <th class="fitToContent">Registration End Date</th>
+                    <td >{{displayDateFormat($bid->registration_end_date)}}</td>
                 </tr>
                 <tr>
                     <th class="fitToContent">Information Date</th>
                     <td>{{displayDateFormat($bid->info_date)}}</td>
-                </tr>
-                <tr>
                     <th class="fitToContent">Submission Date</th>
                     <td>{{displayDateFormat($bid->submission_date)}}</td>
                 </tr>
                 <tr>
                     <th class="fitToContent">Agreement Date</th>
                     <td>{{displayDateFormat($bid->agreement_date)}}</td>
+                    <th class="fitToContent">Extended Date</th>
+                    <td>{{displayDateFormat($bid->extended_date)}}</td>
                 </tr>
                 <tr>
                     <th class="fitToContent">Duration</th>
-                    <td>{{$bid->duration}}</td>
+                    <td colspan=3 >{{$bid->duration}}</td>
                 </tr>
                 <tr>
                     <th class="fitToContent">Status</th>
-                    <td>{{ str_replace( '_', ' ', ucfirst($bid->status_id) ) }}</td>
+                    <td colspan=3 >{{ str_replace( '_', ' ', ucfirst($bid->status_id) ) }}</td>
                 </tr>
                 <tr>
                     <th class="fitToContent">Evaluation Criteria</th>
-                    <td>
+                    <td colspan=3 >
                         <form action="/bids/{{$bid->id}}/evaluations" method="POST">
                             @csrf
                             <div class="row">

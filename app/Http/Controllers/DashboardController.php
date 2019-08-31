@@ -26,10 +26,14 @@ class DashboardController extends Controller
             // Calculate Remaining Days for Ongoig Bids
             if ($status == 'ongoing') {
                 foreach ($bidGrp as $bid) {
-                    if($bid->agreement_date && $bid->duration) {
+                    if($bid->extended_date) {
+                        $bid->remaining_days = Carbon::now()->diffInDays($bid->extended_date, false);
+                    }
+                    elseif($bid->agreement_date && $bid->duration) {
                         $agreement_date = Carbon::createFromFormat('Y-m-d H:i:s', $bid->agreement_date);
                         $bid->due_date = $agreement_date->addDays($bid->duration);
-                        $bid->remaining_days = $bid->due_date->diffInDays(Carbon::now()) . ' days till ' . $bid->due_date->format('d M Y - h:i a');
+                        $bid->remaining_days = Carbon::now()->diffInDays($bid->due_date, false);
+                        // $bid->remaining_days .=  ($bid->remaining_days > 0 ? ' days till ' : ' days from ') . $bid->due_date->format('d M Y - h:i a');
                     } else {
                         $bid->remaining_days = 'Set Agreement Date & Duration';
                     }
@@ -45,7 +49,7 @@ class DashboardController extends Controller
             }
 
             // Sort upcoming_submissions by submission_date
-            if($status == 'pending_submission' || $status == 'pending_estimate') {
+            if($status == 'pending_estimate' || $status == 'pending_proposal' || $status == 'ready_for_submission') {
                 $bids[$status] = $bidGrp->sortBy('submission_date');
             }
         }

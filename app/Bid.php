@@ -16,9 +16,12 @@ class Bid extends Model
         'category',
         'cost',
         // 'estimate',
+        'registration_start_date',
+        'registration_end_date',
         'info_date',
         'submission_date',
         'agreement_date',
+        'extended_date',
         'duration',
         'organization_id',
         'status_id'

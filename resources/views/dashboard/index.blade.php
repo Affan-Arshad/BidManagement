@@ -4,14 +4,180 @@
 <h3>Dashboard</h3>
 <hr>
 
-<div class="row">
+<div class="row" id="dashboard-cards">
 
-    <div class="col mb-5">
+    <div class="col-12 mb-5">
+        <div class="card">
+            <div class="card-header" data-toggle="collapse" data-target="#Ongoing-collapse">
+                <h5 class="mb-0">Ongoing Bids
+                    <span class="badge badge-primary float-right">
+                        {{ (isset($bids['ongoing']) ? count($bids['ongoing']) : 0) }}
+                    </span>
+                </h5>
+            </div>
+            <div class="card-body collapse" id="Ongoing-collapse" data-parent="#dashboard-cards">
+                <ul class="list-group">
+
+                    @foreach ($bids as $status => $bidGrp )
+                    @if($status == 'ongoing')
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Signed</th>
+                                <th>Due</th>
+                                <th>Extended</th>
+                                <th>Duration</th>
+                                <th>Remaining</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($bidGrp as $bid)
+                            <tr>
+                                <td class="link">
+                                    <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
+                                        {{ $bid->organization->name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ displayDateFormat($bid->agreement_date) }}
+                                </td>
+                                <td>
+                                    {{ displayDateFormat($bid->due_date) }}
+                                </td>
+                                <td>
+                                    {{ displayDateFormat($bid->extended_date) }}
+                                </td>
+                                <td>
+                                    {{ $bid->duration }}
+                                </td>
+                                <td>
+                                    {{ $bid->remaining_days }}
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @endif
+                    @endforeach
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mb-5">
+        <div class="card">
+            <div class="card-header" data-toggle="collapse" data-target="#submissions-collapse">
+                <h5 class="mb-0">
+                    Upcoming Submissions
+                    <span class="badge badge-primary float-right">
+                        {{
+                        (isset($bids['pending_estimate']) ? count($bids['pending_estimate']) : 0) +
+                        (isset($bids['pending_proposal']) ? count($bids['pending_proposal']) : 0) +
+                        (isset($bids['ready_for_submission']) ? count($bids['ready_for_submission']) : 0)
+                        }}
+                    </span>
+                </h5>
+            </div>
+            <div class="card-body collapse" id="submissions-collapse" data-parent="#dashboard-cards">
+                <ul class="list-group">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($bids as $status => $bidGrp )
+                            @if($status == 'pending_estimate' || $status == 'pending_proposal' || $status ==
+                            'ready_for_submission')
+                            @foreach ($bidGrp as $bid)
+                            <tr>
+                                <td class="link">
+                                    <a class="btn text-left" href="/bids/{{$bid->id}}">
+                                        {{ $bid->name }} | {{ $bid->organization->name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    {{ str_replace( '_', ' ', ucfirst( $status ) ) }}
+                                </td>
+                                <td>
+                                    {{ displayDateFormat($bid->submission_date) }}
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mb-5">
+        <div class="card">
+            <div class="card-header" data-toggle="collapse" data-target="#infos-collapse">
+                <h5 class="mb-0">
+                    Upcoming Infos
+                    <span class="badge badge-primary float-right">
+                        {{ (isset($bids['prebid']) ? count($bids['prebid']) : 0) }}
+                    </span>
+                </h5>
+            </div>
+            <div class="card-body collapse" id="infos-collapse" data-parent="#dashboard-cards">
+                <ul class="list-group">
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Registration starts</th>
+                                <th>Registration ends</th>
+                                <th>Prebid Meeting</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($bids as $status => $bidGrp )
+                            @if($status == 'prebid')
+                            @foreach ($bidGrp as $bid)
+                            <tr>
+                                <td class="link">
+                                    <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
+                                        {{ $bid->organization->name }}</a>
+                                </td>
+                                <td>
+                                    {{ displayDateFormat($bid->registration_start_date) }}
+                                </td>
+                                <td>
+                                    {{ displayDateFormat($bid->registration_end_date) }}
+                                </td>
+                                <td>
+                                    {{ displayDateFormat($bid->info_date) }}
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mb-5">
         <div id="accordion" class="card">
-            <div class="card-header">
+            <div class="card-header" data-toggle="collapse" data-target="#status-collapse">
                 <h5 class="mb-0">Bids by Status</h5>
             </div>
-            <div class="card-body">
+            <div class="card-body collapse" id="status-collapse" data-parent="#dashboard-cards">
                 <ul class="list-group">
 
                     @foreach ($bids as $status => $bidGrp )
@@ -20,8 +186,7 @@
                         {{ str_replace( '_', ' ', ucfirst( $status ) ) }}
                         <span class="badge badge-primary badge-pill">{{ count($bidGrp) }}</span>
                     </li>
-                    <div id="{{$status}}-collapse" class="collapse" aria-labelledby="headingOne"
-                        data-parent="#accordion">
+                    <div id="{{$status}}-collapse" class="collapse" data-parent="#accordion">
 
                         <table class="table table-list">
                             <tbody>
@@ -67,147 +232,7 @@
         </div>
     </div>
 
-    <div class="col mb-5">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">Ongoing Bids</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-
-                    @foreach ($bids as $status => $bidGrp )
-                    @if($status == 'ongoing')
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Remaining</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($bidGrp as $bid)
-                            <tr>
-                                <td class="link">
-                                    <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
-                                        {{ $bid->organization->name }}</a>
-                                </td>
-                                <td>
-                                    {{ $bid->remaining_days }}
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
-                    @endforeach
-
-                </ul>
-            </div>
-        </div>
-    </div>
-
 </div>
-
-<div class="row">
-
-    <div class="col mb-5">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">Upcoming Infos</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-
-                    @foreach ($bids as $status => $bidGrp )
-                    @if($status == 'prebid')
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($bidGrp as $bid)
-                            <tr>
-                                <td class="link">
-                                    <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
-                                        {{ $bid->organization->name }}</a>
-                                </td>
-                                <td>
-                                    {{ displayDateFormat($bid->info_date) }}
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
-                    @endforeach
-
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div class="col mb-5">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="mb-0">Upcoming Submissions</h5>
-            </div>
-            <div class="card-body">
-                <ul class="list-group">
-
-                    @foreach ($bids as $status => $bidGrp )
-                    @if($status == 'pending_submission' || $status == 'pending_estimate')
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Date</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($bidGrp as $bid)
-                            <tr>
-                                <td class="link">
-                                    <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
-                                        {{ $bid->organization->name }}</a>
-                                </td>
-                                <td>
-                                    {{ displayDateFormat($bid->submission_date) }}
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    @endif
-                    @endforeach
-
-                </ul>
-            </div>
-        </div>
-    </div>
-
-</div>
-
-{{-- <div class="col-6">
-    <div id="accordion" class="card">
-        <div class="card-body">
-            <h5 class="card-title">Bids for Follow-up</h5>
-            <table class="table m-0">
-                <tbody>
-                    @foreach ($followUpBids as $bid => $followUps)
-                    <tr>
-                        <td class="link">
-                            <a class="btn text-left" href="/bids/{{$bid}}">{{ $bid }}</a>
-</td>
-</tr>
-@endforeach
-</tbody>
-</table>
-</div>
-</div>
-</div> --}}
 
 @endsection
 
