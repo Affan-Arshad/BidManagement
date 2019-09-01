@@ -272,6 +272,7 @@
                 </div>
                 <div class="modal-body">
                     @csrf
+                    <input type="hidden" name="lot_id" class="lot_id">
                     <div class="row">
                         <div class="form-group col">
                             <input type="text" name="name" class="name form-control" placeholder="Name"
@@ -432,6 +433,8 @@
 
         // Edit Proposal
         function editProposal(proposal) {
+            // Set Lot Id
+            $('#editProposal .lot_id')[0].value = proposal.lot_id;
             // Set Name
             $('#editProposal .name')[0].value = proposal.bidder.name;
             // Set Price

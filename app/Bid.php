@@ -39,6 +39,7 @@ class Bid extends Model
         'pending_payment',
         'completed',
         'lost',
+        'dropped',
     ];
 
     // protected $casts = [
