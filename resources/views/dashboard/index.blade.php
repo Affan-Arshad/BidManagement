@@ -96,7 +96,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <span class="badge badge-{{$bid->status_color}}">{{ str_replace( '_', ' ', ucfirst( $bid->status_id ) ) }}</span>
+                                    <span class="badge badge-{{$bid->status_color}}">{{ str_replace( '_', ' ', ucwords( $bid->status_id ) ) }}</span>
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->submission_date) }}
@@ -174,7 +174,7 @@
                     @foreach ($bids as $status => $bidGrp )
                     <li class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse"
                         data-target="#{{$status}}-collapse">
-                        {{ str_replace( '_', ' ', ucfirst( $status ) ) }}
+                        {{ str_replace( '_', ' ', ucwords( $status ) ) }}
                         <span class="badge badge-primary badge-pill">{{ count($bidGrp) }}</span>
                     </li>
                     <div id="{{$status}}-collapse" class="collapse" data-parent="#accordion">
@@ -199,7 +199,7 @@
                                                         @foreach (App\Bid::$statuses as $status)
                                                         <option {{ $bid->status_id == $status ? 'selected' : '' }}
                                                             value="{{$status}}">
-                                                            {{ str_replace( '_', ' ', ucfirst($status) ) }}</option>
+                                                            {{ str_replace( '_', ' ', ucwords($status) ) }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>

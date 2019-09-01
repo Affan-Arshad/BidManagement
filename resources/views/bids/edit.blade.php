@@ -88,7 +88,7 @@
         <select class="form-control" name="status_id">
             @foreach (App\Bid::$statuses as $status)
             <option {{ $bid->status_id == $status ? 'selected' : '' }} value="{{$status}}">
-                {{ str_replace( '_', ' ', ucfirst($status) ) }}</option>
+                {{ str_replace( '_', ' ', ucwords($status) ) }}</option>
             @endforeach
         </select>
     </div>

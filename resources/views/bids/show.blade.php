@@ -56,7 +56,7 @@
             </tr>
             <tr>
                 <th class="fitToContent">Status</th>
-                <td colspan=3>{{ str_replace( '_', ' ', ucfirst($bid->status_id) ) }}</td>
+                <td colspan=3>{{ str_replace( '_', ' ', ucwords($bid->status_id) ) }}</td>
             </tr>
             <tr>
                 <th class="fitToContent">Evaluation Criteria</th>
