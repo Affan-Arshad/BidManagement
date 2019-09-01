@@ -19,7 +19,7 @@ class BidController extends Controller
     public function index()
     {
         $bids = Bid::all();
-        
+
         return view('bids.index', compact('bids'));
     }
 
@@ -30,7 +30,7 @@ class BidController extends Controller
      */
     public function create()
     {
-        if(isset($_GET['org']) && $_GET['org'] != null) {
+        if (isset($_GET['org']) && $_GET['org'] != null) {
             $id = $_GET['org'];
             $selected = Organization::where('id', $id)->first();
             $organizationNames = Organization::all()->pluck('name');
@@ -52,7 +52,7 @@ class BidController extends Controller
         $organization = null;
         $organizations = Organization::all();
         foreach ($organizations as $current) {
-            if(strtolower($request->organization) == strtolower($current->name)) {
+            if (strtolower($request->organization) == strtolower($current->name)) {
                 $organization = $current;
             }
         }
@@ -65,7 +65,7 @@ class BidController extends Controller
         $data['organization_id'] = $organization->id;
         $bid = Bid::create($data);
 
-        return redirect('/bids/'.$bid->id);
+        return redirect('/bids/' . $bid->id);
     }
 
     /**
@@ -79,42 +79,47 @@ class BidController extends Controller
 
         $bidderNames = Bidder::all()->pluck('name');
         $criteriaNames = array_values(Evaluation::all()->pluck('criterion')->unique()->toArray());
+        $bid->proposalsByLot = $bid->proposals->groupBy('lot_id');
 
         // Evaluation
-        foreach($bid->evaluations as $evaluation) {
-            $criterion = strtolower($evaluation->criterion);
-            // Price
-            if(strtolower($evaluation->criterion) == 'price') {
-                $lowest = null;
-                foreach($bid->proposals as $proposal) {
-                    if($lowest == null || $proposal->price <= $lowest) {
-                        $lowest = $proposal->price;
+        foreach ($bid->proposalsByLot as $lot => $proposals) {
+            foreach ($bid->evaluations as $evaluation) {
+                $criterion = strtolower($evaluation->criterion);
+                // Price
+                if (strtolower($evaluation->criterion) == 'price') {
+                    $lowest = null;
+                    foreach ($proposals as $proposal) {
+                        if ($lowest == null || $proposal->price <= $lowest) {
+                            $lowest = $proposal->price;
+                        }
+                    }
+                    foreach ($proposals as $proposal) {
+                        $proposal->eval += $lowest / $proposal->price * $evaluation->percentage;
                     }
                 }
-                foreach($bid->proposals as $proposal) {
-                    $proposal->eval += $lowest/$proposal->price*$evaluation->percentage;
-                }
-            }
-            // Duration
-            else if($criterion == 'duration'
-            || $criterion == 'days'
-            || $criterion == 'delivery') {
-                $lowest = null;
-                foreach($bid->proposals as $proposal) {
-                    if($lowest == null || $proposal->duration_days <= $lowest) {
-                        $lowest = $proposal->duration_days;
+                // Duration
+                else if (
+                    $criterion == 'duration'
+                    || $criterion == 'days'
+                    || $criterion == 'delivery'
+                ) {
+                    $lowest = null;
+                    foreach ($proposals as $proposal) {
+                        if ($lowest == null || $proposal->duration_days <= $lowest) {
+                            $lowest = $proposal->duration_days;
+                        }
+                    }
+                    foreach ($proposals as $proposal) {
+                        $proposal->eval += $lowest / $proposal->duration_days * $evaluation->percentage;
+                    }
+                } else {
+                    foreach ($proposals as $proposal) {
+                        $proposal->eval += $evaluation->percentage;
                     }
                 }
-                foreach($bid->proposals as $proposal) {
-                    $proposal->eval += $lowest/$proposal->duration_days*$evaluation->percentage;
-                }
-            } else {
-                foreach($bid->proposals as $proposal) {
-                    $proposal->eval += $evaluation->percentage;
-                }
             }
+            $bid->proposalsByLot[$lot] = $proposals->sortByDesc('eval');
         }
-        $bid->proposals = $bid->proposals->sortByDesc('eval');
 
         return view('bids.show', compact('bid', 'bidderNames', 'criteriaNames'));
     }
@@ -156,18 +161,19 @@ class BidController extends Controller
     public function destroy(Bid $bid)
     {
         $bid->delete();
-        $messages[]['danger'] = 'Deleted Bid: '.$bid->name;
+        $messages[]['danger'] = 'Deleted Bid: ' . $bid->name;
         \Session::flash('messages', $messages);
         return redirect()->back();
     }
 
     // Add Bidders to Bid
-    public function addBidders(Request $request, Bid $bid) {
+    public function addBidders(Request $request, Bid $bid)
+    {
         // Check If Bidder Already Exists
         $bidder = null;
         $bidders = Bidder::all();
         foreach ($bidders as $current) {
-            if(strtolower($request->name) == strtolower($current->name)) {
+            if (strtolower($request->name) == strtolower($current->name)) {
                 $bidder = $current;
             }
         }
@@ -186,7 +192,8 @@ class BidController extends Controller
     }
 
     // Remove Bidder from Bid
-    public function removeBidder(Bid $bid, Bidder $bidder) {
+    public function removeBidder(Bid $bid, Bidder $bidder)
+    {
         $bid->bidders()->detach($bidder->id);
         return redirect()->back();
     }

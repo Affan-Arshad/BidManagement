@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $bids = $bids->groupBy('status_id');
         // Sort Bids By Status as Defined in the statuses array
         $statuses = Bid::$statuses;
-        $bids = $bids->sortBy(function ($item, $key) use ($statuses) {
+        $bids = $bids->sortBy(function ($bids, $key) use ($statuses) {
             return array_search($key, $statuses);
         });
 

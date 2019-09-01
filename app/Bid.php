@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Lot;
 use App\Bidder;
 use Carbon\Carbon;
 use App\Evaluation;
@@ -74,6 +75,10 @@ class Bid extends Model
 
     public function proposals() {
         return $this->hasMany(Proposal::class);
+    }
+
+    public function lots() {
+        return $this->hasMany(Lot::class);
     }
 
     public function evaluations() {

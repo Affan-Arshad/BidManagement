@@ -24,5 +24,6 @@ Route::middleware('auth')->group(function(){
     Route::resource('/bids', 'BidController');
     Route::resource('/bids/{bid}/proposals', 'ProposalController');
     Route::resource('/bids/{bid}/evaluations', 'EvaluationController');
+    Route::resource('/bids/{bid}/lots', 'LotController');
 });
 Auth::routes(['register' => false]);

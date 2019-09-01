@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Proposal extends Model
 {
     protected $fillable = [
+        'lot_id',
         'bid_id',
         'bidder_id',
         'price',

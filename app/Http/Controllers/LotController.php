@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Bid;
-use App\Evaluation;
+use App\Lot;
 use Illuminate\Http\Request;
 
-class EvaluationController extends Controller
+class LotController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class EvaluationController extends Controller
      */
     public function create(Bid $bid)
     {
-        return view('evaluations.create', compact('bid'));
+        // 
     }
 
     /**
@@ -36,21 +36,17 @@ class EvaluationController extends Controller
      */
     public function store(Request $request, Bid $bid)
     {
-        Evaluation::create([
-            'criterion' => $request->criterion,
-            'percentage' => $request->percentage,
-            'bid_id' => $bid->id
-        ]);
-        return redirect("/bids/$bid->id?focus=criterion");
+        $lot = Lot::create($request->all());
+        return redirect("/bids/$bid->id?focus=lot$lot->id");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Evaluation  $evaluation
+     * @param  \App\Lot  $lot
      * @return \Illuminate\Http\Response
      */
-    public function show(Evaluation $evaluation)
+    public function show(Lot $lot)
     {
         //
     }
@@ -58,10 +54,10 @@ class EvaluationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Evaluation  $evaluation
+     * @param  \App\Lot  $lot
      * @return \Illuminate\Http\Response
      */
-    public function edit(Evaluation $evaluation)
+    public function edit(Lot $lot)
     {
         //
     }
@@ -70,29 +66,27 @@ class EvaluationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Evaluation  $evaluation
+     * @param  \App\Lot  $lot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bid $bid, Evaluation $evaluation)
+    public function update(Request $request, Bid $bid, Lot $lot)
     {
         
-        $evaluation->criterion = $request->criterion;
-        $evaluation->percentage = $request->percentage;
-        $evaluation->bid_id = $bid->id;
-        $evaluation->save();
+        $lot->name = $request->name;
+        $lot->save();
         
-        return redirect("/bids/$bid->ids#criterion");
+        return redirect("/bids/$bid->id?focus=lot$lot->id");
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Evaluation  $evaluation
+     * @param  \App\Lot  $lot
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bid $bid, Evaluation $evaluation)
+    public function destroy(Bid $bid, Lot $lot)
     {
-        $evaluation->delete();
+        $lot->delete();
         return redirect()->back();
     }
 }

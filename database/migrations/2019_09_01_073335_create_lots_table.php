@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBidBiddersTable extends Migration
+class CreateLotsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateBidBiddersTable extends Migration
      */
     public function up()
     {
-        Schema::create('bid_bidders', function (Blueprint $table) {
+        Schema::create('lots', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lot_id')->unsigned();
-            $table->integer('bid_id')->unsigned();
-            $table->integer('bidder_id')->unsigned();
-            $table->double('price')->unsigned();
-            $table->integer('duration_days')->unsigned();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateBidBiddersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bid_bidders');
+        Schema::dropIfExists('lots');
     }
 }

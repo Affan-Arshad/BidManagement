@@ -3,10 +3,12 @@ AutoNumeric.multiple('.auto-numeric');
 // Numeric For Input Fields..
 // AutoNumeric Is Buggy with Input Fields
 if($('.input-numeric').length) {
-    var cleave = new Cleave('.input-numeric', {
-        numeral: true,
-        numeralThousandsGroupStyle: 'thousand'
-    });
+    document.querySelectorAll('.input-numeric').forEach(function(input) {
+        new Cleave(input, {
+            numeral: true,
+            numeralThousandsGroupStyle: 'thousand'
+        });
+    })
 }
 
 function confirmDelete(e, name) {

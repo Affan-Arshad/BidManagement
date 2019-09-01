@@ -51,12 +51,14 @@ class ProposalController extends Controller
         }
         // Add Bidders Proposal for Bid to DB
         Proposal::create([
+            'lot_id' => $request->lot_id,
             'bid_id' => $bid->id,
             'bidder_id' => $bidder->id,
             'price' => $request->price,
             'duration_days' => $request->duration_days,
         ]);
-        return redirect("/bids/$bid->id?focus=bidder");
+        $focus = $request->lot_id ? "lot$request->lot_id" : 'proposals';
+        return redirect("/bids/$bid->id?focus=$focus");
     }
 
     /**
@@ -108,7 +110,8 @@ class ProposalController extends Controller
         $proposal->duration_days = $request->duration_days;
         $proposal->save();
 
-        return redirect("/bids/$bid->id?focus=bidder");
+        $focus = $request->lot_id ? "lot$request->lot_id" : 'proposals';
+        return redirect("/bids/$bid->id?focus=$focus");
     }
 
     /**
