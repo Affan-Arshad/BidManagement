@@ -22,6 +22,7 @@ class DashboardController extends Controller
             return array_search($key, $statuses);
         });
 
+        $bids->submissions = [];
         foreach ($bids as $status => $bidGrp) {
             // Calculate Remaining Days for Ongoig Bids
             if ($status == 'ongoing') {
@@ -48,11 +49,23 @@ class DashboardController extends Controller
                 $bids[$status] = $bidGrp->sortBy('info_date');
             }
 
-            // Sort upcoming_submissions by submission_date
+            // Group all fit for submissions 
             if($status == 'pending_estimate' || $status == 'pending_proposal' || $status == 'ready_for_submission') {
-                $bids[$status] = $bidGrp->sortBy('submission_date');
+                foreach ($bidGrp as $bid) {
+                    array_push($bids->submissions, $bid);
+                }
             }
         }
+
+        // Sort Submissions By Submission Date
+        usort($bids->submissions, function($bid1, $bid2) {
+            if (strtotime($bid2->submission_date) < strtotime($bid1->submission_date)) 
+                return 1; 
+            else if (strtotime($bid2->submission_date) > strtotime($bid1->submission_date))  
+                return -1; 
+            else
+                return 0; 
+        });
 
 
         return view('dashboard.index', compact('bids'));

@@ -72,11 +72,7 @@
                 <h5 class="mb-0">
                     Upcoming Submissions
                     <span class="badge badge-primary float-right">
-                        {{
-                        (isset($bids['pending_estimate']) ? count($bids['pending_estimate']) : 0) +
-                        (isset($bids['pending_proposal']) ? count($bids['pending_proposal']) : 0) +
-                        (isset($bids['ready_for_submission']) ? count($bids['ready_for_submission']) : 0)
-                        }}
+                        {{ count($bids->submissions) }}
                     </span>
                 </h5>
             </div>
@@ -88,14 +84,11 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Date</th>
+                                <th>Dateee</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bids as $status => $bidGrp )
-                            @if($status == 'pending_estimate' || $status == 'pending_proposal' || $status ==
-                            'ready_for_submission')
-                            @foreach ($bidGrp as $bid)
+                            @foreach ($bids->submissions as $bid )
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{$bid->id}}">
@@ -103,14 +96,12 @@
                                     </a>
                                 </td>
                                 <td>
-                                    {{ str_replace( '_', ' ', ucfirst( $status ) ) }}
+                                    {{ str_replace( '_', ' ', ucfirst( $bid->status_id ) ) }}
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->submission_date) }}
                                 </td>
                             </tr>
-                            @endforeach
-                            @endif
                             @endforeach
                         </tbody>
                     </table>
