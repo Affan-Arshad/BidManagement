@@ -84,7 +84,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Dateee</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,7 +96,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    {{ str_replace( '_', ' ', ucfirst( $bid->status_id ) ) }}
+                                    <span class="badge badge-{{$bid->status_color}}">{{ str_replace( '_', ' ', ucfirst( $bid->status_id ) ) }}</span>
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->submission_date) }}

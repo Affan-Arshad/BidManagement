@@ -52,6 +52,22 @@ class DashboardController extends Controller
             // Group all fit for submissions 
             if($status == 'pending_estimate' || $status == 'pending_proposal' || $status == 'ready_for_submission') {
                 foreach ($bidGrp as $bid) {
+                    // Set Status Colors
+                    switch ($bid->status_id) {
+                        case 'pending_estimate':
+                            $bid->status_color = 'danger';
+                            break;
+                        case 'pending_proposal':
+                            $bid->status_color = 'warning';
+                            break;
+                        case 'ready_for_submission':
+                            $bid->status_color = 'success';
+                            break;
+                        
+                        default:
+                            # code...
+                            break;
+                    }
                     array_push($bids->submissions, $bid);
                 }
             }
