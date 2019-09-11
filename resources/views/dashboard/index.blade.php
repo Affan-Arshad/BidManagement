@@ -18,12 +18,11 @@
             <div class="card-body collapse" id="Ongoing-collapse" data-parent="#dashboard-cards">
                 <ul class="list-group">
 
-                    @foreach ($bids as $status => $bidGrp )
-                    @if($status == 'ongoing')
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Status</th>
                                 <th>Signed</th>
                                 <th>Due</th>
                                 <th>Extended</th>
@@ -32,12 +31,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bidGrp as $bid)
+                            @foreach ($bids->active as $bid)
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
                                         {{ $bid->organization->name }}
                                     </a>
+                                </td>
+                                <td>
+                                    {{ str_replace( '_', ' ', ucwords( $bid->status_id ) ) }}
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->agreement_date) }}
@@ -58,8 +60,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    @endif
-                    @endforeach
 
                 </ul>
             </div>
@@ -173,11 +173,11 @@
 
                     @foreach ($bids as $status => $bidGrp )
                     <li class="list-group-item d-flex justify-content-between align-items-center" data-toggle="collapse"
-                        data-target="#{{$status}}-collapse">
+                        data-target="#{{ str_replace( '/', '-', $status) }}-collapse">
                         {{ str_replace( '_', ' ', ucwords( $status ) ) }}
                         <span class="badge badge-primary badge-pill">{{ count($bidGrp) }}</span>
                     </li>
-                    <div id="{{$status}}-collapse" class="collapse" data-parent="#accordion">
+                    <div id="{{ str_replace( '/', '-', $status) }}-collapse" class="collapse" data-parent="#accordion">
 
                         <table class="table table-list">
                             <tbody>

@@ -23,9 +23,10 @@ class DashboardController extends Controller
         });
 
         $bids->submissions = [];
+        $bids->active = [];
         foreach ($bids as $status => $bidGrp) {
             // Calculate Remaining Days for Ongoig Bids
-            if ($status == 'ongoing') {
+            if ($status == 'ongoing' || $status == 'pending_agreement' || $status == 'pending_payment') {
                 foreach ($bidGrp as $bid) {
                     if($bid->extended_date) {
                         $bid->remaining_days = Carbon::now()->diffInDays($bid->extended_date, false);
@@ -39,9 +40,8 @@ class DashboardController extends Controller
                         $bid->remaining_days = 'Set Agreement Date & Duration';
                     }
                 }
-                // Sort by remaining
-                $bids[$status] = $bidGrp->sortBy('remaining_days', SORT_NATURAL);
-                // dd($bids['ongoing']);
+
+                array_push($bids->active, $bid);
             }
 
             // Sort prebid by info_date
@@ -72,6 +72,16 @@ class DashboardController extends Controller
                 }
             }
         }
+
+        // Sort Active by Remaining
+        usort($bids->active, function($bid1, $bid2) {
+            if($bid2->remaining_days < $bid1->remaining_days)
+                return 1;
+            else if ($bid2->remaining_days > $bid1->remaining_days)
+                return -1;
+            else
+                return 0;
+        });
 
         // Sort Submissions By Submission Date
         usort($bids->submissions, function($bid1, $bid2) {
