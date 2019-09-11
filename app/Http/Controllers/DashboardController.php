@@ -39,9 +39,9 @@ class DashboardController extends Controller
                     } else {
                         $bid->remaining_days = 'Set Agreement Date & Duration';
                     }
-                }
 
-                array_push($bids->active, $bid);
+                    array_push($bids->active, $bid);
+                }
             }
 
             // Sort prebid by info_date

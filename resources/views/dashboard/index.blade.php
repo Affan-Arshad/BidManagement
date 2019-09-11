@@ -11,7 +11,7 @@
             <div class="card-header" data-toggle="collapse" data-target="#Ongoing-collapse">
                 <h5 class="mb-0">Ongoing Bids
                     <span class="badge badge-primary float-right">
-                        {{ (isset($bids['ongoing']) ? count($bids['ongoing']) : 0) }}
+                        {{ (isset($bids->active) ? count($bids->active) : 0) }}
                     </span>
                 </h5>
             </div>
