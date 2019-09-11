@@ -23,11 +23,14 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
+                                <th>Cost</th>
+                                <th>Proposed</th>
                                 <th>Signed</th>
                                 <th>Due</th>
                                 <th>Extended</th>
                                 <th>Duration</th>
                                 <th>Remaining</th>
+                                <th>LD</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +43,19 @@
                                 </td>
                                 <td>
                                     {{ str_replace( '_', ' ', ucwords( $bid->status_id ) ) }}
+                                </td>
+                                <td class="auto-numeric">
+                                    {{ ($bid->cost) }}
+                                </td>
+                                @if($bid->hikaa())
+                                <td class="auto-numeric">
+
+                                    {{ $bid->price = $bid->hikaa()->price }}
+                                @else
+                                <td>
+                                    {{ $bid->price = 0 }}
+                                    No Proposal By Hikaa
+                                @endif
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->agreement_date) }}
@@ -55,6 +71,11 @@
                                 </td>
                                 <td>
                                     {{ $bid->remaining_days }}
+                                </td>
+                                <td class="auto-numeric">
+                                    @if($bid->remaining_days < 0)
+                                    {{ $bid->remaining_days * 0.005 * $bid->price }}
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

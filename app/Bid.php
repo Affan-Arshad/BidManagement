@@ -89,4 +89,8 @@ class Bid extends Model
     public function bidder($id) {
         return $this->bidders()->where('id', $id)->get();
     }
+
+    public function hikaa() {
+        return $this->proposals()->where('bidder_id', 16)->first();
+    }
 }
