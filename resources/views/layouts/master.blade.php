@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{config('app.name')}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
@@ -23,5 +25,9 @@
     <script src="/js/bootstrap-table-natural-sorting.min.js"></script>
     <script src="/js/main.js"></script>
     @yield('additionalJS')
+    
+    @auth
+    <script src="{{ asset('js/enable-push.js') }}" defer></script>
+    @endauth
 </body>
 </html>

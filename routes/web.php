@@ -27,3 +27,9 @@ Route::middleware('auth')->group(function(){
     Route::resource('/bids/{bid}/lots', 'LotController');
 });
 Auth::routes(['register' => false]);
+
+//store a push subscriber.
+Route::post('/push','PushController@store');
+//make a push notification.
+Route::get('/push/bidsToday','PushController@bidsToday')->name('bidsToday');
+Route::get('/push/bidsTomorrow','PushController@bidsTomorrow')->name('bidsTomorrow');

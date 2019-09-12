@@ -37,7 +37,7 @@
 
         <div class="form-group">
             <label>Info Date</label>
-            <input type="datetime-local" class="form-control" name="info_date" required >
+            <input type="datetime-local" class="form-control" name="info_date">
         </div>
 
         <div class="form-group">

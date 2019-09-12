@@ -7,6 +7,10 @@
 <div class="row" id="dashboard-cards">
 
     <div class="col-12 mb-5">
+        
+        <a href="{{route('bidsToday')}}" class="btn btn-outline-primary btn-block">Notify Today Bids</a>
+        <a href="{{route('bidsTomorrow')}}" class="btn btn-outline-primary btn-block">Notify Tomorrow Bids</a>
+
         <div class="card">
             <div class="card-header" data-toggle="collapse" data-target="#Ongoing-collapse">
                 <h5 class="mb-0">Ongoing Bids
