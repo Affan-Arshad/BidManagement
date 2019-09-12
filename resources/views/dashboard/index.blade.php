@@ -8,8 +8,10 @@
 
     <div class="col-12 mb-5">
         
-        <a href="{{route('bidsToday')}}" class="btn btn-outline-primary btn-block">Notify Today Bids</a>
-        <a href="{{route('bidsTomorrow')}}" class="btn btn-outline-primary btn-block">Notify Tomorrow Bids</a>
+        <div class="d-none">
+            <a href="{{route('bidsToday')}}" class="btn btn-outline-primary btn-block">Notify Today Bids</a>
+            <a href="{{route('bidsTomorrow')}}" class="btn btn-outline-primary btn-block">Notify Tomorrow Bids</a>
+        </div>
 
         <div class="card">
             <div class="card-header" data-toggle="collapse" data-target="#Ongoing-collapse">
