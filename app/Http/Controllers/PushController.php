@@ -12,7 +12,7 @@ use Notification;
 class PushController extends Controller
 {
     public function __construct(){
-      $this->middleware('auth');
+    //   $this->middleware('auth');
     }
     
     /**
