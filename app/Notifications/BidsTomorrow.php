@@ -22,14 +22,14 @@ class BidsTomorrow extends Notification
     
     public function toWebPush($notifiable, $notification)
     {
-        $submissionCount = Bid::where('submission_date', Carbon::tomorrow())
+        $submissionCount = Bid::whereDate('submission_date', Carbon::tomorrow())
                             ->where('status_id', 'pending_estimate')
                             ->orWhere('status_id', 'pending_proposal')
                             ->orWhere('status_id', 'ready_for_submission')
                             ->count();
 
 
-        $infoCount = Bid::where('info_date', Carbon::tomorrow())
+        $infoCount = Bid::whereDate('info_date', Carbon::tomorrow())
                         ->where('status_id', 'prebid')
                         ->count();
                     
