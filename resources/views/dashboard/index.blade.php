@@ -50,7 +50,10 @@
                                     </a>
                                 </td>
                                 <td>
-                                    {{ str_replace( '_', ' ', ucwords( $bid->status_id ) ) }}
+                                    @include('partials.status_change', [
+                                        $action = "/bids/$bid->id",
+                                        $redirect = "/dashboard"
+                                    ])
                                 </td>
                                 <td class="auto-numeric">
                                     {{ ($bid->cost) }}
@@ -127,7 +130,10 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <span class="badge badge-{{$bid->status_color}}">{{ str_replace( '_', ' ', ucwords( $bid->status_id ) ) }}</span>
+                                    @include('partials.status_change', [
+                                        $action = "/bids/$bid->id",
+                                        $redirect = "/dashboard"
+                                    ])
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->submission_date) }}
@@ -161,6 +167,7 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Status</th>
                                 <th>Registration starts</th>
                                 <th>Registration ends</th>
                                 <th>Prebid Meeting</th>
@@ -174,6 +181,12 @@
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
                                         {{ $bid->organization->name }}</a>
+                                </td>
+                                <td>
+                                    @include('partials.status_change', [
+                                        $action = "/bids/$bid->id",
+                                        $redirect = "/dashboard"
+                                    ])
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->registration_start_date) }}
@@ -221,28 +234,10 @@
                                             {{ $bid->organization->name }}</a>
                                     </td>
                                     <td>
-                                        <form action="/bids/{{$bid->id}}" method="POST">
-                                            @csrf
-                                            @method('patch')
-                                            <input type="hidden" name="redirect" value="/dashboard">
-
-                                            <div class="row">
-                                                <div class="form-group col m-0">
-                                                    <select class="form-control" name="status_id">
-                                                        @foreach (App\Bid::$statuses as $status)
-                                                        <option {{ $bid->status_id == $status ? 'selected' : '' }}
-                                                            value="{{$status}}">
-                                                            {{ str_replace( '_', ' ', ucwords($status) ) }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-group col fitToContent m-0">
-                                                    <button type="submit" class="btn btn-success"><i
-                                                            class="fas fa-pen-square"></i></button>
-                                                </div>
-                                            </div>
-                                        </form>
+                                        @include('partials.status_change', [
+                                            $action = "/bids/$bid->id",
+                                            $redirect = "/dashboard"
+                                        ])
                                     </td>
                                 </tr>
                                 @endforeach

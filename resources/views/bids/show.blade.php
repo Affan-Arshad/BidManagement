@@ -56,7 +56,9 @@
             </tr>
             <tr>
                 <th class="fitToContent">Status</th>
-                <td colspan=3>{{ str_replace( '_', ' ', ucwords($bid->status_id) ) }}</td>
+                <td colspan=3>
+                    @include('partials.status_change', [$action = "/bids/$bid->id", $redirect = "/bids/$bid->id"])
+                </td>
             </tr>
             <tr>
                 <th class="fitToContent">Evaluation Criteria</th>
