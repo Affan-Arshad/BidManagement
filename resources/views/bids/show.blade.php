@@ -99,8 +99,8 @@
                                 <td>{{$evaluation->criterion}}</td>
                                 <td>{{$evaluation->percentage}}</td>
                                 <td class="fitToContent">
-                                    <a class="btn text-warning" data-toggle="modal" data-target="#editCriterion"
-                                        onclick="editCriterion({{$evaluation}})"><i class="fas fa-edit"></i></a>
+                                    <a class="btn text-warning" data-toggle="modal" data-target="#editCriterionModal"
+                                        onclick="editCriterionModal({{$evaluation}})"><i class="fas fa-edit"></i></a>
                                     <form class="d-inline-block"
                                         action="/bids/{{$bid->id}}/evaluations/{{$evaluation->id}}" method="POST"
                                         onsubmit="confirmDelete(event, '{{$evaluation->criterion}}')">
@@ -170,8 +170,8 @@
                 <td class="duration fitToContent">{{$proposal->duration_days}}</td>
                 <td class="">{{$proposal->eval}}</td>
                 <td class="fitToContent">
-                    <a class="btn text-warning" data-toggle="modal" data-target="#editProposal"
-                        onclick="editProposal({{$proposal}})"><i class="fas fa-edit"></i></a>
+                    <a class="btn text-warning" data-toggle="modal" data-target="#editProposalModal"
+                        onclick="editProposalModal({{$proposal}})"><i class="fas fa-edit"></i></a>
                     <form class="d-inline-block" action="/bids/{{$bid->id}}/proposals/{{$proposal->id}}" method="POST"
                         onsubmit="confirmDelete(event, 'Proposal by {{$proposal->bidder->name}}')">
                         @csrf
@@ -188,15 +188,15 @@
 </section>
 
 <section class="mt-3">
-    <h5>Lots <a class="btn btn-success text-light" data-toggle="modal" data-target="#addLot"
-            onclick="addLot({{$bid->id}})"><i class="fas fa-plus"></i></a></h5>
+    <h5>Lots <a class="btn btn-success text-light" data-toggle="modal" data-target="#addLotModal"
+            onclick="addLotModal({{$bid->id}})"><i class="fas fa-plus"></i></a></h5>
     <hr>
 
     @foreach ($bid->lots as $lot)
     <div class="card mb-3">
         <div class="card-header">
             {{$lot->name}}
-            <a class="btn text-warning" data-toggle="modal" data-target="#editLot" onclick="editLot({{$lot}})"><i
+            <a class="btn text-warning" data-toggle="modal" data-target="#editLotModal" onclick="editLotModal({{$lot}})"><i
                     class="fas fa-edit"></i></a>
         </div>
         <div class="card-body">
@@ -246,8 +246,8 @@
                         <td class="duration fitToContent">{{$proposal->duration_days}}</td>
                         <td class="">{{$proposal->eval}}</td>
                         <td class="fitToContent">
-                            <a class="btn text-warning" data-toggle="modal" data-target="#editProposal"
-                                onclick="editProposal({{$proposal}})"><i class="fas fa-edit"></i></a>
+                            <a class="btn text-warning" data-toggle="modal" data-target="#editProposalModal"
+                                onclick="editProposalModal({{$proposal}})"><i class="fas fa-edit"></i></a>
                             <form class="d-inline-block" action="/bids/{{$bid->id}}/proposals/{{$proposal->id}}"
                                 method="POST"
                                 onsubmit="confirmDelete(event, 'Proposal by {{$proposal->bidder->name}}')">
@@ -266,139 +266,17 @@
     @endforeach
 </section>
 
-{{-- Edit Proposal Modal --}}
-<div class="modal" tabindex="-1" role="dialog" id="editProposal">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form method="POST">
-                @method('PATCH')
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit proposal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @csrf
-                    <input type="hidden" name="lot_id" class="lot_id">
-                    <div class="row">
-                        <div class="form-group col">
-                            <input type="text" name="name" class="name form-control" placeholder="Name"
-                                id="bidder-modal" required>
-                        </div>
+@include('partials.editProposalModal')
 
-                        <div class="form-group col">
-                            <input type="text" name="price" class="price form-control input-numeric-modal"
-                                placeholder="Price" required>
-                        </div>
+@include('partials.editCriterionModal')
 
-                        <div class="form-group col">
-                            <input type="integer" name="duration_days" class="duration form-control"
-                                placeholder="Duration" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+@include('partials.addLotModal')
 
-{{-- Edit Criterion Modal --}}
-<div class="modal" tabindex="-1" role="dialog" id="editCriterion">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form method="POST">
-                @method('PATCH')
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit criterion</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @csrf
-                    <div class="row">
-                        <div class="form-group col">
-                            <input type="text" name="criterion" class="criterion form-control" placeholder="Criterion"
-                                id="criterion-modal" required>
-                        </div>
+@include('partials.editLotModal')
 
-                        <div class="form-group col">
-                            <input type="text" name="percentage" class="percentage form-control"
-                                placeholder="Percentage" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-{{-- Add Lot Modal --}}
-<div class="modal" tabindex="-1" role="dialog" id="addLot">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form method="POST">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Lot</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @csrf
-                    <input type="text" name="bid_id" class="bid_id form-control" hidden required>
-                    <div class="row">
-                        <div class="form-group col">
-                            <input type="text" name="name" class="form-control" placeholder="Lot Name" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-{{-- Edit Lot Modal --}}
-<div class="modal" tabindex="-1" role="dialog" id="editLot">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <form method="POST">
-                @method('PATCH')
-                <div class="modal-header">
-                    <h5 class="modal-title">Edit Lot</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    @csrf
-                    <div class="row">
-                        <div class="form-group col">
-                            <input type="text" name="name" class="name form-control" placeholder="Lot Name" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+@include('partials.changeStatusModal', [
+    $redirect => '/dashboard'
+])
 
 @endsection
 
@@ -438,50 +316,5 @@
         new Awesomplete(input, {
             list: <?php echo json_encode($criteriaNames, true); ?>,
         })
-
-        // Edit Proposal
-        function editProposal(proposal) {
-            // Set Lot Id
-            $('#editProposal .lot_id')[0].value = proposal.lot_id;
-            // Set Name
-            $('#editProposal .name')[0].value = proposal.bidder.name;
-            // Set Price
-            $('#editProposal .price')[0].value = proposal.price;
-            // Format Price
-            new Cleave('.input-numeric-modal', {
-                numeral: true,
-                numeralThousandsGroupStyle: 'thousand'
-            });
-            // Set Duration
-            $('#editProposal .duration')[0].value = proposal.duration_days;
-            // Set Form Action
-            $('#editProposal form')[0].setAttribute('action', '/bids/'+proposal.bid_id+'/proposals/'+proposal.id);
-        }
-
-        // Edit Criterion
-        function editCriterion(evaluation) {
-            // Set Criterion
-            $('#editCriterion .criterion')[0].value = evaluation.criterion;
-            // Set Percentage
-            $('#editCriterion .percentage')[0].value = evaluation.percentage;
-            // Set Form Action
-            $('#editCriterion form')[0].setAttribute('action', '/bids/'+evaluation.bid_id+'/evaluations/'+evaluation.id);
-        }
-
-        // Add Lot
-        function addLot(bid_id) {
-            // Set Bid
-            $('#addLot .bid_id')[0].value = bid_id;
-            // Set Form Action
-            $('#addLot form')[0].setAttribute('action', '/bids/'+bid_id+'/lots');
-        }
-
-        // Edit Lot
-        function editLot(lot) {
-            // Set Bid
-            $('#editLot .name')[0].value = lot.name;
-            // Set Form Action
-            $('#editLot form')[0].setAttribute('action', '/bids/'+lot.bid_id+'/lots/'+lot.id);
-        }
 </script>
 @endsection
