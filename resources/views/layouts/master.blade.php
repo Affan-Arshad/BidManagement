@@ -23,6 +23,7 @@
     <script src="/js/bootstrap.js"></script>
     <script src="/js/bootstrap-table.min.js"></script>
     <script src="/js/bootstrap-table-natural-sorting.min.js"></script>
+    <script src="/js/bootstrap-table-mobile.min.js"></script>
     <script src="/js/main.js"></script>
     @yield('additionalJS')
     

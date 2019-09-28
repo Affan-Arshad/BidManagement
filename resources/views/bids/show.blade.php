@@ -144,7 +144,9 @@
 
     @foreach ($bid->proposalsByLot as $lot => $proposals)
     @if($lot == "" && count($proposals))
-    <table data-toggle="table" class="table-counter">
+    <table
+    data-toggle="table"
+    data-mobile-responsive="true" class="table-counter">
         <thead>
             <tr>
                 <th>#</th>
@@ -217,7 +219,9 @@
                 </div>
             </form>
 
-            <table data-toggle="table" class="table-counter">
+            <table
+            data-toggle="table"
+            data-mobile-responsive="true" class="table-counter">
                 <thead>
                     <tr>
                         <th>#</th>

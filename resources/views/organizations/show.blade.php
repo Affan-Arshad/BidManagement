@@ -3,7 +3,9 @@
 @section('fixed-content')
     <h3>{{$organization->name}} <a class="btn text-warning" href="/organizations/{{$organization->id}}/edit"><i class="fas fa-edit"></i></a></h3>
     <hr>
-    <table data-toggle="table" data-search="true">
+    <table
+    data-toggle="table"
+    data-mobile-responsive="true" data-search="true">
         <thead>
             <tr>
                 <th>Name</th>

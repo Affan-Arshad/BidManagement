@@ -10,7 +10,9 @@
     
     <hr>
 
-    <table data-toggle="table" data-search="true" class="table-counter">
+    <table
+    data-toggle="table"
+    data-mobile-responsive="true" data-search="true" class="table-counter">
         <thead>
             <tr>
                 <th>#</th>

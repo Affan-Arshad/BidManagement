@@ -43,3 +43,14 @@ td.link a {
 .table-list td {
     border: 1px solid #dfdfdf;
 }
+
+
+/* Table Mobile View */
+.card-view-value {
+    padding-left: 5px;
+}
+.card-view-value .btn {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+}

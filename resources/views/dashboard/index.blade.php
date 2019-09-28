@@ -24,7 +24,9 @@
             <div class="card-body collapse" id="Ongoing-collapse" data-parent="#dashboard-cards">
                 <ul class="list-group">
 
-                    <table class="table table-bordered">
+                    <table
+                        data-toggle="table"
+                        data-mobile-responsive="true">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -106,7 +108,9 @@
             <div class="card-body collapse" id="submissions-collapse" data-parent="#dashboard-cards">
                 <ul class="list-group">
 
-                    <table class="table table-bordered">
+                    <table
+                    data-toggle="table"
+                    data-mobile-responsive="true">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -151,7 +155,9 @@
             <div class="card-body collapse" id="infos-collapse" data-parent="#dashboard-cards">
                 <ul class="list-group">
 
-                    <table class="table table-bordered">
+                    <table
+                    data-toggle="table"
+                    data-mobile-responsive="true">
                         <thead>
                             <tr>
                                 <th>Name</th>

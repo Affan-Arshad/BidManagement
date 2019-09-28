@@ -3,7 +3,9 @@
 @section('fixed-content')
     <h3>{{$bidder->name}}</h3>
     <hr>
-    <table data-toggle="table" data-search="true">
+    <table
+    data-toggle="table"
+    data-mobile-responsive="true" data-search="true">
         <thead>
             <tr>
                 <th>Bid Name</th>

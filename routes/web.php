@@ -33,3 +33,8 @@ Route::post('/push','PushController@store');
 //make a push notification.
 Route::get('/push/bidsToday','PushController@bidsToday')->name('bidsToday');
 Route::get('/push/bidsTomorrow','PushController@bidsTomorrow')->name('bidsTomorrow');
+
+// 
+Route::get('/test', function() {
+    return view('test');
+});
