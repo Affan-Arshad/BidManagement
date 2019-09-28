@@ -29,17 +29,17 @@ class Bid extends Model
     ];
 
     public static $statuses = [
-        'prebid',
-        'pending_estimate',
-        'pending_proposal',
-        'ready_for_submission',
-        'pending_evaluation',
-        'pending_agreement',
-        'ongoing',
-        'pending_payment',
-        'completed',
-        'lost',
-        'dropped_/_cancelled',
+        'prebid' => 'primary',
+        'pending_estimate' => 'danger',
+        'pending_proposal' => 'warning',
+        'ready_for_submission' => 'success',
+        'pending_evaluation' => 'info',
+        'pending_agreement' => 'info',
+        'ongoing' => 'info',
+        'pending_payment' => 'info',
+        'completed' => 'primary',
+        'lost' => 'dark',
+        'dropped_/_cancelled' => 'light',
     ];
 
     // protected $casts = [

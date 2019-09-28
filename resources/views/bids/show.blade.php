@@ -57,7 +57,9 @@
             <tr>
                 <th class="fitToContent">Status</th>
                 <td colspan=3>
-                    @include('partials.status_change', [$action = "/bids/$bid->id", $redirect = "/bids/$bid->id"])
+                    @include('partials.changeStatus', [
+                        $redirect = "/bids/$bid->id"
+                    ])
                 </td>
             </tr>
             <tr>

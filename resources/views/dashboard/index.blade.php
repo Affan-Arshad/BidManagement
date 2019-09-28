@@ -31,8 +31,6 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Cost</th>
-                                <th>Proposed</th>
                                 <th>Signed</th>
                                 <th>Due</th>
                                 <th>Extended</th>
@@ -50,23 +48,9 @@
                                     </a>
                                 </td>
                                 <td>
-                                    @include('partials.status_change', [
-                                        $action = "/bids/$bid->id",
+                                    @include('partials.changeStatus', [
                                         $redirect = "/dashboard"
                                     ])
-                                </td>
-                                <td class="auto-numeric">
-                                    {{ ($bid->cost) }}
-                                </td>
-                                @if($bid->hikaa())
-                                <td class="auto-numeric">
-
-                                    {{ $bid->price = $bid->hikaa()->price }}
-                                @else
-                                <td>
-                                    {{ $bid->price = 0 }}
-                                    No Proposal By Hikaa
-                                @endif
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->agreement_date) }}
@@ -130,8 +114,7 @@
                                     </a>
                                 </td>
                                 <td>
-                                    @include('partials.status_change', [
-                                        $action = "/bids/$bid->id",
+                                    @include('partials.changeStatus', [
                                         $redirect = "/dashboard"
                                     ])
                                 </td>
@@ -183,8 +166,7 @@
                                         {{ $bid->organization->name }}</a>
                                 </td>
                                 <td>
-                                    @include('partials.status_change', [
-                                        $action = "/bids/$bid->id",
+                                    @include('partials.changeStatus', [
                                         $redirect = "/dashboard"
                                     ])
                                 </td>
@@ -234,8 +216,7 @@
                                             {{ $bid->organization->name }}</a>
                                     </td>
                                     <td>
-                                        @include('partials.status_change', [
-                                            $action = "/bids/$bid->id",
+                                        @include('partials.changeStatus', [
                                             $redirect = "/dashboard"
                                         ])
                                     </td>
@@ -250,6 +231,10 @@
             </div>
         </div>
     </div>
+
+    @include('partials.changeStatusModal', [
+        $redirect => '/dashboard'
+    ])
 
 </div>
 
