@@ -5,17 +5,6 @@
 
     <div class="row" id="dashboard-cards">
       <div class="col-12 mb-5">
-        <div class="d-none">
-          <a
-            href="http://localhost:8000/push/bidsToday"
-            class="btn btn-outline-primary btn-block"
-          >Notify Today Bids</a>
-          <a
-            href="http://localhost:8000/push/bidsTomorrow"
-            class="btn btn-outline-primary btn-block"
-          >Notify Tomorrow Bids</a>
-        </div>
-
         <div class="card">
           <div class="card-header" data-toggle="collapse" data-target="#Ongoing-collapse">
             <h5 class="mb-0">
@@ -25,107 +14,25 @@
           </div>
           <div class="card-body collapse" id="Ongoing-collapse" data-parent="#dashboard-cards">
             <ul class="list-group">
-              <div class="bootstrap-table bootstrap4">
-                <div class="fixed-table-toolbar"></div>
-
-                <div class="fixed-table-container" style="padding-bottom: 0px;">
-                  <div class="fixed-table-header" style="display: none;">
-                    <table></table>
-                  </div>
-                  <div class="fixed-table-body">
-                    <div
-                      class=" table table-bordered table-hover"
-                      style="top: 1px;"
-                    >
-                      <span class="loading-wrap">
-                        <span class="loading-text">Loading, please wait</span>
-                        <span class="animation-wrap">
-                          <span class="animation-dot"></span>
-                        </span>
-                      </span>
-                    </div>
-                    <table
-                      data-toggle="table"
-                      data-mobile-responsive="true"
-                      class="table table-bordered table-hover"
-                    >
-                      <thead style>
-                        <tr>
-                          <th style data-field="0">
-                            <div class="th-inner">Name</div>
-                            <div class="fht-cell"></div>
-                          </th>
-                          <th style data-field="1">
-                            <div class="th-inner">Status</div>
-                            <div class="fht-cell"></div>
-                          </th>
-                          <th style data-field="2">
-                            <div class="th-inner">Signed</div>
-                            <div class="fht-cell"></div>
-                          </th>
-                          <th style data-field="3">
-                            <div class="th-inner">Due</div>
-                            <div class="fht-cell"></div>
-                          </th>
-                          <th style data-field="4">
-                            <div class="th-inner">Extended</div>
-                            <div class="fht-cell"></div>
-                          </th>
-                          <th style data-field="5">
-                            <div class="th-inner">Duration</div>
-                            <div class="fht-cell"></div>
-                          </th>
-                          <th style data-field="6">
-                            <div class="th-inner">Remaining</div>
-                            <div class="fht-cell"></div>
-                          </th>
-                          <th style data-field="7">
-                            <div class="th-inner">LD</div>
-                            <div class="fht-cell"></div>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr data-index="0">
-                          <td class="link" style>
-                            <a class="btn text-left" href="/bids/88">
-                              NAS |
-                              Public Service Media
-                            </a>
-                          </td>
-                          <td style>
-                            <a
-                              href
-                              data-toggle="modal"
-                              data-target="#changeStatusModal"
-                              class="badge badge-danger"
-                              onclick="changeStatusModal({&quot;id&quot;:88,&quot;name&quot;:&quot;NAS&quot;,&quot;iulaan_no&quot;:&quot;(IUL) PSM-FP\/ PSM\/2019\/70&quot;,&quot;link&quot;:&quot;http:\/\/www.gazette.gov.mv\/iulaan\/view\/110262&quot;,&quot;category&quot;:&quot;IT Equipment&quot;,&quot;cost&quot;:81960,&quot;duration&quot;:null,&quot;estimate&quot;:null,&quot;registration_start_date&quot;:null,&quot;registration_end_date&quot;:null,&quot;info_date&quot;:null,&quot;submission_date&quot;:&quot;2019-08-29 14:00:00&quot;,&quot;organization_id&quot;:36,&quot;status_id&quot;:&quot;pending_agreement&quot;,&quot;agreement_date&quot;:null,&quot;extended_date&quot;:null,&quot;created_at&quot;:&quot;2019-08-29 20:23:24&quot;,&quot;updated_at&quot;:&quot;2019-09-11 17:20:43&quot;,&quot;remaining_days&quot;:&quot;Set Agreement Date &amp; Duration&quot;,&quot;organization&quot;:{&quot;id&quot;:36,&quot;name&quot;:&quot;Public Service Media&quot;,&quot;created_at&quot;:&quot;2019-08-29 20:21:33&quot;,&quot;updated_at&quot;:&quot;2019-08-29 20:21:33&quot;}})"
-                            >Pending agreement</a>
-                          </td>
-                          <td style></td>
-                          <td style></td>
-                          <td style></td>
-                          <td style></td>
-                          <td style>Set Agreement Date &amp; Duration</td>
-                          <td class="auto-numeric" style></td>
-                        </tr>
-                      </tbody>
-                      <tfoot style="display: none;">
-                        <tr></tr>
-                      </tfoot>
-                    </table>
-                  </div>
-                  <div class="fixed-table-footer">
-                    <table>
-                      <thead>
-                        <tr></tr>
-                      </thead>
-                    </table>
-                  </div>
-                </div>
-                <div class="fixed-table-pagination" style="display: none;"></div>
-              </div>
-              <div class="clearfix"></div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Signed</th>
+                    <th>Due</th>
+                    <th>Extended</th>
+                    <th>Duration</th>
+                    <th>Remaining</th>
+                    <th>LD</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="bid in ongoingBids" v-bind:key="bid.id">
+                    <td>{{bid.name}}</td>
+                  </tr>
+                </tbody>
+              </table>
             </ul>
           </div>
         </div>
@@ -3239,14 +3146,25 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: "Dashboard",
   components: {},
   data() {
-    return {};
+    return {
+      ongoingBids: null
+    };
   },
-  mounted() {},
-  computed: {},
-  methods: {}
+  mounted() {
+    this.fetchData();
+  },
+  methods: {
+    fetchData: function() {
+      axios.get("http://localhost:8000/api/ongoingBids").then(response => {
+        this.ongoingBids = response.data;
+      });
+    }
+  }
 };
 </script>
