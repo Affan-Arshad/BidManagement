@@ -1,7 +1,7 @@
 @extends('layouts.child')
 
 @section('fixed-content')
-    <h3>{{$bidder->name}}</h3>
+    <h3>{{ $bidder->name }}</h3>
     <hr>
     <table
     data-toggle="table"
@@ -16,10 +16,10 @@
             @foreach($bidder->bids as $bid)
             <tr>
                 <td class="link">
-                    <a class="btn text-left" href="/bids/{{$bid->id}}">{{$bid->name}}</a>
+                    <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }}</a>
                 </td>
                 <td class="fitToContent link">
-                    <a class="btn text-left" href="/organizations/{{$bid->organization->id}}">{{$bid->organization->name}}</a>
+                    <a class="btn text-left" href="/organizations/{{ $bid->organization->id }}">{{ $bid->organization->name }}</a>
                 </td>
             </tr>
             @endforeach

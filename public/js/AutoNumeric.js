@@ -921,7 +921,7 @@ export default class AutoNumeric {
      * @param {object|Array|number|string} arg1
      * @param {object|Array|number|string|null} arg2
      * @param {object|Array|number|string|null} arg3
-     * @returns {{domElement: *, initialValue: *, userOptions: *}}
+     * @returns {{ domElement: *, initialValue: *, userOptions: * }}
      * @throws
      * @private
      */
@@ -1086,7 +1086,7 @@ export default class AutoNumeric {
      * When merging the options, the latest option overwrite any previously set. This allows to fine tune a pre-defined option for instance.
      *
      * @param {Array<object|string>} optionsArray
-     * @returns {{}}
+     * @returns {{ }}
      */
     static mergeOptions(optionsArray) {
         // This allows the user to use multiple options (strings or objects) in an array, and overwrite the previous one with the next option element ; this is useful to tune the wanted format
@@ -5624,7 +5624,7 @@ To solve that, you'd need to either set \`decimalPlacesRawValue\` to \`null\`, o
                 break;
             default :
                 // Removes superfluous zeros after the decimalPlacesNeeded length
-                regex = new RegExp(`(\\.\\d{${decimalPlacesNeeded}}(?:\\d*[1-9])?)0*`);
+                regex = new RegExp(`(\\.\\d{${decimalPlacesNeeded }}(?:\\d*[1-9])?)0*`);
         }
 
         // If there are no decimal places, we don't need a decimal point at the end
@@ -9245,7 +9245,7 @@ To solve that, you'd need to either set \`decimalPlacesRawValue\` to \`null\`, o
  * [anElement1, anElement2] = AutoNumeric.multiple('.myCssClass > input', { options }); // This always return an Array, even if there is only one element selected
  * [anElement1, anElement2] = AutoNumeric.multiple('.myCssClass > input', [null, 12345.789], { options }); // Idem above, but with passing the initial values too
  *
- * @param {string|Array|{ rootElement: HTMLElement }|{ rootElement: HTMLElement, exclude: Array<HTMLInputElement>}} arg1
+ * @param {string|Array|{ rootElement: HTMLElement }|{ rootElement: HTMLElement, exclude: Array<HTMLInputElement> }} arg1
  * @param {number|Array|object|null} initialValue
  * @param {object|Array|null} options
  * @returns {Array}

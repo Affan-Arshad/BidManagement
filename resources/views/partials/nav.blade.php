@@ -4,7 +4,7 @@
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/dashboard">Dashboard</a>
+                <a class="nav-link" href="{{ config('app.vue_url') }}/dashboard">Dashboard</a>
             </li>
 
             <li class="nav-item">
@@ -21,7 +21,7 @@
             @if(!Auth::guest())
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" data-toggle="dropdown">
-                    {{Auth::user()->name}}
+                    {{ Auth::user()->name }}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <form action="/logout" method="POST">

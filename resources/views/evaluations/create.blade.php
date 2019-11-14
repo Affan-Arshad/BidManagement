@@ -1,9 +1,9 @@
 @extends('layouts.child')
 
 @section('fixed-content')
-    <h3>Add Evaluation to {{$bid->name}}</h3>
+    <h3>Add Evaluation to {{ $bid->name }}</h3>
     <hr>
-    <form action="/bids/{{$bid->id}}/evaluations" method="POST">
+    <form action="/bids/{{ $bid->id }}/evaluations" method="POST">
         @csrf
 
         <div class="row">

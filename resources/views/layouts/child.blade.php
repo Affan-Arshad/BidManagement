@@ -8,7 +8,7 @@
         @if(Session::has('messages'))
             @foreach (Session::get('messages') as $msgList)
                 @foreach($msgList as $type => $msg)
-        <p class="alert alert-{{$type}}">{{ $msg }}</p>
+        <p class="alert alert-{{ $type }}">{{ $msg }}</p>
                 @endforeach
             @endforeach
         @endif

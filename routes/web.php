@@ -11,16 +11,19 @@
 |
 */
 
-Route::middleware('auth')->group(function(){
-    Route::get('/', function(){
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
         return redirect('/dashboard');
     });
-    
+
     Route::get('/dashboard', 'DashboardController@index');
+    // Route::get('/dashboard', function () {
+    //     return view('index');
+    // });
 
     Route::resource('/organizations', 'OrganizationController');
     Route::resource('/bidders', 'BidderController');
-    
+
     Route::resource('/bids', 'BidController');
     Route::resource('/bids/{bid}/proposals', 'ProposalController');
     Route::resource('/bids/{bid}/evaluations', 'EvaluationController');
@@ -29,12 +32,12 @@ Route::middleware('auth')->group(function(){
 Auth::routes(['register' => false]);
 
 //store a push subscriber.
-Route::post('/push','PushController@store');
+Route::post('/push', 'PushController@store');
 //make a push notification.
-Route::get('/push/bidsToday','PushController@bidsToday')->name('bidsToday');
-Route::get('/push/bidsTomorrow','PushController@bidsTomorrow')->name('bidsTomorrow');
+Route::get('/push/bidsToday', 'PushController@bidsToday')->name('bidsToday');
+Route::get('/push/bidsTomorrow', 'PushController@bidsTomorrow')->name('bidsTomorrow');
 
 // 
-Route::get('/test', function() {
-    return view('test');
+Route::get('/admin', function () {
+    return view('index');
 });

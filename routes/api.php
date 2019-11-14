@@ -20,3 +20,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('cards', 'CardController@index');
 
 Route::get('ongoingBids', 'APIController@ongoingBids');
+Route::get('bidsByStatus', 'APIController@bidsByStatus');
+Route::get('statuses', 'APIController@statuses');
+Route::post('bids/{bid}', 'APIController@update');

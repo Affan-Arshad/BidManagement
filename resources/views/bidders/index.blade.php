@@ -19,14 +19,14 @@
             <tr>
                 <td class="fitToContent"></td>
                 <td class="link">
-                    <a data-name="{{$bidder->name}}" class="btn text-left" href="/bidders/{{$bidder->id}}">{{$bidder->name}}</a>
+                    <a data-name="{{ $bidder->name }}" class="btn text-left" href="/bidders/{{ $bidder->id }}">{{ $bidder->name }}</a>
                 </td>
-                <td class="fitToContent">{{count($bidder->proposals)}}</td>
+                <td class="fitToContent">{{ count($bidder->proposals) }}</td>
                 <td class="fitToContent">
-                    <a class="btn text-warning" href="/bidders/{{$bidder->id}}/edit">
+                    <a class="btn text-warning" href="/bidders/{{ $bidder->id }}/edit">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form class="d-inline-block" action="/bidders/{{$bidder->id}}" method="POST" onsubmit="confirmDelete(event, '{{$bidder->name}}')">
+                    <form class="d-inline-block" action="/bidders/{{ $bidder->id }}" method="POST" onsubmit="confirmDelete(event, '{{ $bidder->name }}')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn text-danger">

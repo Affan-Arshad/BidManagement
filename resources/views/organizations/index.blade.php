@@ -23,13 +23,13 @@
             <tr>
                 <td class="fitToContent"></td>
                 <td class="link">
-                    <a data-name="{{$org->name}}" class="btn text-left" href="/organizations/{{$org->id}}">{{$org->name}}</a>
+                    <a data-name="{{ $org->name }}" class="btn text-left" href="/organizations/{{ $org->id }}">{{ $org->name }}</a>
                 </td>
                 <td class="fitToContent">
-                    <a class="btn text-warning" href="/organizations/{{$org->id}}/edit">
+                    <a class="btn text-warning" href="/organizations/{{ $org->id }}/edit">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <form class="d-inline-block" action="/organizations/{{$org->id}}" method="POST" onsubmit="confirmDelete(event, '{{$org->name}}')">
+                    <form class="d-inline-block" action="/organizations/{{ $org->id }}" method="POST" onsubmit="confirmDelete(event, '{{ $org->name }}')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn text-danger">

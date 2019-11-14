@@ -1,16 +1,16 @@
 @extends('layouts.child')
 
 @section('fixed-content')
-    <h3>Edit {{$bidder->name}}</h3>
+    <h3>Edit {{ $bidder->name }}</h3>
     <hr>
-    <form action="/bidders/{{$bidder->id}}" method="POST">
+    <form action="/bidders/{{ $bidder->id }}" method="POST">
         @csrf
         @method('patch')
 
         <div class="row">
             <div class="form-group col">
                 <label>Name</label>
-                <input type="text" class="form-control" name="name" value="{{$bidder->name}}">
+                <input type="text" class="form-control" name="name" value="{{ $bidder->name }}">
             </div>
         </div>
 

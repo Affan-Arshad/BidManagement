@@ -3,12 +3,12 @@
 @section('fixed-content')
     <h3>Edit Organization</h3>
     <hr>
-    <form action="/organizations/{{$organization->id}}" method="POST">
+    <form action="/organizations/{{ $organization->id }}" method="POST">
         @csrf
         @method('patch')
         <div class="form-group">
             <label>Name</label>
-            <input type="text" class="form-control" name="name" value="{{$organization->name}}" >
+            <input type="text" class="form-control" name="name" value="{{ $organization->name }}" >
         </div>
 
         <div class="form-group">

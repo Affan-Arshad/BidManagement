@@ -9,8 +9,8 @@
     <div class="col-12 mb-5">
         
         <div class="d-none">
-            <a href="{{route('bidsToday')}}" class="btn btn-outline-primary btn-block">Notify Today Bids</a>
-            <a href="{{route('bidsTomorrow')}}" class="btn btn-outline-primary btn-block">Notify Tomorrow Bids</a>
+            <a href="{{ route('bidsToday') }}" class="btn btn-outline-primary btn-block">Notify Today Bids</a>
+            <a href="{{ route('bidsTomorrow') }}" class="btn btn-outline-primary btn-block">Notify Tomorrow Bids</a>
         </div>
 
         <div class="card">
@@ -43,7 +43,7 @@
                             @foreach ($bids->active as $bid)
                             <tr>
                                 <td class="link">
-                                    <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
+                                    <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
                                         {{ $bid->organization->name }}
                                     </a>
                                 </td>
@@ -109,7 +109,7 @@
                             @foreach ($bids->submissions as $bid )
                             <tr>
                                 <td class="link">
-                                    <a class="btn text-left" href="/bids/{{$bid->id}}">
+                                    <a class="btn text-left" href="/bids/{{ $bid->id }}">
                                         {{ $bid->name }} | {{ $bid->organization->name }}
                                     </a>
                                 </td>
@@ -162,7 +162,7 @@
                             @foreach ($bidGrp as $bid)
                             <tr>
                                 <td class="link">
-                                    <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
+                                    <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
                                         {{ $bid->organization->name }}</a>
                                 </td>
                                 <td>
@@ -212,7 +212,7 @@
                                 @foreach ($bidGrp as $bid)
                                 <tr>
                                     <td class="link">
-                                        <a class="btn text-left" href="/bids/{{$bid->id}}">{{ $bid->name }} |
+                                        <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
                                             {{ $bid->organization->name }}</a>
                                     </td>
                                     <td>

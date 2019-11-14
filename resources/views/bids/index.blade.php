@@ -27,22 +27,22 @@
             <tr>
                 <td class="fitToContent"></td>
                 <td class="link">
-                    <a data-name="{{$bid->name}}" class="btn text-left" href="/bids/{{$bid->id}}">{{$bid->name}}</a>
+                    <a data-name="{{ $bid->name }}" class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }}</a>
                 </td>
                 <td class="link">
-                    <a data-name="{{$bid->organization->name}}" class="btn text-left" href="/organizations/{{$bid->organization->id}}">{{$bid->organization->name}}</a>
+                    <a data-name="{{ $bid->organization->name }}" class="btn text-left" href="/organizations/{{ $bid->organization->id }}">{{ $bid->organization->name }}</a>
                 </td>
                 <td>
-                    {{$bid->category}}
+                    {{ $bid->category }}
                 </td>
                 <td class="fitToContent">
                     @include('partials.link', ['link' => $bid->link])
                     
-                    <a class="btn text-warning" href="/bids/{{$bid->id}}/edit">
+                    <a class="btn text-warning" href="/bids/{{ $bid->id }}/edit">
                         <i class="fas fa-edit"></i>
                     </a>
 
-                    <form class="d-inline-block" action="/bids/{{$bid->id}}" method="POST" onsubmit="confirmDelete(event, '{{$bid->name}}')">
+                    <form class="d-inline-block" action="/bids/{{ $bid->id }}" method="POST" onsubmit="confirmDelete(event, '{{ $bid->name }}')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn text-danger">

@@ -5,7 +5,7 @@
             <form method="POST">
                 @csrf
                 @method('patch')
-                <input type="hidden" name="redirect" value="{{$redirect}}">
+                <input type="hidden" name="redirect" value="{{ $redirect }}">
 
                 <div class="modal-header">
                     <h5 class="modal-title">Change Status</h5>
@@ -22,7 +22,7 @@
                             <select class="form-control" name="status_id">
                                 @foreach (App\Bid::$statuses as $status => $color)
                                 <option
-                                    value="{{$status}}">
+                                    value="{{ $status }}">
                                     {{ str_replace( '_', ' ', ucwords($status) ) }}
                                 </option>
                                 @endforeach

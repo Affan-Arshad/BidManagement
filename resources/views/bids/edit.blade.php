@@ -1,44 +1,44 @@
 @extends('layouts.child')
 
 @section('fixed-content')
-<h3>Edit <a href="/bids/{{$bid->id}}">{{$bid->name}}</a></h3>
+<h3>Edit <a href="/bids/{{ $bid->id }}">{{ $bid->name }}</a></h3>
 <hr>
-<form action="/bids/{{$bid->id}}" method="POST">
+<form action="/bids/{{ $bid->id }}" method="POST">
     @csrf
     @method('patch')
-    <input type="hidden" name="redirect" value="/bids/{{$bid->id}}">
+    <input type="hidden" name="redirect" value="/bids/{{ $bid->id }}">
 
     <div class="form-group">
         <label>Organization</label>
         <input type="text" name="organization" id="organization" class="form-control"
-            value="{{$bid->organization->name}}" />
+            value="{{ $bid->organization->name }}" />
     </div>
 
     <div class="form-group">
         <label>Iulaan No.</label>
-        <input type="text" class="form-control" name="iulaan_no" value="{{$bid->iulaan_no}}">
+        <input type="text" class="form-control" name="iulaan_no" value="{{ $bid->iulaan_no }}">
     </div>
 
     <div class="form-group">
         <label>Link</label>
-        <input type="text" class="form-control" name="link" value="{{$bid->link}}">
+        <input type="text" class="form-control" name="link" value="{{ $bid->link }}">
     </div>
 
     <div class="row">
         <div class="form-group col">
             <label>Name</label>
-            <input type="text" class="form-control" name="name" value="{{$bid->name}}">
+            <input type="text" class="form-control" name="name" value="{{ $bid->name }}">
         </div>
 
         <div class="form-group col">
             <label>Category</label>
-            <input type="text" class="form-control" name="category" value="{{$bid->category}}">
+            <input type="text" class="form-control" name="category" value="{{ $bid->category }}">
         </div>
     </div>
 
     <div class="form-group">
         <label>Estimated Cost (MVR)</label>
-        <input type="text" class="form-control input-numeric" name="cost" value="{{$bid->cost}}">
+        <input type="text" class="form-control input-numeric" name="cost" value="{{ $bid->cost }}">
     </div>
 
     <div class="row">
@@ -80,14 +80,14 @@
 
     <div class="form-group">
         <label>Duration</label>
-        <input type="text" class="form-control input-numeric" name="duration" value="{{$bid->duration}}">
+        <input type="text" class="form-control input-numeric" name="duration" value="{{ $bid->duration }}">
     </div>
 
     <div class="form-group">
         <label>Status</label>
         <select class="form-control" name="status_id">
             @foreach (App\Bid::$statuses as $status => $color)
-            <option {{ $bid->status_id == $status ? 'selected' : '' }} value="{{$status}}">
+            <option {{ $bid->status_id == $status ? 'selected' : '' }} value="{{ $status }}">
                 {{ str_replace( '_', ' ', ucwords($status) ) }}</option>
             @endforeach
         </select>

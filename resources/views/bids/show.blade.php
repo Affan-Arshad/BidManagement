@@ -2,7 +2,7 @@
 
 @section('fixed-content')
 <section>
-    <h3>{{$bid->name}} <a class="btn text-warning" href="/bids/{{$bid->id}}/edit"><i class="fas fa-edit"></i></a></h3>
+    <h3>{{ $bid->name }} <a class="btn text-warning" href="/bids/{{ $bid->id }}/edit"><i class="fas fa-edit"></i></a></h3>
     <hr>
 
     <table class="table table-bordered bid">
@@ -11,48 +11,48 @@
                 <th class="fitToContent">Organization</th>
                 <td colspan=3 class="link">
                     <a class="btn text-left"
-                        href="/organizations/{{$bid->organization->id}}">{{$bid->organization->name}}</a>
+                        href="/organizations/{{ $bid->organization->id }}">{{ $bid->organization->name }}</a>
                 </td>
             </tr>
             <tr>
                 <th>Iulaan No.</th>
-                <td colspan=3>{{$bid->iulaan_no}}</td>
+                <td colspan=3>{{ $bid->iulaan_no }}</td>
             </tr>
             <tr>
                 <th>Link</th>
                 <td colspan=3 class="link">
-                    <a target="_blank" class="btn text-left" href="{{$bid->link}}">{{$bid->link}}</a>
+                    <a target="_blank" class="btn text-left" href="{{ $bid->link }}">{{ $bid->link }}</a>
                 </td>
             </tr>
             <tr>
                 <th class="fitToContent">Category</th>
-                <td colspan=3>{{$bid->category}}</td>
+                <td colspan=3>{{ $bid->category }}</td>
             </tr>
             <tr>
                 <th class="fitToContent">Estimated Cost (MVR)</th>
-                <td colspan=3 class="auto-numeric">{{$bid->cost}}</td>
+                <td colspan=3 class="auto-numeric">{{ $bid->cost }}</td>
             </tr>
             <tr>
                 <th class="fitToContent">Registration Start Date</th>
-                <td>{{displayDateFormat($bid->registration_start_date)}}</td>
+                <td>{{ displayDateFormat($bid->registration_start_date) }}</td>
                 <th class="fitToContent">Registration End Date</th>
-                <td>{{displayDateFormat($bid->registration_end_date)}}</td>
+                <td>{{ displayDateFormat($bid->registration_end_date) }}</td>
             </tr>
             <tr>
                 <th class="fitToContent">Information Date</th>
-                <td>{{displayDateFormat($bid->info_date)}}</td>
+                <td>{{ displayDateFormat($bid->info_date) }}</td>
                 <th class="fitToContent">Submission Date</th>
-                <td>{{displayDateFormat($bid->submission_date)}}</td>
+                <td>{{ displayDateFormat($bid->submission_date) }}</td>
             </tr>
             <tr>
                 <th class="fitToContent">Agreement Date</th>
-                <td>{{displayDateFormat($bid->agreement_date)}}</td>
+                <td>{{ displayDateFormat($bid->agreement_date) }}</td>
                 <th class="fitToContent">Extended Date</th>
-                <td>{{displayDateFormat($bid->extended_date)}}</td>
+                <td>{{ displayDateFormat($bid->extended_date) }}</td>
             </tr>
             <tr>
                 <th class="fitToContent">Duration</th>
-                <td colspan=3>{{$bid->duration}}</td>
+                <td colspan=3>{{ $bid->duration }}</td>
             </tr>
             <tr>
                 <th class="fitToContent">Status</th>
@@ -65,7 +65,7 @@
             <tr>
                 <th class="fitToContent">Evaluation Criteria</th>
                 <td colspan=3>
-                    <form action="/bids/{{$bid->id}}/evaluations" method="POST">
+                    <form action="/bids/{{ $bid->id }}/evaluations" method="POST">
                         @csrf
                         <div class="row">
                             <div class="form-group col">
@@ -96,14 +96,14 @@
                         <tbody>
                             @foreach($bid->evaluations as $evaluation)
                             <tr>
-                                <td>{{$evaluation->criterion}}</td>
-                                <td>{{$evaluation->percentage}}</td>
+                                <td>{{ $evaluation->criterion }}</td>
+                                <td>{{ $evaluation->percentage }}</td>
                                 <td class="fitToContent">
                                     <a class="btn text-warning" data-toggle="modal" data-target="#editCriterionModal"
-                                        onclick="editCriterionModal({{$evaluation}})"><i class="fas fa-edit"></i></a>
+                                        onclick="editCriterionModal({{ $evaluation }})"><i class="fas fa-edit"></i></a>
                                     <form class="d-inline-block"
-                                        action="/bids/{{$bid->id}}/evaluations/{{$evaluation->id}}" method="POST"
-                                        onsubmit="confirmDelete(event, '{{$evaluation->criterion}}')">
+                                        action="/bids/{{ $bid->id }}/evaluations/{{ $evaluation->id }}" method="POST"
+                                        onsubmit="confirmDelete(event, '{{ $evaluation->criterion }}')">
                                         @csrf
                                         @method("DELETE")
                                         <button type="submit" class="btn text-danger"><i
@@ -125,7 +125,7 @@
     <h5>Proposals</h5>
     <hr>
 
-    <form action="/bids/{{$bid->id}}/proposals" method="POST">
+    <form action="/bids/{{ $bid->id }}/proposals" method="POST">
         @csrf
         <div class="row">
             <div class="form-group col">
@@ -165,15 +165,15 @@
             @foreach($proposals as $proposal)
             <tr class="proposal">
                 <td class="fitToContent"></td>
-                <td class="name">{{$proposal->bidder->name}}</td>
-                <td class="price auto-numeric">{{$proposal->price}}</td>
-                <td class="duration fitToContent">{{$proposal->duration_days}}</td>
-                <td class="">{{$proposal->eval}}</td>
+                <td class="name">{{ $proposal->bidder->name }}</td>
+                <td class="price auto-numeric">{{ $proposal->price }}</td>
+                <td class="duration fitToContent">{{ $proposal->duration_days }}</td>
+                <td class="">{{ $proposal->eval }}</td>
                 <td class="fitToContent">
                     <a class="btn text-warning" data-toggle="modal" data-target="#editProposalModal"
-                        onclick="editProposalModal({{$proposal}})"><i class="fas fa-edit"></i></a>
-                    <form class="d-inline-block" action="/bids/{{$bid->id}}/proposals/{{$proposal->id}}" method="POST"
-                        onsubmit="confirmDelete(event, 'Proposal by {{$proposal->bidder->name}}')">
+                        onclick="editProposalModal({{ $proposal }})"><i class="fas fa-edit"></i></a>
+                    <form class="d-inline-block" action="/bids/{{ $bid->id }}/proposals/{{ $proposal->id }}" method="POST"
+                        onsubmit="confirmDelete(event, 'Proposal by {{ $proposal->bidder->name }}')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn text-danger"><i class="fas fa-trash"></i></button>
@@ -189,23 +189,23 @@
 
 <section class="mt-3">
     <h5>Lots <a class="btn btn-success text-light" data-toggle="modal" data-target="#addLotModal"
-            onclick="addLotModal({{$bid->id}})"><i class="fas fa-plus"></i></a></h5>
+            onclick="addLotModal({{ $bid->id }})"><i class="fas fa-plus"></i></a></h5>
     <hr>
 
     @foreach ($bid->lots as $lot)
     <div class="card mb-3">
         <div class="card-header">
-            {{$lot->name}}
-            <a class="btn text-warning" data-toggle="modal" data-target="#editLotModal" onclick="editLotModal({{$lot}})"><i
+            {{ $lot->name }}
+            <a class="btn text-warning" data-toggle="modal" data-target="#editLotModal" onclick="editLotModal({{ $lot }})"><i
                     class="fas fa-edit"></i></a>
         </div>
         <div class="card-body">
-            <form action="/bids/{{$bid->id}}/proposals" method="POST">
+            <form action="/bids/{{ $bid->id }}/proposals" method="POST">
                 @csrf
-                <input type="hidden" name="lot_id" value="{{$lot->id}}">
+                <input type="hidden" name="lot_id" value="{{ $lot->id }}">
                 <div class="row">
                     <div class="form-group col">
-                        <input id="lot{{$lot->id}}" type="text" name="name" class="form-control bidder" placeholder="Name" required>
+                        <input id="lot{{ $lot->id }}" type="text" name="name" class="form-control bidder" placeholder="Name" required>
                     </div>
 
                     <div class="form-group col">
@@ -241,16 +241,16 @@
                     @foreach($bid->proposalsByLot[$lot->id] as $proposal)
                     <tr class="proposal">
                         <td class="fitToContent"></td>
-                        <td class="name">{{$proposal->bidder->name}}</td>
-                        <td class="price auto-numeric">{{$proposal->price}}</td>
-                        <td class="duration fitToContent">{{$proposal->duration_days}}</td>
-                        <td class="">{{$proposal->eval}}</td>
+                        <td class="name">{{ $proposal->bidder->name }}</td>
+                        <td class="price auto-numeric">{{ $proposal->price }}</td>
+                        <td class="duration fitToContent">{{ $proposal->duration_days }}</td>
+                        <td class="">{{ $proposal->eval }}</td>
                         <td class="fitToContent">
                             <a class="btn text-warning" data-toggle="modal" data-target="#editProposalModal"
-                                onclick="editProposalModal({{$proposal}})"><i class="fas fa-edit"></i></a>
-                            <form class="d-inline-block" action="/bids/{{$bid->id}}/proposals/{{$proposal->id}}"
+                                onclick="editProposalModal({{ $proposal }})"><i class="fas fa-edit"></i></a>
+                            <form class="d-inline-block" action="/bids/{{ $bid->id }}/proposals/{{ $proposal->id }}"
                                 method="POST"
-                                onsubmit="confirmDelete(event, 'Proposal by {{$proposal->bidder->name}}')">
+                                onsubmit="confirmDelete(event, 'Proposal by {{ $proposal->bidder->name }}')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn text-danger"><i class="fas fa-trash"></i></button>

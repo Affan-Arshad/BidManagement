@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class BidController extends Controller
 {
+
+    public function __construct() {
+        header("Access-Control-Allow-Origin: *");
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,6 +53,7 @@ class BidController extends Controller
      */
     public function store(Request $request)
     {
+        header("Access-Control-Allow-Origin: *");
         // Check If Organization Already Exists
         $organization = null;
         $organizations = Organization::all();

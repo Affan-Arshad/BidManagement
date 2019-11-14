@@ -9,10 +9,10 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
-            <b-nav-item href="#">Dashboard</b-nav-item>
-            <b-nav-item href="#">Bids</b-nav-item>
-            <b-nav-item href="#">Organizations</b-nav-item>
-            <b-nav-item href="#">Bidders</b-nav-item>
+            <b-nav-item href="/dashboard">Dashboard</b-nav-item>
+            <b-nav-item :href="url+'/bids'">Bids</b-nav-item>
+            <b-nav-item :href="url+'/organizations'">Organizations</b-nav-item>
+            <b-nav-item :href="url+'/bidders'">Bidders</b-nav-item>
             <b-nav-item-dropdown right>
               <!-- Using 'button-content' slot -->
               <template v-slot:button-content>
@@ -29,7 +29,12 @@
 
 <script>
 export default {
-  name: "Navigation"
+  name: "Navigation",
+  data(){
+      return {
+          url: process.env.VUE_APP_URL
+      }
+  }
 };
 </script>
 
