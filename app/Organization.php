@@ -10,6 +10,6 @@ class Organization extends Model
     protected $fillable = ['name'];
 
     public function bids() {
-        return $this->hasMany(Bid::class);
+        return $this->hasMany('App\Bid');
     }
 }

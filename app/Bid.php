@@ -67,23 +67,27 @@ class Bid extends Model
     }
     
     public function organization() {
-        return $this->belongsTo(Organization::class);
+        return $this->belongsTo('App\Organization');
     }
 
     public function bidders() {
-        return $this->belongsToMany(Bidder::class, 'bid_bidders');
+        return $this->belongsToMany('App\Bidder', 'bid_bidders');
     }
 
     public function proposals() {
-        return $this->hasMany(Proposal::class);
+        return $this->hasMany('App\Proposal');
+    }
+
+    public function notes() {
+        return $this->hasMany('App\Note');
     }
 
     public function lots() {
-        return $this->hasMany(Lot::class);
+        return $this->hasMany('App\Lot');
     }
 
     public function evaluations() {
-        return $this->hasMany(Evaluation::class);
+        return $this->hasMany('App\Evaluation');
     }
 
     public function bidder($id) {

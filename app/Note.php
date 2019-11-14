@@ -4,9 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Evaluation extends Model
+class Note extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['content', 'bid_id'];
+
     public function bid() {
         return $this->belongsTo('App\Bid');
     }
