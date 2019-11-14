@@ -7,7 +7,7 @@
 <div class="row" id="dashboard-cards">
 
     <div class="col-12 mb-5">
-        
+
         <div class="d-none">
             <a href="{{ route('bidsToday') }}" class="btn btn-outline-primary btn-block">Notify Today Bids</a>
             <a href="{{ route('bidsTomorrow') }}" class="btn btn-outline-primary btn-block">Notify Tomorrow Bids</a>
@@ -24,9 +24,7 @@
             <div class="card-body collapse" id="Ongoing-collapse" data-parent="#dashboard-cards">
                 <ul class="list-group">
 
-                    <table
-                        data-toggle="table"
-                        data-mobile-responsive="true">
+                    <table data-toggle="table" data-mobile-responsive="true">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -37,6 +35,7 @@
                                 <th>Duration</th>
                                 <th>Remaining</th>
                                 <th>LD</th>
+                                <th>Notes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,7 +48,7 @@
                                 </td>
                                 <td>
                                     @include('partials.changeStatus', [
-                                        $redirect = "/dashboard"
+                                    $redirect = "/dashboard"
                                     ])
                                 </td>
                                 <td>
@@ -69,8 +68,12 @@
                                 </td>
                                 <td class="auto-numeric">
                                     @if($bid->remaining_days < 0)
-                                    {{ $bid->remaining_days * 0.005 * $bid->hikaa()->price }}
+                                        {{ $bid->remaining_days * 0.005 * $bid->hikaa()->price }}
                                     @endif
+                                </td>
+                                <td>
+                                    <a href="#" class="badge badge-pill badge-primary" data-toggle="modal" data-target="#viewNotesModal"
+                                    onclick="viewNotesModal({{ $bid->notes }})">{{ count($bid->notes) }}</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -95,14 +98,13 @@
             <div class="card-body collapse" id="submissions-collapse" data-parent="#dashboard-cards">
                 <ul class="list-group">
 
-                    <table
-                    data-toggle="table"
-                    data-mobile-responsive="true">
+                    <table data-toggle="table" data-mobile-responsive="true">
                         <thead>
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
                                 <th>Date</th>
+                                <th>Notes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -115,11 +117,15 @@
                                 </td>
                                 <td>
                                     @include('partials.changeStatus', [
-                                        $redirect = "/dashboard"
+                                    $redirect = "/dashboard"
                                     ])
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->submission_date) }}
+                                </td>
+                                <td>
+                                    <a href="#" class="badge badge-pill badge-primary" data-toggle="modal" data-target="#viewNotesModal"
+                                    onclick="viewNotesModal({{ $bid->notes }})">{{ count($bid->notes) }}</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -144,9 +150,7 @@
             <div class="card-body collapse" id="infos-collapse" data-parent="#dashboard-cards">
                 <ul class="list-group">
 
-                    <table
-                    data-toggle="table"
-                    data-mobile-responsive="true">
+                    <table data-toggle="table" data-mobile-responsive="true">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -154,6 +158,7 @@
                                 <th>Registration starts</th>
                                 <th>Registration ends</th>
                                 <th>Prebid Meeting</th>
+                                <th>Notes</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -167,7 +172,7 @@
                                 </td>
                                 <td>
                                     @include('partials.changeStatus', [
-                                        $redirect = "/dashboard"
+                                    $redirect = "/dashboard"
                                     ])
                                 </td>
                                 <td>
@@ -178,6 +183,10 @@
                                 </td>
                                 <td>
                                     {{ displayDateFormat($bid->info_date) }}
+                                </td>
+                                <td>
+                                    <a href="#" class="badge badge-pill badge-primary" data-toggle="modal" data-target="#viewNotesModal"
+                                    onclick="viewNotesModal({{ $bid->notes }})">{{ count($bid->notes) }}</a>
                                 </td>
                             </tr>
                             @endforeach
@@ -217,7 +226,7 @@
                                     </td>
                                     <td>
                                         @include('partials.changeStatus', [
-                                            $redirect = "/dashboard"
+                                        $redirect = "/dashboard"
                                         ])
                                     </td>
                                 </tr>
@@ -233,8 +242,10 @@
     </div>
 
     @include('partials.changeStatusModal', [
-        $redirect => '/dashboard'
+    $redirect => '/dashboard'
     ])
+    
+    @include('partials.viewNotesModal')
 
 </div>
 

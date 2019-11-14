@@ -74,3 +74,20 @@ function editProposalModal(proposal) {
     // Set Form Action
     $('#editProposalModal form')[0].setAttribute('action', '/bids/'+proposal.bid_id+'/proposals/'+proposal.id);
 }
+
+// View Notes
+function viewNotesModal(notes) {
+    // Set Content
+    console.log(notes);
+    $('#viewNotesModal tbody').empty();
+    notes.forEach(note => {
+        var row = `
+            <tr>
+                <td class="fitToContent"></td>
+                <td class="note">`+note.content+`</td>
+                <td class="date fitToContent">`+note.created_at+`</td>
+            </tr>
+        `;
+        $('#viewNotesModal tbody').prepend(row);
+    })
+}
