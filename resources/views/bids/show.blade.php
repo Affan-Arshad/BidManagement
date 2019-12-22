@@ -266,7 +266,7 @@
     @endforeach
 </section>
 
-@include('partials.addNote');
+@include('partials.addNote')
 
 @include('partials.editProposalModal')
 

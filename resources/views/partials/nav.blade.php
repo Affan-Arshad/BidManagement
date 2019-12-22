@@ -8,6 +8,10 @@
             </li>
 
             <li class="nav-item">
+                <a class="nav-link" href="/tasks">Tasks</a>
+            </li>
+
+            <li class="nav-item">
                 <a class="nav-link" href="/bids">Bids</a>
             </li>
 

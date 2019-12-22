@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\Bid;
 use Illuminate\Database\Eloquent\Model;
 
 class Organization extends Model

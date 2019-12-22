@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use App\User;
 use Illuminate\Http\Request;
 use App\Notifications\BidsToday;
 use App\Notifications\BidsTomorrow;
-use App\User;
-use Auth;
 use Notification;
 
 class PushController extends Controller

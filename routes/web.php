@@ -29,6 +29,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('/bids/{bid}/evaluations', 'EvaluationController');
     Route::resource('/bids/{bid}/lots', 'LotController');
     Route::resource('/bids/{bid}/notes', 'NoteController');
+    
+    Route::resource('/tasks', 'TaskController');
 });
 Auth::routes(['register' => false]);
 
