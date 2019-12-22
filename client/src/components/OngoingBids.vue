@@ -27,7 +27,7 @@
             </thead>
             <tbody>
               <tr v-for="(bid, index) in ongoingBids" v-bind:key="index">
-                <td>{{ bid.name }}</td>
+                <td><a :href="'/bids/'+bid.id">{{ bid.name }}</a></td>
                 <td>
                   <div class="d-flex flex-row align-items-center">
                     <b-dropdown
@@ -98,7 +98,7 @@ export default {
         .post("http://localhost:8000/api/bids/" + bidId, {
           status_id: selectedStatus
         })
-        .then(response => {
+        .then(() => {
           this.getOngoingBids();
         })
         .catch(error => {
@@ -130,7 +130,7 @@ export default {
   filters: {
     date: function(value) {
       if (!value) return "";
-      return moment(value).format("ddd_Do_MMM_YYYY");
+      return moment(value).format("ddd_Do MMM/YYYY");
     }
   }
 };

@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 mb-5">
     <div id="accordion" class="card">
-      <div class="card-header"  >
+      <div class="card-header">
         <h5 class="mb-0">Bids by Status</h5>
       </div>
       <div class="card-body show" id="status-collapse">
@@ -10,7 +10,7 @@
             <li
               class="list-group-item d-flex justify-content-between align-items-center"
               data-toggle="collapse"
-              :data-target="status.replace('/', '-')+'collapse'"
+              :data-target="'#'+status.replace('/', '-')+'collapse'"
             >
               {{ status.toUpperCase().replace( '_', ' ') }}
               <span
@@ -22,17 +22,14 @@
               class="collapse"
               data-parent="#accordion"
             >
-              <table class="table table-list">
+              <table class="table table-bordered">
                 <tbody>
                   <tr v-for="(bid, index) in bidGrp" v-bind:key="index">
                     <td class="link">
-                      <a class="btn text-left" :href="'/bids/'+bid.id">
-                        {{ bid.name }} |
-                        
-                      </a>
+                      <a class="btn text-left" :href="'/bids/'+bid.id">{{ bid.name }}</a>
                     </td>
                     <td>
-                      <StatusSelector :bidId="bid.id" :status="status"></StatusSelector>
+                      <StatusSelector :bid="bid" :status="status" :statuses="statuses"></StatusSelector>
                     </td>
                   </tr>
                 </tbody>
@@ -80,8 +77,8 @@ export default {
         .post("http://localhost:8000/api/bids/" + bidId, {
           status_id: selectedStatus
         })
-        .then(response => {
-          this.getOngoingBids();
+        .then(() => {
+          this.getBids();
         })
         .catch(error => {
           console.log(error);

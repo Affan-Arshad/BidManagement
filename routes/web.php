@@ -17,9 +17,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/dashboard', 'DashboardController@index');
-    // Route::get('/dashboard', function () {
-    //     return view('index');
-    // });
+    Route::get('/dashboardx', function () {
+        return view('index');
+    });
 
     Route::resource('/organizations', 'OrganizationController');
     Route::resource('/bidders', 'BidderController');

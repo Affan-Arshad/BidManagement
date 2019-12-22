@@ -1,13 +1,13 @@
 <template>
-  <div class="d-flex flex-row align-items-center">
+  <div v-if="statuses" class="d-flex flex-row align-items-center">
     <b-dropdown
       size="sm"
-      :variant="bidStatusColor(status)"
+      :variant="bidStatusColor(bid.status_id)"
       toggle-class="text-decoration-none"
       no-caret
     >
       <template v-slot:button-content>
-        <span>{{ status }}</span>
+        <span>{{ bid.status_id }}</span>
         <span class="sr-only">Edit status</span>
       </template>
 
@@ -15,7 +15,7 @@
         href="#"
         v-for="(color, status) in statuses"
         :key="status"
-        @click="changeStatus(bidId, status)"
+        @click="changeStatus(bid.id, status)"
       >{{ status }}</b-dropdown-item>
     </b-dropdown>
   </div>
@@ -23,21 +23,17 @@
  
 <script>
 import axios from "axios";
-import moment from "moment";
 
 export default {
-  props: ["statuses", "bidId", "status"],
+  props: ["statuses", "bid", "status"],
 
   data() {
-    return {
-    };
+    return {};
   },
 
-  mounted() {
-  },
+  mounted() {},
 
   methods: {
-
     bidStatusColor: function(status_id) {
       return this.statuses[status_id];
     },
@@ -47,14 +43,14 @@ export default {
         .post("http://localhost:8000/api/bids/" + bidId, {
           status_id: selectedStatus
         })
-        .then(response => {
+        .then(() => {
           this.getOngoingBids();
         })
         .catch(error => {
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
 </script>
 
