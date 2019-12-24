@@ -17,7 +17,7 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = Task::all();
-        $users = User::all();
+        $users = User::where('name', '!=', 'Admin')->get();
         return view('tasks.index', compact('tasks', 'users'));
     }
 
