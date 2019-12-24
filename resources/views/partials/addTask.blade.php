@@ -18,6 +18,7 @@
                 
             <div class="form-group col">
                 <select name="user_id" class="form-control" placeholder="User">
+                    <option value> - Select - </option>
                     @foreach($users as $user)
                     <option value="{{$user->id}}">{{$user->name}}</option>
                     @endforeach

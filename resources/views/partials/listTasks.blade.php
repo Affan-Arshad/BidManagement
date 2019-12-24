@@ -14,14 +14,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($tasks->reverse() as $task)
+            @foreach($tasks->where('completed', '0')->reverse() as $task)
             @if(!$task->completed)
             <tr>
                 {{-- <td class="fitToContent"></td> --}}
                 <td class="description">{{ $task->description }}</td>
                 <td class="duration fitToContent">{{ $task->duration }}</td>
                 <td class="due_date fitToContent">{{ $task->due_date }}</td>
-                <td class="username fitToContent">{{ $task->user->name }}</td>
+                <td class="username fitToContent">{{ $task->user ? $task->user->name : '' }}</td>
                 <td class="complete fitToContent">
                 <form action="/tasks/{{ $task->id }}" method="post">
                     @csrf
@@ -56,14 +56,14 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($tasks->reverse() as $task)
-            @if($task->completed)
+            @foreach($tasks->where('completed', '1')->sortByDesc('updated_at') as $task)
+            @if($loop->index < 5)
             <tr>
                 {{-- <td class="fitToContent"></td> --}}
                 <td class="description">{{ $task->description }}</td>
                 <td class="duration fitToContent">{{ $task->duration }}</td>
                 <td class="due_date fitToContent">{{ $task->due_date }}</td>
-                <td class="username fitToContent">{{ $task->user->name }}</td>
+                <td class="username fitToContent">{{ $task->user ? $task->user->name : '' }}</td>
                 <td class="complete fitToContent">
                 <form action="/tasks/{{ $task->id }}" method="post">
                     @csrf
