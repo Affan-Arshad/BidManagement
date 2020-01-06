@@ -67,7 +67,7 @@
                                     {{ $bid->remaining_days }}
                                 </td>
                                 <td class="auto-numeric">
-                                    @if($bid->remaining_days < 0)
+                                    @if($bid->remaining_days < 0 && is_object($bid->hikaa()))
                                         {{ $bid->remaining_days * 0.005 * $bid->hikaa()->price }}
                                     @endif
                                 </td>
