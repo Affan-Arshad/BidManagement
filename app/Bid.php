@@ -2,10 +2,6 @@
 
 namespace App;
 
-use App\Lot;
-use App\Bidder;
-use Carbon\Carbon;
-use App\Evaluation;
 use Illuminate\Database\Eloquent\Model;
 
 class Bid extends Model
@@ -25,6 +21,7 @@ class Bid extends Model
         'extended_date',
         'duration',
         'organization_id',
+        'completion_letter_received',
         'status_id'
     ];
 

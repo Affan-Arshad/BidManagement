@@ -84,6 +84,14 @@
     </div>
 
     <div class="form-group">
+        <label>Completion Letter Received</label>
+        <select class="form-control" name="completion_letter_received">
+            <option {{ $bid->completion_letter_received == TRUE ? 'selected' : '' }} value=1>Received</option>
+            <option {{ $bid->completion_letter_received == FALSE ? 'selected' : '' }} value=0>Not Received</option>
+        </select>
+    </div>
+
+    <div class="form-group">
         <label>Status</label>
         <select class="form-control" name="status_id">
             @foreach (App\Bid::$statuses as $status => $color)

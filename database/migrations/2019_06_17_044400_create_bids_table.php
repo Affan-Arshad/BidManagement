@@ -30,6 +30,7 @@ class CreateBidsTable extends Migration
             $table->double('duration')->nullable();
             $table->integer('organization_id')->unsigned();
             $table->string('status_id');
+            $table->boolean('completion_letter_received')->default(false);
             $table->timestamps();
         });
     }

@@ -7,6 +7,57 @@
 <div class="row" id="dashboard-cards">
 
     <div class="col-12 mb-5">
+        <div class="card">
+            <div class="card-header" data-toggle="collapse" data-target="#Completion-collapse">
+                <h5 class="mb-0">Get Completion Letter
+                    <span class="badge badge-primary float-right">
+                        {{ $bids->where('status_id', 'completed')->where('completion_letter_received', FALSE)->count() }}
+                    </span>
+                </h5>
+            </div>
+            <div class="card-body collapse" id="Completion-collapse" data-parent="#dashboard-cards">
+                <ul class="list-group">
+
+                    <table data-toggle="table" data-mobile-responsive="true">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Letter Received?</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($bids->where('status_id', 'completed')->where('completion_letter_received', FALSE) as $bid)
+                            <tr>
+                                <td class="link">
+                                    <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
+                                        {{ $bid->organization->name }}
+                                    </a>
+                                </td>
+                                <td>
+                                    @include('partials.changeStatus', [
+                                    $redirect = "/dashboard"
+                                    ])
+                                </td>
+                                <td>
+                                    {{ $bid->completion_letter_received }}
+                                </td>
+                                <td>
+                                    <a href="#" class="badge badge-pill badge-primary" data-toggle="modal" data-target="#viewNotesModal"
+                                    onclick="viewNotesModal({{ $bid->notes }})">{{ count($bid->notes) }}</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 mb-5">
 
         <div class="d-none">
             <a href="{{ route('bidsToday') }}" class="btn btn-outline-primary btn-block">Notify Today Bids</a>
@@ -17,7 +68,7 @@
             <div class="card-header" data-toggle="collapse" data-target="#Ongoing-collapse">
                 <h5 class="mb-0">Ongoing Bids
                     <span class="badge badge-primary float-right">
-                        {{ (isset($bids->active) ? count($bids->active) : 0) }}
+                        {{ $bids->whereIn('status_id', ['ongoing', 'pending_agreement', 'pending_payment'])->count() }}
                     </span>
                 </h5>
             </div>
@@ -39,7 +90,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bids->active as $bid)
+                            @foreach ($bids->whereIn('status_id', ['ongoing', 'pending_agreement', 'pending_payment']) as $bid)
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
@@ -91,7 +142,7 @@
                 <h5 class="mb-0">
                     Upcoming Submissions
                     <span class="badge badge-primary float-right">
-                        {{ count($bids->submissions) }}
+                        {{ $bids->whereIn('status_id', ['pending_estimate', 'pending_proposal', 'ready_for_submission'])->count() }}
                     </span>
                 </h5>
             </div>
@@ -108,7 +159,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bids->submissions as $bid )
+                            @foreach ($bids->whereIn('status_id', ['pending_estimate', 'pending_proposal', 'ready_for_submission']) as $bid )
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{ $bid->id }}">
@@ -143,7 +194,7 @@
                 <h5 class="mb-0">
                     Upcoming Infos
                     <span class="badge badge-primary float-right">
-                        {{ (isset($bids['prebid']) ? count($bids['prebid']) : 0) }}
+                        {{ $bids->where('status_id', 'prebid')->count() }}
                     </span>
                 </h5>
             </div>
@@ -162,9 +213,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bids as $status => $bidGrp )
-                            @if($status == 'prebid')
-                            @foreach ($bidGrp as $bid)
+                            @foreach ($bids->where('status_id', 'prebid') as $bid )
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
@@ -190,8 +239,6 @@
                                 </td>
                             </tr>
                             @endforeach
-                            @endif
-                            @endforeach
                         </tbody>
                     </table>
 
@@ -200,7 +247,7 @@
         </div>
     </div>
 
-    <div class="col-12 mb-5">
+    {{-- <div class="col-12 mb-5">
         <div id="accordion" class="card">
             <div class="card-header" data-toggle="collapse" data-target="#status-collapse">
                 <h5 class="mb-0">Bids by Status</h5>
@@ -239,7 +286,7 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     @include('partials.changeStatusModal', [
     $redirect => '/dashboard'
