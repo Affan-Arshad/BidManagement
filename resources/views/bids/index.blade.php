@@ -27,7 +27,7 @@
             <tr>
                 <td class="fitToContent"></td>
                 <td class="link">
-                    <a data-name="{{ $bid->name }}" class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }}</a>
+                    <a data-name="{{ $bid->name }}" data-iulaan_no="{{ $bid->iulaan_no }}" class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }}</a>
                 </td>
                 <td class="link">
                     <a data-name="{{ $bid->organization->name }}" class="btn text-left" href="/organizations/{{ $bid->organization->id }}">{{ $bid->organization->name }}</a>
