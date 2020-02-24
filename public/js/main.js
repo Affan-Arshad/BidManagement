@@ -30,6 +30,16 @@ function changeStatusModal(bid) {
     $('#changeStatusModal form')[0].setAttribute('action', '/bids/'+bid.id);
 }
 
+// Change Letter Status Modal
+function changeLetterStatusModal(bid) {
+    // Set Selected BidName
+    $("#changeLetterStatusModal h5")[0].innerHTML = bid.name + " | " + bid.organization.name;
+    // Set Selected Status
+    $("#changeLetterStatusModal select[name='completion_letter_status']")[0].value = bid.completion_letter_status;
+    // Set Form Action
+    $('#changeLetterStatusModal form')[0].setAttribute('action', '/bids/'+bid.id);
+}
+
 // Edit Lot Modal
 function editLotModal(lot) {
     // Set Bid

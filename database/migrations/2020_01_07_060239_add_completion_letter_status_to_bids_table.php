@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCompletionLetterReceivedToBidsTable extends Migration
+class AddCompletionLetterStatusToBidsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class AddCompletionLetterReceivedToBidsTable extends Migration
     public function up()
     {
         Schema::table('bids', function (Blueprint $table) {
-            $table->boolean('completion_letter_received')->default(false);
+            $table->string('completion_letter_status')->default('to_request');
         });
     }
 
@@ -26,7 +26,7 @@ class AddCompletionLetterReceivedToBidsTable extends Migration
     public function down()
     {
         Schema::table('bids', function (Blueprint $table) {
-            $table->dropColumn('completion_letter_received');
+            $table->dropColumn('completion_letter_status');
         });
     }
 }

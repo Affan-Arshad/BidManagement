@@ -154,7 +154,24 @@ class BidController extends Controller
      */
     public function update(Request $request, Bid $bid)
     {
+        if($request->status_id == "pending_evaluation" && !$bid->proposals()->count()) {
+            return redirect("bids/$bid->id")->with('messages', [['danger' => 'Add Proposals For Evaluation']]);
+        }
+
         $bid->update($request->all());
+
+        if($bid->status_id == "ongoing") {
+            if(!$bid->agreement_no || !$bid->agreement_date || !$bid->duration) {
+                return view('bids.transitions.ongoing', compact('bid'));
+            }
+        }
+
+        if($bid->status_id == "ready_for_submission") {
+            if(!$bid->duration || !$bid->cost) {
+                return view('bids.transitions.ready_for_submission', compact('bid'));
+            }
+        }
+
         return redirect($request->redirect);
     }
 

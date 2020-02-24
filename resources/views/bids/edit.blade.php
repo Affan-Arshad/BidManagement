@@ -79,15 +79,17 @@
     </div>
 
     <div class="form-group">
-        <label>Duration</label>
+        <label>Duration (Days)</label>
         <input type="text" class="form-control input-numeric" name="duration" value="{{ $bid->duration }}">
     </div>
 
     <div class="form-group">
-        <label>Completion Letter Received</label>
-        <select class="form-control" name="completion_letter_received">
-            <option {{ $bid->completion_letter_received == TRUE ? 'selected' : '' }} value=1>Received</option>
-            <option {{ $bid->completion_letter_received == FALSE ? 'selected' : '' }} value=0>Not Received</option>
+        <label>Completion Letter Status</label>
+        <select class="form-control" name="completion_letter_status">
+            @foreach (App\Bid::$completion_letter_statuses as $status => $color)
+            <option {{ $bid->completion_letter_status == $status ? 'selected' : '' }} value="{{ $status }}">
+                {{ str_replace( '_', ' ', ucwords($status) ) }}</option>
+            @endforeach
         </select>
     </div>
 

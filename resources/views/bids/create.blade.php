@@ -8,7 +8,7 @@
 
         <div class="form-group">
             <label>Organization</label>
-            <input type="text" name="organization" id="organization" class="form-control" />
+            <input required type="text" name="organization" id="organization" class="form-control" />
         </div>
 
         <div class="row">

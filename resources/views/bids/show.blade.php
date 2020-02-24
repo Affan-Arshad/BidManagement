@@ -19,6 +19,10 @@
                 <td colspan=3>{{ $bid->iulaan_no }}</td>
             </tr>
             <tr>
+                <th>Agreement No.</th>
+                <td colspan=3>{{ $bid->agreement_no }}</td>
+            </tr>
+            <tr>
                 <th>Link</th>
                 <td colspan=3 class="link">
                     <a target="_blank" class="btn text-left" href="{{ $bid->link }}">{{ $bid->link }}</a>

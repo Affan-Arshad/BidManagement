@@ -11,7 +11,7 @@
             <div class="card-header" data-toggle="collapse" data-target="#Completion-collapse">
                 <h5 class="mb-0">Get Completion Letter
                     <span class="badge badge-primary float-right">
-                        {{ $bids->where('status_id', 'completed')->where('completion_letter_received', FALSE)->count() }}
+                        {{ $bids->where('status_id', 'completed')->where('completion_letter_status', '<>', 'received')->count() }}
                     </span>
                 </h5>
             </div>
@@ -23,12 +23,12 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Letter Received?</th>
+                                <th>Letter Status</th>
                                 <th>Notes</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bids->where('status_id', 'completed')->where('completion_letter_received', FALSE) as $bid)
+                            @foreach ($bids->where('status_id', 'completed')->where('completion_letter_status', '<>', 'received') as $bid)
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
@@ -41,7 +41,9 @@
                                     ])
                                 </td>
                                 <td>
-                                    {{ $bid->completion_letter_received }}
+                                    @include('partials.changeLetterStatus', [
+                                    $redirect = "/dashboard"
+                                    ])
                                 </td>
                                 <td>
                                     <a href="#" class="badge badge-pill badge-primary" data-toggle="modal" data-target="#viewNotesModal"
@@ -289,6 +291,10 @@
     </div> --}}
 
     @include('partials.changeStatusModal', [
+    $redirect => '/dashboard'
+    ])
+
+    @include('partials.changeLetterStatusModal', [
     $redirect => '/dashboard'
     ])
     

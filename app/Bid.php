@@ -9,6 +9,7 @@ class Bid extends Model
     protected $fillable = [
         'name',
         'iulaan_no',
+        'agreement_no',
         'link',
         'category',
         'cost',
@@ -21,7 +22,7 @@ class Bid extends Model
         'extended_date',
         'duration',
         'organization_id',
-        'completion_letter_received',
+        'completion_letter_status',
         'status_id'
     ];
 
@@ -37,6 +38,12 @@ class Bid extends Model
         'completed' => 'success',
         'lost' => 'dark',
         'dropped_/_cancelled' => 'light',
+    ];
+
+    public static $completion_letter_statuses = [
+        'to_request' => 'danger',
+        'requested' => 'warning',
+        'received' => 'success',
     ];
 
     // protected $casts = [
