@@ -19,6 +19,7 @@
                 <th data-sortable="true">Name</th>
                 <th data-sortable="true">Organization</th>
                 <th data-sortable="true">Category</th>
+                <th data-sortable="true">Proposal Count</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -34,6 +35,9 @@
                 </td>
                 <td>
                     {{ $bid->category }}
+                </td>
+                <td>
+                    {{ $bid->proposals()->count() }}
                 </td>
                 <td class="fitToContent">
                     @include('partials.link', ['link' => $bid->link])
