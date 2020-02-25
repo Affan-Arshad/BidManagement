@@ -20,6 +20,7 @@
                 <th data-sortable="true">Organization</th>
                 <th data-sortable="true">Category</th>
                 <th data-sortable="true">Proposal Count</th>
+                <th data-sortable="true">Status</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -38,6 +39,11 @@
                 </td>
                 <td>
                     {{ $bid->proposals()->count() }}
+                </td>
+                <td>
+                    @include('partials.changeStatus', [
+                    $redirect = "/dashboard"
+                    ])
                 </td>
                 <td class="fitToContent">
                     @include('partials.link', ['link' => $bid->link])
