@@ -267,9 +267,6 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Status</th>
-                                <th>Registration starts</th>
-                                <th>Registration ends</th>
-                                <th>Prebid Meeting</th>
                                 <th>Notes</th>
                             </tr>
                         </thead>
