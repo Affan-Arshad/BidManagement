@@ -251,7 +251,7 @@
 
     <div class="col-12 mb-5">
         <div class="card">
-            <div class="card-header" data-toggle="collapse" data-target="#infos-collapse">
+            <div class="card-header" data-toggle="collapse" data-target="#evals-collapse">
                 <h5 class="mb-0">
                     Pending Evaluation
                     <span class="badge badge-primary float-right">
@@ -259,7 +259,7 @@
                     </span>
                 </h5>
             </div>
-            <div class="card-body collapse" id="infos-collapse" data-parent="#dashboard-cards">
+            <div class="card-body collapse" id="evals-collapse" data-parent="#dashboard-cards">
                 <ul class="list-group">
 
                     <table data-toggle="table" data-mobile-responsive="true">
