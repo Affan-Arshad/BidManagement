@@ -274,7 +274,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bids->where('status_id', 'pending_evaluation')->sortBy('submission_date', 'ASC') as $bid )
+                            @foreach ($bids->where('status_id', 'pending_evaluation')->sortBy('submission_date') as $bid )
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
