@@ -249,6 +249,56 @@
         </div>
     </div>
 
+    <div class="col-12 mb-5">
+        <div class="card">
+            <div class="card-header" data-toggle="collapse" data-target="#infos-collapse">
+                <h5 class="mb-0">
+                    Pending Evaluation
+                    <span class="badge badge-primary float-right">
+                        {{ $bids->where('status_id', 'pending_evaluation')->count() }}
+                    </span>
+                </h5>
+            </div>
+            <div class="card-body collapse" id="infos-collapse" data-parent="#dashboard-cards">
+                <ul class="list-group">
+
+                    <table data-toggle="table" data-mobile-responsive="true">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Registration starts</th>
+                                <th>Registration ends</th>
+                                <th>Prebid Meeting</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($bids->where('status_id', 'pending_evaluation')->sortBy('submission_date', 'ASC') as $bid )
+                            <tr>
+                                <td class="link">
+                                    <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
+                                        {{ $bid->organization->name }}</a>
+                                </td>
+                                <td>
+                                    @include('partials.changeStatus', [
+                                    $redirect = "/dashboard"
+                                    ])
+                                </td>
+                                <td>
+                                    <a href="#" class="badge badge-pill badge-primary" data-toggle="modal" data-target="#viewNotesModal"
+                                    onclick="viewNotesModal({{ $bid->notes }})">{{ count($bid->notes) }}</a>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
     {{-- <div class="col-12 mb-5">
         <div id="accordion" class="card">
             <div class="card-header" data-toggle="collapse" data-target="#status-collapse">
