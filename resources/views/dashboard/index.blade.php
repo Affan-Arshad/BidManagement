@@ -92,7 +92,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bids->whereIn('status_id', ['ongoing', 'pending_agreement', 'pending_payment']) as $bid)
+                            @foreach ($bids->whereIn('status_id', ['ongoing', 'pending_agreement', 'pending_payment'])->sortBy('submission_date') as $bid)
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
@@ -161,7 +161,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bids->whereIn('status_id', ['pending_estimate', 'pending_proposal', 'ready_for_submission']) as $bid )
+                            @foreach ($bids->whereIn('status_id', ['pending_estimate', 'pending_proposal', 'ready_for_submission'])->sortBy('submission_date') as $bid )
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{ $bid->id }}">
@@ -215,7 +215,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($bids->where('status_id', 'prebid') as $bid )
+                            @foreach ($bids->where('status_id', 'prebid')->sortBy('info_date') as $bid )
                             <tr>
                                 <td class="link">
                                     <a class="btn text-left" href="/bids/{{ $bid->id }}">{{ $bid->name }} |
