@@ -1,5 +1,6 @@
 <section class="mt-3">
 
+    <h5>Add Task</h5>
     <form action="/tasks" method="POST">
         @csrf
         <div class="row">

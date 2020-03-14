@@ -1,7 +1,11 @@
 @extends('layouts.child')
 
 @section('fixed-content')
-<h3>Dashboard</h3>
+
+@include('partials.addTask')
+
+@include('partials.listTasks')
+
 <hr>
 
 <div class="row" id="dashboard-cards">

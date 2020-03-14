@@ -1,6 +1,6 @@
 <section class="mt-3">
  
-    <h3>Incomplete</h3>
+    <h3>Pending tasks</h3>
     <hr>
 
     <table data-toggle="table" data-mobile-responsive="true">
@@ -40,6 +40,7 @@
 
 </section>
 
+{{--
 <section class="mt-3 op-5">
     
     <h3>Completed</h3>
@@ -59,7 +60,7 @@
             @foreach($tasks->where('completed', '1')->sortByDesc('updated_at') as $task)
             @if($loop->index < 5)
             <tr>
-                {{-- <td class="fitToContent"></td> --}}
+                <td class="fitToContent"></td>
                 <td class="description">{{ $task->description }}</td>
                 <td class="duration fitToContent">{{ $task->duration }}</td>
                 <td class="due_date fitToContent">{{ $task->due_date }}</td>
@@ -81,3 +82,4 @@
     </table>
 
 </section>
+--}}
