@@ -45,9 +45,10 @@ class BidController extends Controller
             $iulaan_no = $request->input('iulaan_no', null);
             $link = $request->input('link', null);
             $name = $request->input('name', null);
+            $dates = $request->input('dates', null);
 
 
-            return view('bids.create', compact('selected', 'organizationNames', 'categories', 'organization', 'iulaan_no', 'link', 'name'));
+            return view('bids.create', compact('selected', 'organizationNames', 'categories', 'organization', 'iulaan_no', 'link', 'name', 'dates'));
         }
         return redirect('/organizations');
     }

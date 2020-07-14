@@ -86,3 +86,11 @@ td.link a {
 .op-9 {
     opacity: 0.9;
 }
+
+
+/* Dhivehi */
+.div {
+    text-align: right;
+    direction: rtl;
+    font-family: mv faseyha,farumafont,faruma;
+}

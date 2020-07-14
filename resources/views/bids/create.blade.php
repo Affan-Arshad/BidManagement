@@ -35,6 +35,12 @@
             </div>
         </div>
 
+        <div class="div">
+            @foreach(explode('.', $dates) as $date)
+                <div>{{ $date }}</div>
+            @endforeach
+        </div>
+
         <div class="form-group">
             <label>Info Date</label>
             <input type="datetime-local" class="form-control" name="info_date">
