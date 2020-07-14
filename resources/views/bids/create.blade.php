@@ -8,25 +8,25 @@
 
         <div class="form-group">
             <label>Organization</label>
-            <input required type="text" name="organization" id="organization" class="form-control" />
+            <input required type="text" name="organization" id="organization" class="form-control" value="{{ $organization }}" />
         </div>
 
         <div class="row">
             <div class="form-group col">
                 <label>Iulaan No.</label>
-                <input type="text" class="form-control" name="iulaan_no">
+                <input type="text" class="form-control" name="iulaan_no" value="{{ $iulaan_no }}">
             </div>
     
             <div class="form-group col">
                 <label>Link</label>
-                <input type="text" class="form-control" name="link">
+                <input type="text" class="form-control" name="link" value="{{ $link }}">
             </div>
         </div>
 
         <div class="row">
             <div class="form-group col">
                 <label>Name</label>
-                <input type="text" class="form-control" name="name" required>
+                <input type="text" class="form-control" name="name" value="{{ $name }}" required>
             </div>
 
             <div class="form-group col">

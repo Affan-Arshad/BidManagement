@@ -33,14 +33,21 @@ class BidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         if (isset($_GET['org']) && $_GET['org'] != null) {
             $id = $_GET['org'];
             $selected = Organization::where('id', $id)->first();
             $organizationNames = Organization::all()->pluck('name');
             $categories = array_values(Bid::all()->pluck('category')->unique()->toArray());
-            return view('bids.create', compact('selected', 'organizationNames', 'categories'));
+
+            $organization = $request->input('organization', null);
+            $iulaan_no = $request->input('iulaan_no', null);
+            $link = $request->input('link', null);
+            $name = $request->input('name', null);
+
+
+            return view('bids.create', compact('selected', 'organizationNames', 'categories', 'organization', 'iulaan_no', 'link', 'name'));
         }
         return redirect('/organizations');
     }
