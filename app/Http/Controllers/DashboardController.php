@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Bid;
-use App\Task;
-use App\User;
+use App\Models\Bid;
+use App\Models\Task;
+use App\Models\User;
 use Carbon\Carbon;
 
 class DashboardController extends Controller

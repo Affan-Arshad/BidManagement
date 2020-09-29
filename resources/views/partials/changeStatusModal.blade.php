@@ -20,7 +20,7 @@
                         <div class="form-group col">
 
                             <select class="form-control" name="status_id">
-                                @foreach (App\Bid::$statuses as $status => $color)
+                                @foreach (App\Models\Bid::$statuses as $status => $color)
                                 <option
                                     value="{{ $status }}">
                                     {{ str_replace( '_', ' ', ucwords($status) ) }}

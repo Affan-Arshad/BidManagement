@@ -14,7 +14,7 @@ class CreateEvaluationsTable extends Migration
     public function up()
     {
         Schema::create('evaluations', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('criterion');
             $table->double('percentage');
             $table->integer('bid_id')->unsigned();

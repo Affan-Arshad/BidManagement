@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Auth;
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Notifications\BidsToday;
 use App\Notifications\BidsTomorrow;

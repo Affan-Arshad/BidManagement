@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Bid;
+use App\Models\Bid;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 

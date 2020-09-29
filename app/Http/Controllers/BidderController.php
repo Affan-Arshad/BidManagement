@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Bidder;
+use App\Models\Bidder;
 use Illuminate\Http\Request;
 
 class BidderController extends Controller

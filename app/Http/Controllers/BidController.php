@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Bid;
-use App\Bidder;
-use App\BidBidder;
-use App\Evaluation;
-use App\Organization;
+use App\Models\Bid;
+use App\Models\Bidder;
+use App\Models\BidBidder;
+use App\Models\Evaluation;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 
 class BidController extends Controller

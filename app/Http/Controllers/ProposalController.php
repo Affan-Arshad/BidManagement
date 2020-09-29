@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Bid;
-use App\Bidder;
-use App\Proposal;
+use App\Models\Bid;
+use App\Models\Bidder;
+use App\Models\Proposal;
 use Illuminate\Http\Request;
 
 class ProposalController extends Controller

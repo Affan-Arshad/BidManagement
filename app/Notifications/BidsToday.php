@@ -2,7 +2,7 @@
 
 namespace App\Notifications;
 
-use App\Bid;
+use App\Models\Bid;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;

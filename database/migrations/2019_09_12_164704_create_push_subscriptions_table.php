@@ -16,7 +16,7 @@ class CreatePushSubscriptionsTable extends Migration
         Schema::connection(config('webpush.database_connection'))->create(config('webpush.table_name'), function (Blueprint $table) {
             $table->charset ='utf8';
             $table->collation = 'utf8_unicode_ci';
-            $table->increments('id');
+            $table->id();
             $table->morphs('subscribable');
             $table->string('endpoint', 255)->unique();
             $table->string('public_key')->nullable();

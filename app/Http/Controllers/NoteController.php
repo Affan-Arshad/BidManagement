@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Bid;
-use App\Note;
+use App\Models\Bid;
+use App\Models\Note;
 use Illuminate\Http\Request;
 
 class NoteController extends Controller

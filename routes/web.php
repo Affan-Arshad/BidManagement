@@ -1,5 +1,17 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BidController;
+use App\Http\Controllers\LotController;
+use App\Http\Controllers\NoteController;
+use App\Http\Controllers\PushController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\BidderController;
+use App\Http\Controllers\ProposalController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\OrganizationController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,34 +23,41 @@
 |
 */
 
-Route::middleware('auth')->group(function () {
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
+
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('/', function () {
         return redirect('/dashboard');
     });
 
-    Route::get('/dashboard', 'DashboardController@index');
+    Route::get('/dashboard', [DashboardController::class, 'index']);
     // Route::get('/dashboard', function () {
     //     return view('index');
     // });
 
-    Route::resource('/organizations', 'OrganizationController');
-    Route::resource('/bidders', 'BidderController');
+    Route::resource('/organizations', OrganizationController::class);
+    Route::resource('/bidders', BidderController::class);
 
-    Route::resource('/bids', 'BidController');
-    Route::resource('/bids/{bid}/proposals', 'ProposalController');
-    Route::resource('/bids/{bid}/evaluations', 'EvaluationController');
-    Route::resource('/bids/{bid}/lots', 'LotController');
-    Route::resource('/bids/{bid}/notes', 'NoteController');
+    Route::resource('/bids', BidController::class);
+    Route::resource('/bids/{bid}/proposals', ProposalController::class);
+    Route::resource('/bids/{bid}/evaluations', EvaluationController::class);
+    Route::resource('/bids/{bid}/lots', LotController::class);
+    Route::resource('/bids/{bid}/notes', NoteController::class);
     
-    Route::resource('/tasks', 'TaskController');
+    Route::resource('/tasks', TaskController::class);
 });
-Auth::routes(['register' => false]);
 
 //store a push subscriber.
-Route::post('/push', 'PushController@store');
+Route::post('/push', [PushController::class, 'store']);
 //make a push notification.
-Route::get('/push/bidsToday', 'PushController@bidsToday')->name('bidsToday');
-Route::get('/push/bidsTomorrow', 'PushController@bidsTomorrow')->name('bidsTomorrow');
+Route::get('/push/bidsToday', [PushController::class, 'bidsToday'])->name('bidsToday');
+Route::get('/push/bidsTomorrow', [PushController::class, 'bidsTomorrow'])->name('bidsTomorrow');
 
 // 
 Route::get('/admin', function () {

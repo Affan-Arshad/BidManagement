@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Bid;
-use App\Evaluation;
+use App\Models\Bid;
+use App\Models\Evaluation;
 use Illuminate\Http\Request;
 
 class EvaluationController extends Controller

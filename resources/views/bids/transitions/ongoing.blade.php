@@ -27,7 +27,7 @@
     <div class="form-group">
         <label>Status</label>
         <select class="form-control" name="status_id">
-            @foreach (App\Bid::$statuses as $status => $color)
+            @foreach (App\Models\Bid::$statuses as $status => $color)
             <option {{ 'ongoing' == $status ? 'selected' : '' }} value="{{ $status }}">
                 {{ str_replace( '_', ' ', ucwords($status) ) }}</option>
             @endforeach

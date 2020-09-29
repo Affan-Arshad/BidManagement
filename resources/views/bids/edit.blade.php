@@ -86,7 +86,7 @@
     <div class="form-group">
         <label>Completion Letter Status</label>
         <select class="form-control" name="completion_letter_status">
-            @foreach (App\Bid::$completion_letter_statuses as $status => $color)
+            @foreach (App\Models\Bid::$completion_letter_statuses as $status => $color)
             <option {{ $bid->completion_letter_status == $status ? 'selected' : '' }} value="{{ $status }}">
                 {{ str_replace( '_', ' ', ucwords($status) ) }}</option>
             @endforeach
@@ -96,7 +96,7 @@
     <div class="form-group">
         <label>Status</label>
         <select class="form-control" name="status_id">
-            @foreach (App\Bid::$statuses as $status => $color)
+            @foreach (App\Models\Bid::$statuses as $status => $color)
             <option {{ $bid->status_id == $status ? 'selected' : '' }} value="{{ $status }}">
                 {{ str_replace( '_', ' ', ucwords($status) ) }}</option>
             @endforeach
