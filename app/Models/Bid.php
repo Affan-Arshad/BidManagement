@@ -8,7 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class Bid extends Model
 {
     use HasFactory;
-    
+
+    protected $casts = [
+        'events' => 'array',
+    ];
+
+    protected $dates = [
+        'registration_start_date',
+        'registration_end_date',
+        'info_date',
+        'submission_date',
+    ];
+
     protected $fillable = [
         'name',
         'iulaan_no',
@@ -26,7 +37,8 @@ class Bid extends Model
         'duration',
         'organization_id',
         'completion_letter_status',
-        'status_id'
+        'status_id',
+        'events'
     ];
 
     public static $statuses = [
@@ -47,6 +59,13 @@ class Bid extends Model
         'to_request' => 'danger',
         'requested' => 'warning',
         'received' => 'success',
+    ];
+
+    public static $calendarEvents = [
+        'registration_start_date' => null,
+        'registration_end_date' => null,
+        'info_date' => null,
+        'submission_date' => null,
     ];
 
     // protected $casts = [

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Bid;
 use App\Models\Bidder;
 use App\Models\BidBidder;
 use App\Models\Evaluation;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use Spatie\GoogleCalendar\Event;
+use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class BidController extends Controller
 {
@@ -77,7 +81,14 @@ class BidController extends Controller
 
         $data = $request->all();
         $data['organization_id'] = $organization->id;
+        $data['events'] = Bid::$calendarEvents;
+        
         $bid = Bid::create($data);
+
+        // Create or Modify Events
+        $updatedEventIds = $this->addEvents($bid);
+        $bid->events = array_merge($bid->events, $updatedEventIds);
+        $bid->save();
 
         return redirect('/bids/' . $bid->id);
     }
@@ -149,7 +160,6 @@ class BidController extends Controller
         $organizations = Organization::all()->pluck('name', 'id');
         $organizationNames = Organization::all()->pluck('name');
         $categories = array_values(Bid::all()->pluck('category')->unique()->toArray());
-        // dd($bid);
         return view('bids.edit', compact('bid', 'organizationNames', 'categories'));
     }
 
@@ -166,7 +176,20 @@ class BidController extends Controller
             return redirect("bids/$bid->id")->with('messages', [['danger' => 'Add Proposals For Evaluation']]);
         }
 
-        $bid->update($request->all());
+        $data = $request->all();
+
+        // Add events for old bids that didnt have events added
+        if($bid->events == null) {
+            $bid->events = Bid::$calendarEvents;
+        }
+
+        $oldBid = clone $bid;
+        $bid->update($data);
+
+        // Create or Modify Events
+        $updatedEventIds = $this->addEvents($bid, $oldBid);;
+        $bid->events = array_merge($bid->events, $updatedEventIds);
+        $bid->save();
 
         if($bid->status_id == "ongoing") {
             if(!$bid->agreement_no || !$bid->agreement_date || !$bid->duration) {
@@ -223,9 +246,57 @@ class BidController extends Controller
     }
 
     // Remove Bidder from Bid
-    public function removeBidder(Bid $bid, Bidder $bidder)
-    {
+    public function removeBidder(Bid $bid, Bidder $bidder) {
         $bid->bidders()->detach($bidder->id);
         return redirect()->back();
+    }
+
+    protected function addEvents($bid, $oldBid = null) {
+        $updatedEventIds = [];
+        foreach ($bid->events as $eventType => $eventID) {
+            // Recognize a new event
+            if($eventID == null && $bid->$eventType != null) {
+                // create new event
+                $updatedEventIds[$eventType] = $this->createEvent($eventID, $bid, $eventType);
+            }
+
+            // Recognize an existing event
+            if($eventID != null && $bid->$eventType != $oldBid->$eventType) {
+                // modify existing event
+                $updatedEventIds[$eventType] = $this->createEvent($eventID, $bid, $eventType);
+            }
+        }
+        return $updatedEventIds;
+    }
+
+    protected function createEvent($eventID = null, $bid, $eventType)
+    {
+        if($eventID == null) {
+            $event = new Event;
+        } else {
+            $event = Event::find($eventID);
+        }
+        $event->startDateTime = $bid->$eventType->addHour(-5);
+        $event->endDateTime = $event->startDateTime->addHour();
+        switch ($eventType) {
+            case 'registration_start_date':
+                $event->name = 'RegStart: ' . $bid->name;
+                break;
+            case 'registration_end_date':
+                $event->name = 'RegEnd: ' . $bid->name;
+                break;
+            case 'info_date':
+                $event->name = 'Info: ' . $bid->name;
+                break;
+            case 'submission_date':
+                $event->name = 'Sub: ' . $bid->name;
+                break;
+            
+            default:
+                $event->name = 'Info: ' . $bid->name;
+                break;
+        }
+        $googleEvent = $event->save();
+        return $googleEvent->id;
     }
 }
