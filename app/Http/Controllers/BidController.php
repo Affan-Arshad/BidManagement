@@ -66,21 +66,9 @@ class BidController extends Controller
     public function store(Request $request)
     {
         header("Access-Control-Allow-Origin: *");
-        // Check If Organization Already Exists
-        $organization = null;
-        $organizations = Organization::all();
-        foreach ($organizations as $current) {
-            if (strtolower($request->organization) == strtolower($current->name)) {
-                $organization = $current;
-            }
-        }
-        // If Organization Doesn't Exist, Create New
-        if ($organization == null) {
-            $organization = Organization::create(['name' => $request->organization]);
-        }
 
         $data = $request->all();
-        $data['organization_id'] = $organization->id;
+        $data['organization_id'] = $this->getOrganizationByName($request->organization)->id;
         $data['events'] = Bid::$calendarEvents;
         
         $bid = Bid::create($data);
@@ -177,6 +165,7 @@ class BidController extends Controller
         }
 
         $data = $request->all();
+        $data['organization_id'] = $this->getOrganizationByName($request->organization)->id;
 
         // Add events for old bids that didnt have events added
         if($bid->events == null) {
@@ -298,5 +287,21 @@ class BidController extends Controller
         }
         $googleEvent = $event->save();
         return $googleEvent->id;
+    }
+
+    private function getOrganizationByName($orgName) {
+        // Check If Organization Already Exists
+        $organization = null;
+        $organizations = Organization::all();
+        foreach ($organizations as $current) {
+            if (strtolower($orgName) == strtolower($current->name)) {
+                $organization = $current;
+            }
+        }
+        // If Organization Doesn't Exist, Create New
+        if ($organization == null) {
+            $organization = Organization::create(['name' => $orgName]);
+        }
+        return $organization;
     }
 }
