@@ -165,7 +165,9 @@ class BidController extends Controller
         }
 
         $data = $request->all();
-        $data['organization_id'] = $this->getOrganizationByName($request->organization)->id;
+        if($request->organization != null) {
+            $data['organization_id'] = $this->getOrganizationByName($request->organization)->id;
+        }
 
         // Add events for old bids that didnt have events added
         if($bid->events == null) {
