@@ -52,10 +52,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('/bids/{bid}/notes', NoteController::class);
     
     Route::resource('/tasks', TaskController::class);
-
-    Route::get('/pcr', [PCRController::class, 'create']);
-    Route::post('/pcr', [PCRController::class, 'upload']);
-    Route::get('/pcr/{pcr_id}', [PCRController::class, 'show']);
 });
 
 //store a push subscriber.
@@ -68,4 +64,9 @@ Route::get('/push/bidsTomorrow', [PushController::class, 'bidsTomorrow'])->name(
 Route::get('/admin', function () {
     return view('index');
 });
+
+
+Route::get('/pcr', [PCRController::class, 'create']);
+Route::post('/pcr', [PCRController::class, 'upload']);
+Route::get('/pcr/{pcr_id}', [PCRController::class, 'show']);
 
