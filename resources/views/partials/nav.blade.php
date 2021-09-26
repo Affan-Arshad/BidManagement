@@ -4,7 +4,7 @@
 
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="{{ config('app.vue_url') }}/dashboard">Dashboard</a>
+                <a class="nav-link" href="/dashboard">Dashboard</a>
             </li>
 
             <li class="nav-item">
@@ -35,6 +35,6 @@
                 </div>
             </li>
             @endif
-        </ul>   
+        </ul>
     </div>
-</nav> 
+</nav>

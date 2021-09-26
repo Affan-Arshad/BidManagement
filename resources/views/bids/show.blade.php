@@ -1,8 +1,11 @@
 @extends('layouts.child')
 
+@section('title'){{ $bid->id }} | @endsection
+
 @section('fixed-content')
 <section>
-    <h3>{{ $bid->name }} <a class="btn text-warning" href="/bids/{{ $bid->id }}/edit"><i class="fas fa-edit"></i></a></h3>
+    <h3>{{ $bid->name }} <a class="btn text-warning" href="/bids/{{ $bid->id }}/edit"><i class="fas fa-edit"></i></a>
+    </h3>
     <hr>
 
     <table class="table table-bordered bid">
@@ -11,7 +14,7 @@
                 <th class="fitToContent">Organization</th>
                 <td colspan=3 class="link">
                     <a class="btn text-left"
-                        href="/organizations/{{ $bid->organization->id }}">{{ $bid->organization->name }}</a>
+                       href="/organizations/{{ $bid->organization->id }}">{{ $bid->organization->name }}</a>
                 </td>
             </tr>
             <tr>
@@ -62,7 +65,7 @@
                 <th class="fitToContent">Status</th>
                 <td colspan=3>
                     @include('partials.changeStatus', [
-                        $redirect = "/bids/$bid->id"
+                    $redirect = "/bids/$bid->id"
                     ])
                 </td>
             </tr>
@@ -74,12 +77,12 @@
                         <div class="row">
                             <div class="form-group col">
                                 <input type="text" name="criterion" class="form-control" placeholder="Criterion"
-                                    id="criterion" required>
+                                       id="criterion" required>
                             </div>
 
                             <div class="form-group col">
                                 <input type="text" name="percentage" class="form-control" placeholder="Percentage"
-                                    required>
+                                       required>
                             </div>
 
                             <div class="form-group col fitToContent">
@@ -104,14 +107,14 @@
                                 <td>{{ $evaluation->percentage }}</td>
                                 <td class="fitToContent">
                                     <a class="btn text-warning" data-toggle="modal" data-target="#editCriterionModal"
-                                        onclick="editCriterionModal({{ $evaluation }})"><i class="fas fa-edit"></i></a>
+                                       onclick="editCriterionModal({{ $evaluation }})"><i class="fas fa-edit"></i></a>
                                     <form class="d-inline-block"
-                                        action="/bids/{{ $bid->id }}/evaluations/{{ $evaluation->id }}" method="POST"
-                                        onsubmit="confirmDelete(event, '{{ $evaluation->criterion }}')">
+                                          action="/bids/{{ $bid->id }}/evaluations/{{ $evaluation->id }}" method="POST"
+                                          onsubmit="confirmDelete(event, '{{ $evaluation->criterion }}')">
                                         @csrf
                                         @method("DELETE")
                                         <button type="submit" class="btn text-danger"><i
-                                                class="fas fa-trash"></i></button>
+                                               class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -152,9 +155,7 @@
 
     @foreach ($bid->proposalsByLot as $lot => $proposals)
     @if($lot == "" && count($proposals))
-    <table
-    data-toggle="table"
-    data-mobile-responsive="true" class="table-counter">
+    <table data-toggle="table" data-mobile-responsive="true" class="table-counter">
         <thead>
             <tr>
                 <th>#</th>
@@ -175,9 +176,9 @@
                 <td class="">{{ $proposal->eval }}</td>
                 <td class="fitToContent">
                     <a class="btn text-warning" data-toggle="modal" data-target="#editProposalModal"
-                        onclick="editProposalModal({{ $proposal }})"><i class="fas fa-edit"></i></a>
-                    <form class="d-inline-block" action="/bids/{{ $bid->id }}/proposals/{{ $proposal->id }}" method="POST"
-                        onsubmit="confirmDelete(event, 'Proposal by {{ $proposal->bidder->name }}')">
+                       onclick="editProposalModal({{ $proposal }})"><i class="fas fa-edit"></i></a>
+                    <form class="d-inline-block" action="/bids/{{ $bid->id }}/proposals/{{ $proposal->id }}"
+                          method="POST" onsubmit="confirmDelete(event, 'Proposal by {{ $proposal->bidder->name }}')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn text-danger"><i class="fas fa-trash"></i></button>
@@ -193,15 +194,15 @@
 
 <section class="mt-3">
     <h5>Lots <a class="btn btn-success text-light" data-toggle="modal" data-target="#addLotModal"
-            onclick="addLotModal({{ $bid->id }})"><i class="fas fa-plus"></i></a></h5>
+           onclick="addLotModal({{ $bid->id }})"><i class="fas fa-plus"></i></a></h5>
     <hr>
 
     @foreach ($bid->lots as $lot)
     <div class="card mb-3">
         <div class="card-header">
             {{ $lot->name }}
-            <a class="btn text-warning" data-toggle="modal" data-target="#editLotModal" onclick="editLotModal({{ $lot }})"><i
-                    class="fas fa-edit"></i></a>
+            <a class="btn text-warning" data-toggle="modal" data-target="#editLotModal"
+               onclick="editLotModal({{ $lot }})"><i class="fas fa-edit"></i></a>
         </div>
         <div class="card-body">
             <form action="/bids/{{ $bid->id }}/proposals" method="POST">
@@ -209,7 +210,8 @@
                 <input type="hidden" name="lot_id" value="{{ $lot->id }}">
                 <div class="row">
                     <div class="form-group col">
-                        <input id="lot{{ $lot->id }}" type="text" name="name" class="form-control bidder" placeholder="Name" required>
+                        <input id="lot{{ $lot->id }}" type="text" name="name" class="form-control bidder"
+                               placeholder="Name" required>
                     </div>
 
                     <div class="form-group col">
@@ -222,14 +224,12 @@
 
                     <div class="form-group col fitToContent">
                         <button type="submit" class="btn btn-success" id="addBidderBtn"><i
-                                class="fas fa-plus"></i></button>
+                               class="fas fa-plus"></i></button>
                     </div>
                 </div>
             </form>
 
-            <table
-            data-toggle="table"
-            data-mobile-responsive="true" class="table-counter">
+            <table data-toggle="table" data-mobile-responsive="true" class="table-counter">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -251,10 +251,10 @@
                         <td class="">{{ $proposal->eval }}</td>
                         <td class="fitToContent">
                             <a class="btn text-warning" data-toggle="modal" data-target="#editProposalModal"
-                                onclick="editProposalModal({{ $proposal }})"><i class="fas fa-edit"></i></a>
+                               onclick="editProposalModal({{ $proposal }})"><i class="fas fa-edit"></i></a>
                             <form class="d-inline-block" action="/bids/{{ $bid->id }}/proposals/{{ $proposal->id }}"
-                                method="POST"
-                                onsubmit="confirmDelete(event, 'Proposal by {{ $proposal->bidder->name }}')">
+                                  method="POST"
+                                  onsubmit="confirmDelete(event, 'Proposal by {{ $proposal->bidder->name }}')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn text-danger"><i class="fas fa-trash"></i></button>
@@ -281,7 +281,7 @@
 @include('partials.editLotModal')
 
 @include('partials.changeStatusModal', [
-    $redirect => '/dashboard'
+$redirect => '/dashboard'
 ])
 
 @endsection
