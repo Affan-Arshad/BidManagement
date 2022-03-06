@@ -13,8 +13,7 @@ use Spatie\GoogleCalendar\Event;
 use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-class BidController extends Controller
-{
+class BidController extends Controller {
 
     public function __construct() {
         header("Access-Control-Allow-Origin: *");
@@ -25,8 +24,7 @@ class BidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         $bids = Bid::all();
 
         return view('bids.index', compact('bids'));
@@ -37,8 +35,7 @@ class BidController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
-    {
+    public function create(Request $request) {
         if (isset($_GET['org']) && $_GET['org'] != null) {
             $id = $_GET['org'];
             $selected = Organization::where('id', $id)->first();
@@ -63,14 +60,13 @@ class BidController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         header("Access-Control-Allow-Origin: *");
 
         $data = $request->all();
         $data['organization_id'] = $this->getOrganizationByName($request->organization)->id;
         $data['events'] = Bid::$calendarEvents;
-        
+
         $bid = Bid::create($data);
 
         // Create or Modify Events
@@ -87,8 +83,7 @@ class BidController extends Controller
      * @param  \App\Bid  $bid
      * @return \Illuminate\Http\Response
      */
-    public function show(Bid $bid)
-    {
+    public function show(Bid $bid) {
 
         $bidderNames = Bidder::all()->pluck('name');
         $criteriaNames = array_values(Evaluation::all()->pluck('criterion')->unique()->toArray());
@@ -143,8 +138,7 @@ class BidController extends Controller
      * @param  \App\Bid  $bid
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bid $bid)
-    {
+    public function edit(Bid $bid) {
         $organizations = Organization::all()->pluck('name', 'id');
         $organizationNames = Organization::all()->pluck('name');
         $categories = array_values(Bid::all()->pluck('category')->unique()->toArray());
@@ -158,19 +152,18 @@ class BidController extends Controller
      * @param  \App\Bid  $bid
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bid $bid)
-    {
-        if($request->status_id == "pending_evaluation" && !$bid->proposals()->count()) {
+    public function update(Request $request, Bid $bid) {
+        if ($request->status_id == "pending_evaluation" && !$bid->proposals()->count()) {
             return redirect("bids/$bid->id")->with('messages', [['danger' => 'Add Proposals For Evaluation']]);
         }
 
         $data = $request->all();
-        if($request->organization != null) {
+        if ($request->organization != null) {
             $data['organization_id'] = $this->getOrganizationByName($request->organization)->id;
         }
 
         // Add events for old bids that didnt have events added
-        if($bid->events == null) {
+        if ($bid->events == null) {
             $bid->events = Bid::$calendarEvents;
         }
 
@@ -182,14 +175,14 @@ class BidController extends Controller
         $bid->events = array_merge($bid->events, $updatedEventIds);
         $bid->save();
 
-        if($bid->status_id == "ongoing") {
-            if(!$bid->agreement_no || !$bid->agreement_date || !$bid->duration) {
+        if ($bid->status_id == "ongoing") {
+            if (!$bid->agreement_no || !$bid->agreement_date || !$bid->duration) {
                 return view('bids.transitions.ongoing', compact('bid'));
             }
         }
 
-        if($bid->status_id == "ready_for_submission") {
-            if(!$bid->duration || !$bid->cost) {
+        if ($bid->status_id == "ready_for_submission") {
+            if (!$bid->duration || !$bid->cost) {
                 return view('bids.transitions.ready_for_submission', compact('bid'));
             }
         }
@@ -203,8 +196,7 @@ class BidController extends Controller
      * @param  \App\Bid  $bid
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bid $bid)
-    {
+    public function destroy(Bid $bid) {
         $bid->delete();
         $messages[]['danger'] = 'Deleted Bid: ' . $bid->name;
         \Session::flash('messages', $messages);
@@ -212,8 +204,7 @@ class BidController extends Controller
     }
 
     // Add Bidders to Bid
-    public function addBidders(Request $request, Bid $bid)
-    {
+    public function addBidders(Request $request, Bid $bid) {
         // Check If Bidder Already Exists
         $bidder = null;
         $bidders = Bidder::all();
@@ -246,13 +237,13 @@ class BidController extends Controller
         $updatedEventIds = [];
         foreach ($bid->events as $eventType => $eventID) {
             // Recognize a new event
-            if($eventID == null && $bid->$eventType != null) {
+            if ($eventID == null && $bid->$eventType != null) {
                 // create new event
                 $updatedEventIds[$eventType] = $this->createEvent($eventID, $bid, $eventType);
             }
 
             // Recognize an existing event
-            if($eventID != null && $bid->$eventType != $oldBid->$eventType) {
+            if ($eventID != null && $bid->$eventType != $oldBid->$eventType) {
                 // modify existing event
                 $updatedEventIds[$eventType] = $this->createEvent($eventID, $bid, $eventType);
             }
@@ -260,9 +251,8 @@ class BidController extends Controller
         return $updatedEventIds;
     }
 
-    protected function createEvent($eventID = null, $bid, $eventType)
-    {
-        if($eventID == null) {
+    protected function createEvent($eventID, $bid, $eventType) {
+        if ($eventID == null) {
             $event = new Event;
         } else {
             $event = Event::find($eventID);
@@ -282,7 +272,7 @@ class BidController extends Controller
             case 'submission_date':
                 $event->name = 'Sub: ' . $bid->name;
                 break;
-            
+
             default:
                 $event->name = 'Info: ' . $bid->name;
                 break;
