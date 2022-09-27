@@ -15,7 +15,7 @@ class CreateBidBiddersTable extends Migration
     {
         Schema::create('bid_bidders', function (Blueprint $table) {
             $table->id();
-            $table->integer('lot_id')->unsigned();
+            $table->integer('lot_id')->nullable()->unsigned();
             $table->integer('bid_id')->unsigned();
             $table->integer('bidder_id')->unsigned();
             $table->double('price')->unsigned();

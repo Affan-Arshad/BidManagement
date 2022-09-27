@@ -4,15 +4,13 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBidsTable extends Migration
-{
+class CreateBidsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('bids', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -29,7 +27,7 @@ class CreateBidsTable extends Migration
             $table->datetime('extended_date')->nullable();
             $table->double('duration')->nullable();
             $table->integer('organization_id')->unsigned();
-            $table->string('status_id');
+            $table->string('status_id')->nullable();
             $table->boolean('completion_letter_received')->default(false);
             $table->timestamps();
         });
@@ -40,8 +38,7 @@ class CreateBidsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('bids');
     }
 }

@@ -19,7 +19,8 @@ class DashboardController extends Controller
         $bids = Bid::all();
         $tasks = Task::all();
         $users = User::where('name', '!=', 'Admin')->get();
-
-        return view('dashboard.index', compact('bids', 'tasks', 'users'));
+        $redirect = "/dashboard";
+        
+        return view('dashboard.index', compact('bids', 'tasks', 'users', 'redirect'));
     }
 }

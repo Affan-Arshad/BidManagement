@@ -67,11 +67,13 @@ class BidController extends Controller {
         $data['organization_id'] = $this->getOrganizationByName($request->organization)->id;
         $data['events'] = Bid::$calendarEvents;
 
+        if (!isset($data['status_id'])) $data['status_id'] = array_key_first(Bid::$statuses);
+
         $bid = Bid::create($data);
 
         // Create or Modify Events
-        $updatedEventIds = $this->addEvents($bid);
-        $bid->events = array_merge($bid->events, $updatedEventIds);
+        // $updatedEventIds = $this->addEvents($bid);
+        // $bid->events = array_merge($bid->events, $updatedEventIds);
         $bid->save();
 
         return redirect('/bids/' . $bid->id);
@@ -163,17 +165,22 @@ class BidController extends Controller {
         }
 
         // Add events for old bids that didnt have events added
-        if ($bid->events == null) {
-            $bid->events = Bid::$calendarEvents;
-        }
+        // if ($bid->events == null) {
+        //     $bid->events = Bid::$calendarEvents;
+        // }
+
+        // null cost is getting an sql error even when nullable
+        // Warning: 1265 Data truncated for column 'cost' at row 1 
+        // (SQL: update `bids` set `cost` = , `status_id` = prebid, `bids`.`updated_at` = 2022-09-27 03:23:59 where `id` = 1)
+        if (!isset($data['cost'])) unset($data['cost']);
 
         $oldBid = clone $bid;
         $bid->update($data);
 
         // Create or Modify Events
-        $updatedEventIds = $this->addEvents($bid, $oldBid);;
-        $bid->events = array_merge($bid->events, $updatedEventIds);
-        $bid->save();
+        // $updatedEventIds = $this->addEvents($bid, $oldBid);;
+        // $bid->events = array_merge($bid->events, $updatedEventIds);
+        // $bid->save();
 
         if ($bid->status_id == "ongoing") {
             if (!$bid->agreement_no || !$bid->agreement_date || !$bid->duration) {
