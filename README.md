@@ -12,12 +12,12 @@ A system to manage bids with features such as:
 - Copy and rename .env.example to .env and set DB_DATABASE
 - Create the database
 - Use php ^7.3
-- Run the commands:
-**composer install**
-**php artisan key:generate**
-**php artisan migrate:fresh --seed**
+- Run the commands:\
+**composer install**\
+**php artisan key:generate**\
+**php artisan migrate:fresh --seed**\
 **php artisan serve**
-- go to the url /login of the app
-- login using:
-Email: **admin@example.com**
+- go to the url **/login** of the app
+- login using:\
+Email: **admin@example.com**\
 Password: **password**
